@@ -1,7 +1,9 @@
 const fs = require('fs');
 const request = require('request');
+const path = require('path');
 
-var cookieString = fs.readFileSync('../sessionCookie.txt', 'utf8');
+var cookiePath = path.join(__dirname, '../sessionCookie.txt');
+var cookieString = fs.readFileSync(cookiePath, 'utf8');
 var jar = request.jar();
 var cookie = request.cookie(cookieString);
 var url = 'http://adventofcode.com/day/1/input';
