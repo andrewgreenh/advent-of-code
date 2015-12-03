@@ -1,5 +1,5 @@
 const _ = require('lodash');
-var input = require('../getInput')(3);
+const input = require('../getInput')(3);
 require('../loadScan');
 
 var toCoordinates = _.wrap((x, y, move) => {
@@ -21,5 +21,5 @@ var result2 = _(input)
   .flatten()
   .uniq(false, c => c[0]+','+c[1])
   .value().length;
-  
+
 console.log(result1, result2);
