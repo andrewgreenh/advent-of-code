@@ -1,10 +1,9 @@
 const getInput = require('../getInput');
 
 getInput(2).then((input) => {
-	var dataArray = input.trim().split('\n');
-	var resources = dataArray.map(calcPaperAndRibbon).reduce(addObjectValues);
-	console.log(`Santa needs ${resources.p} sqr. feet of paper`);
-	console.log(`Santa needs ${resources.r} feet of ribbon`);
+	var sum = input.trim().split('\n')
+    .map(calcPaperAndRibbon).reduce(toSum);
+	console.log(sum.p, sum.r);
 });
 
 function calcPaperAndRibbon(str) {
@@ -25,7 +24,7 @@ function calcPaperAndRibbon(str) {
 	};
 }
 
-function addObjectValues(agg, res) {
+function toSum(agg, res) {
 	return {
 		p: agg.p + res.p,
 		r: agg.r + res.r
