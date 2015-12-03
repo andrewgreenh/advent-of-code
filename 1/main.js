@@ -1,9 +1,8 @@
-const getInput = require('../getInput');
+const input = require('../getInput')(1);
+const _ = require('lodash');
 
-getInput(1).then((input) => {
-  var result = input.split('').reduce(toFinalFloors, {c:0,f:-1});
-	console.log(result.c, result.f);
-});
+var result = _(input).reduce(toFinalFloors, {c:0,f:-1});
+console.log(result.c, result.f);
 
 function toFinalFloors(agg, elem, indx) {
   return {

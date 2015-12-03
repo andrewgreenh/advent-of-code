@@ -1,10 +1,8 @@
-const getInput = require('../getInput');
+const input = require('../getInput')(2);
 
-getInput(2).then((input) => {
-	var sum = input.trim().split('\n')
-    .map(calcPaperAndRibbon).reduce(toSum);
-	console.log(sum.p, sum.r);
-});
+var sum = input.trim().split('\n')
+  .map(calcPaperAndRibbon).reduce(toSum);
+console.log(sum.p, sum.r);
 
 function calcPaperAndRibbon(str) {
 	var values = str.split('x');

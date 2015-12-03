@@ -1,19 +1,16 @@
-const getInput = require('../getInput');
 const _ = require('lodash');
+var input = require('../getInput')(3);
+require('../loadScan');
 
-getInput(3).then((input) => {
-  var result1 = _.uniq(_(input).reduce(toCoordinates, ['0,0'])).length;
-  var result2 = _(input).partition((e, i) => i % 2 == 0)
-		.map((input) => _(input).reduce(toCoordinates, ['0,0']))
-    .union().flatten().uniq().value().length;
-	console.log(result1, result2);
-});
+var toCoordinates = _.wrap((x, y, move) => {
+	if(move == '>') return [x+1, y];
+	if(move == 'v') return [x, y+1];
+	if(move == '<') return [x-1, y];
+	if(move == '^') return [x, y-1];
+}, (fn, coords, move) => fn(coords[0], coords[1], move));
 
-function toCoordinates(agg, move) {
-	var c = _.map(_.last(agg).split(','), (e) => parseInt(e));
-	if(move == '>') agg.push((c[0]+1) + ',' + c[1]);
-	if(move == 'v') agg.push(c[0] + ',' + (c[1]+1));
-	if(move == '<') agg.push((c[0]-1) + ',' + c[1]);
-	if(move == '^') agg.push(c[0] + ',' + (c[1]-1));
-	return agg;
-}
+var result1 = _(input).scan(toCoordinates, [0,0]).uniq(false, c => c[0]+','+c[1]).value().length;
+var result2 = _(input).partition((e, i) => i % 2 == 0)
+	.map((input) => _(input).scan(toCoordinates, [0,0]).value())
+  .union().flatten().uniq(false, c => c[0]+','+c[1]).value().length;
+console.log(result1, result2);
