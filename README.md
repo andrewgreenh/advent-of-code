@@ -2,7 +2,7 @@
 
 Solutions to the daily programming challanges of http://adventofcode.com/
 
-Each folder is a node project and has its own dependencies. To install those, just use `npm install` from your console.
+Each folder contains the solution to the respective day.
 
 To use this code, you need to provide your own session cookie file. This file sits in the base path and needs to contain your cookie of http://adventofcode.com/ .
 To optain this cookie, use the developer console an navigate to one of the input pages while beeing logged in. (e.g. http://adventofcode.com/day/1/input)

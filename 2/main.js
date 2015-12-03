@@ -1,16 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const request = require('request');
+const getInput = require('../getInput');
 
-var cookiePath = path.join(__dirname, '../sessionCookie.txt');
-var cookieString = fs.readFileSync(cookiePath, 'utf8');
-var jar = request.jar();
-var cookie = request.cookie(cookieString);
-var url = 'http://adventofcode.com/day/2/input';
-jar.setCookie(cookie, url);
-
-request.get({url: url,jar: jar}, (error, response, body) => {
-	var dataArray = body.trim().split('\n');
+getInput(2).then((input) => {
+	var dataArray = input.trim().split('\n');
 	var resources = dataArray.map(calcPaperAndRibbon).reduce(addObjectValues);
 	console.log(`Santa needs ${resources.p} sqr. feet of paper`);
 	console.log(`Santa needs ${resources.r} feet of ribbon`);
@@ -20,7 +11,7 @@ function calcPaperAndRibbon(str) {
 	var values = str.split('x');
 	values.sort((a,b) => a-b);
 	var paper = (
-		values[0] * values[1] * 3 + 
+		values[0] * values[1] * 3 +
 		values[0] * values[2] * 2 +
 		values[1] * values[2] * 2
 	);
