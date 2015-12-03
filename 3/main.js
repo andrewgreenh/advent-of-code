@@ -2,7 +2,7 @@ const _ = require('lodash');
 const input = require('../getInput')(3);
 require('../loadScan');
 
-var toCoordinates = _.wrap((x, y, move) => {
+const toCoordinates = _.wrap((x, y, move) => {
 	if(move == '>') return [x+1, y];
 	if(move == 'v') return [x, y+1];
 	if(move == '<') return [x-1, y];
