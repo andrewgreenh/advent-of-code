@@ -4,6 +4,7 @@
   "description": "Solutions to the daily programming challanges of http://adventofcode.com/",
   "main": "getInput.js",
   "dependencies": {
+    "lodash": "^3.10.1",
     "request": "^2.67.0"
   },
   "devDependencies": {},
