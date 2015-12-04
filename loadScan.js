@@ -5,7 +5,6 @@ function scan(array, fn, seed, thisArg) {
   var results = [];
   if (seed === undefined) {
     accumulator = _.head(array);
-    results.push(accumulator);
     array = _.tail(array);
   }
   results.push(accumulator);
