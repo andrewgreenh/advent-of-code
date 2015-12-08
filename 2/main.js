@@ -1,30 +1,14 @@
-const input = require('../getInput')(2);
+const input = require('../getInput')(2).trim().split('\n');
+const _ = require('lodash');
 
-var sum = input.trim().split('\n')
-  .map(calcPaperAndRibbon).reduce(toSum);
-console.log(sum.p, sum.r);
+var result1 = _(input).map(row => {
+  var v = row.split('x').sort((a,b) => a-b);
+  return 2*(v[0]*v[1] + v[0]*v[2] + v[1]*v[2]) + v[0]*v[1];
+}).sum();
 
-function calcPaperAndRibbon(str) {
-	var values = str.split('x');
-	values.sort((a,b) => a-b);
-	var paper = (
-		values[0] * values[1] * 3 +
-		values[0] * values[2] * 2 +
-		values[1] * values[2] * 2
-	);
-	var ribbon = (
-		values[0] * 2 + values[1] * 2 +
-		values[0] * values[1] * values[2]
-	);
-	return {
-		p: paper,
-		r: ribbon
-	};
-}
+var result2 = _(input).map(row => {
+  var v = row.split('x').sort((a,b) => a-b);
+  return 2*v[0] + 2*v[1] + v[0]*v[1]*v[2];
+}).sum();
 
-function toSum(agg, res) {
-	return {
-		p: agg.p + res.p,
-		r: agg.r + res.r
-	};
-}
+console.log(result1, result2);
