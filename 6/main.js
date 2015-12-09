@@ -13,30 +13,24 @@ console.log(result);
 
 function  resolveFunction(agg, str) {
   var pattern = /(\d+),(\d+)[^\d]+(\d+),(\d+)/
-  var matches = str.match(pattern);
-  var first = [parseInt(matches[1]), parseInt(matches[2])];
-  var to = [parseInt(matches[3]), parseInt(matches[4])];
-  if(str.match(/off/) !== null) {
-    return turnOff(agg, first, to);
-  } else if(str.match(/on/) !== null) {
-    return turnOn(agg, first, to);
-  } else if(str.match(/toggle/) !== null) {
-    return toggle(agg, first, to);
-  }
+  var [, x1, y1, x2, y2] = str.match(pattern).map(_.ary(parseInt, 1));
+  if(str.match(/off/)) return turnOff(agg, [x1, y1], [x2, y2]);
+  if(str.match(/on/)) return turnOn(agg, [x1, y1], [x2, y2]);
+  if(str.match(/toggle/)) return toggle(agg, [x1, y1], [x2, y2]);
 }
 
-function turnOn(array, coord1, coord2) {
-  for (var i = coord1[0]; i <= coord2[0]; i++) {
-    for (var j = coord1[1]; j <= coord2[1]; j++) {
+function turnOn(array, [x1, y1], [x2, y2]) {
+  for (var i = x1; i <= x2; i++) {
+    for (var j = y1; j <= y2; j++) {
       array[i][j] = array[i][j] + 1;
     }
   }
   return array;
 }
 
-function turnOff(array, coord1, coord2) {
-  for (var i = coord1[0]; i <= coord2[0]; i++) {
-    for (var j = coord1[1]; j <= coord2[1]; j++) {
+function turnOff(array, [x1, y1], [x2, y2]) {
+  for (var i = x1; i <= x2; i++) {
+    for (var j = y1; j <= y2; j++) {
       if(array[i][j] > 0) {
         array[i][j] = array[i][j] - 1;
       }
@@ -45,9 +39,9 @@ function turnOff(array, coord1, coord2) {
   return array;
 }
 
-function toggle(array, coord1, coord2) {
-  for (var i = coord1[0]; i <= coord2[0]; i++) {
-    for (var j = coord1[1]; j <= coord2[1]; j++) {
+function toggle(array, [x1, y1], [x2, y2]) {
+  for (var i = x1; i <= x2; i++) {
+    for (var j = y1; j <= y2; j++) {
       array[i][j] = array[i][j] + 2;
     }
   }
