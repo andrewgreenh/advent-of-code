@@ -9,5 +9,5 @@ const grid = input.reduce((grid, row) => {
 }, {});
 
 const dists = permutate(_.keys(grid)).map(perm => perm
-    .reduce((agg, e, i, perms) => agg+grid[perms[i]][perms[i-1]] || 0, 0));
+    .reduce((agg, e, i, arr) => agg + grid[arr[i]][arr[i-1]] || 0, 0));
 console.log(_.min(dists), _.max(dists));
