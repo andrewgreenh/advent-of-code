@@ -9,7 +9,7 @@ const
   has2Pairs = str => str.match(/(.)\1.*(.)\2/g) !== null,
   containsAny = (s, a) => _.some(a, string => s.indexOf(string) > -1),
   isPw = str => !(str.match(/[iol]/)) && containsAny(str, groups) && has2Pairs(str),
-  findPw = str => lazy.generate(createSeqFrom(str)).dropWhile(pw => !isPw(pw)).first(),
+  findPw = str => lazy.generate(createSeqFrom(str)).filter(pw => isPw(pw)).first(),
   result1 = findPw(input),
   result2 = findPw(result1);
 
