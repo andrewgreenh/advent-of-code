@@ -1,4 +1,8 @@
-module.exports = function(array) {
+var _ = require('lodash');
+
+module.exports = permute;
+
+function permute(array) {
   var results = [];
   function permute(arr, memo) {
     var cur, memo = memo || [];
@@ -15,3 +19,7 @@ module.exports = function(array) {
   }
   return permute(array);
 }
+
+_.mixin({
+  permute: permute
+});
