@@ -13,8 +13,16 @@ function getStep(n, input, prepareFn) {
       .map(prepareFn).map(updateCell)
       .pluck('value').chunk(input[0].length)
       .value();
+    paint2DArray(next);
   }
   return next;
+}
+
+function paint2DArray(grid) {
+  var output = grid.map(line => line.join(''));
+  output.push(_.repeat('%', 150));
+  output = output.join('\n');
+  console.log(output);
 }
 
 function activateCorners(input) {
