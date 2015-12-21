@@ -27,7 +27,7 @@ const rings = [
   ['+1 ARM', 20, 0, 1],
   ['+2 ARM', 40, 0, 2],
   ['+3 ARM', 80, 0, 3],
-]
+];
 
 var cheapestWinner = generatePlayers()
 .filter(player => isNotBoss(winner(player, boss)))
