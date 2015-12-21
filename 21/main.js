@@ -30,12 +30,12 @@ const rings = [
 ]
 
 var cheapestWinner = generatePlayers()
-.filter(player => isNotBoss(simulateFight(player, boss)))
+.filter(player => isNotBoss(winner(player, boss)))
 .reduce((cheapest, player) => costsOfPlayer(cheapest) > costsOfPlayer(player) ? player : cheapest);
 console.log(cheapestWinner, costsOfPlayer(cheapestWinner));
 
 var mostExpensiveLooser = generatePlayers()
-.filter(player => isBoss(simulateFight(player, boss)))
+.filter(player => isBoss(winner(player, boss)))
 .reduce((worst, player) => costsOfPlayer(worst) < costsOfPlayer(player) ? player : worst);
 console.log(mostExpensiveLooser, costsOfPlayer(mostExpensiveLooser));
 
@@ -70,27 +70,10 @@ function computePlayer(weapon, armor, rings) {
   return [equipment, lifePoints, damage, armor];
 }
 
-function simulateFight(player, boss) {
-  var clonedPlayer = _.cloneDeep(player);
-  var clonedBoss = _.cloneDeep(boss);
-  var winner = undefined;
-  var lossPerRoundPlayer = clonedBoss[2] - clonedPlayer[3];
-  var lossPerRoundBoss = clonedPlayer[2] - clonedBoss[3];
-  if(lossPerRoundPlayer < 1) lossPerRoundPlayer = 1;
-  if(lossPerRoundBoss < 1) lossPerRoundBoss = 1;
-  while(winner === undefined) {
-    clonedBoss[1] -= lossPerRoundBoss;
-    if(clonedBoss[1] < 1) {
-      winner = player;
-      break;
-    };
-    clonedPlayer[1] -= lossPerRoundPlayer;
-    if(clonedPlayer[1] < 1) {
-      winner = boss;
-      break;
-    };
-  }
-  return winner;
+function winner(player, boss) {
+  var bossDPR = (boss[2] - player[3]) < 1 ? 1 : boss[2] - player[3];
+  var playerDPR = (player[2] - boss[3]) < 1 ? 1 : player[2] - boss[3];
+  return Math.ceil(player[1] / bossDPR) >= Math.ceil(boss[1] / playerDPR) ? player : boss;
 }
 
 function isBoss(player) {
