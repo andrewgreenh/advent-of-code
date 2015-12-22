@@ -1,146 +1,80 @@
 const _ = require('lodash');
-const lazy = require('lazy.js');
 const [bHP, bDMG] = require('../getInput')(22).match(/(\d+)/g).map(_.ary(parseInt, 1));
-
 const pHP = 50;
 const pMana = 500;
-const spells = [
-  {name: 'Magic Missile', costs: 53, dmg: 4},
-  {name: 'Drain', costs: 73, dmg: 2, heal: 2},
-  {name: 'Shield', costs: 113, effect: {duration: 6}},
-  {name: 'Poison', costs: 173, effect: {duration: 6}},
-  {name: 'Recharge', costs: 229, effect: {duration: 5}}
-];
-var simulationResults = (hard) => lazy.generate(() => simulate(hard));
-
-var globalMin = {mana: Infinity};
-var start = _.now();
-simulationResults(false).filter(e=>e.won).dropWhile(e => {
-  if(e.mana < globalMin.mana) {
-    console.log(e.mana);
-    globalMin = e;
-  }
-  return (_.now()-start) < 1000;
-}).first();
-
-console.log('############ Start of part 2 ############');
-start = _.now();
-globalMin = {mana: Infinity};
-simulationResults(true).filter(e=>e.won).dropWhile(e => {
-  if(e.mana < globalMin.mana) {
-    console.log(e.mana);
-    globalMin = e;
-  }
-  return (_.now()-start) < 1000;
-}).first();
-
-function simulate(hard) {
-  var boss = {
-    hp: bHP,
-    dmg: bDMG,
-  }
-  var player = {
-    hp: pHP,
-    mana: pMana
-  };
-  var nooneDead = true;
-  var winner;
-  var effects = {
-    'Shield': 0,
-    'Poison': 0,
-    'Recharge': 0,
-  };
-  var totalCosts = 0;
-  while(nooneDead) {
-    // Apply hardmode
-    if(hard === true) {
-      player.hp--;
-    }
-    // whoKilled(player, boss) ? ;
-    // Tick effects
-    applyEffects(player,boss,effects);
-    if(boss.hp < 1) {
-      winner = 'Player, because boss had no health left';
-      nooneDead = false;
-      break;
-    }
-
-    // Use random spell
-    var spell;
-    var spellCannotBeUsed = true;
-    while(spellCannotBeUsed) {
-      if(player.mana < 53) {
-        spell = undefined;
-        spellCannotBeUsed = false;
-        break;
-      }
-      var spell = spells[_.random(0, 4)];
-      if(spell.costs > player.mana) {
-        spell = undefined;
-        continue;
-      }
-      if(spell.effect && effects[spell.name] > 0) {
-        spell = undefined;
-        continue;
-      }
-      spellCannotBeUsed = false;
-    }
-    if(spell == undefined) {
-      winner = 'boss, because player had no mana left';
-      nooneDead = false;
-      break;
-    }
-    if(spell.effect) {
-      effects[spell.name] = spell.effect.duration;
-    } else {
-      if(spell.name == 'Magic Missile') {
-        boss.hp -= 4;
-      } else {
-        boss.hp -= 2;
-        player.hp += 2;
-      }
-    }
-    player.mana -= spell.costs;
-    totalCosts += spell.costs;
-    if(boss.hp < 1) {
-      winner = 'Player, because boss had no health left';
-      nooneDead = false;
-      break;
-    }
-
-    applyEffects(player,boss,effects);
-
-    if(boss.hp < 1) {
-      winner = 'Player, because boss had no health left';
-      nooneDead = false;
-      break;
-    }
-    // Process boss attack
-    if(effects['Shield'] > 0) {
-      player.hp -= Math.max(boss.dmg - 7, 1);
-    } else {
-      player.hp -= boss.dmg;
-    }
-
-    if(player.hp < 1) {
-      winner = 'BOSS, because player had no health left';
-      nooneDead = false;
-      break;
-    }
-  }
-  return {won: _.startsWith(winner, 'Player'), mana: totalCosts};
+const spellObj = {
+  'MM': {cost: 53, dmg: 4},
+  'D': {cost: 73, dmg: 2, heal: 2},
+  'S': {cost: 113, effect: {duration: 6}},
+  'P': {cost: 173, effect: {duration: 6}},
+  'R': {cost: 229, effect: {duration: 5}}
 }
 
-function applyEffects(player, boss, effects) {
-  if(effects['Shield'] > 0) {
-    effects['Shield']--;
+console.log(calc(pHP, pMana, bHP, bDMG, 0, false, 0, 0, 0, true));
+console.log(calc(pHP, pMana, bHP, bDMG, 0, true, 0, 0, 0, true));
+
+function calc(pHP, pMana, bHP, bDMG, spent, hard, s_t, p_t, r_t, first) {
+  if(bHP < 1) {
+    return spent;
   }
-  if(effects['Poison'] > 0) {
-    boss.hp -= 3;
-    effects['Poison']--;
+  if(!first) {
+    // Tick effects
+    if(s_t > 0) s_t--;
+    if(p_t > 0) {
+      bHP -= 3;
+      p_t--;
+    }
+    if(r_t > 0) {
+      pMana += 101;
+      r_t--;
+    }
+    if(bHP < 1) return spent;
+    pHP -= (s_t > 0) ? Math.max(bDMG - 7, 1) : bDMG;
+    if(pHP < 1) return Infinity;
   }
-  if(effects['Recharge'] > 0) {
-    player.mana += 101;
-    effects['Recharge']--;
+  if(hard) pHP--;
+  if(pHP < 1) return Infinity;
+
+  // Tick effects
+  if(s_t > 0) s_t--;
+  if(p_t > 0) {
+    bHP -= 3;
+    p_t--;
   }
+  if(r_t > 0) {
+    pMana += 101;
+    r_t--;
+  }
+  if(bHP < 1) return spent;
+
+  var min = Infinity;
+  if(pMana < 53) {
+    return Infinity;
+  }
+  if(pMana >= 53) {
+    min = Math.min(min, calc(
+      pHP, pMana-spellObj['MM'].cost, bHP-spellObj['MM'].dmg, bDMG, spent+spellObj['MM'].cost, hard, s_t, p_t, r_t
+    ));
+  }
+  if(pMana >= 73) {
+    min = Math.min(min, calc(
+      pHP+spellObj['D'].heal, pMana-spellObj['D'].cost, bHP-spellObj['D'].dmg, bDMG, spent+spellObj['D'].cost, hard, s_t, p_t, r_t
+    ))
+  };
+  if(pMana >= 113 && s_t == 0) {
+    min = Math.min(min, calc(
+      pHP, pMana-spellObj['S'].cost, bHP, bDMG, spent+spellObj['S'].cost, hard, spellObj['S'].effect.duration, p_t, r_t
+    ));
+  }
+  if(pMana >= 173 && p_t == 0) {
+    min = Math.min(min, calc(
+      pHP, pMana-spellObj['P'].cost, bHP, bDMG, spent+spellObj['P'].cost, hard, s_t, spellObj['P'].effect.duration, r_t
+    ));
+  }
+  if(pMana >= 229 && r_t == 0) {
+    min = Math.min(min, calc(
+      pHP, pMana-spellObj['R'].cost, bHP, bDMG, spent+spellObj['R'].cost, hard, s_t, p_t, spellObj['R'].effect.duration
+    ));
+  }
+  return min;
 }
