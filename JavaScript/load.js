@@ -2,15 +2,16 @@ const fs = require('fs');
 const request = require('request');
 const path = require('path');
 
-var cookiePath = path.join(__dirname, 'sessionCookie.txt');
+var cookiePath = path.join(__dirname, '../sessionCookie.txt');
 var cookieString = fs.readFileSync(cookiePath, 'utf8');
+
 
 var day = process.argv[2];
 var year = process.argv[3];
 getInputOfDay(day, year)
   .then(input => {
-    fs.writeFileSync(`${year}/inputs/${day}.txt`, input);
-    console.log(`File written successfully: inputs/${day}.txt`);
+    fs.writeFileSync(path.join(__dirname, `${year}/${day}.txt`), input);
+    console.log(`File written successfully: ${year}/${day}.txt`);
   })
   .catch(error => console.log(error));
 
