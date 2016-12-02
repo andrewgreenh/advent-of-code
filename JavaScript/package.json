@@ -6,7 +6,6 @@
   "dependencies": {
     "js-md5": "^0.3.0",
     "lazy.js": "^0.4.2",
-    "lodash": "^3.10.1",
     "request": "^2.67.0"
   },
   "devDependencies": {},
