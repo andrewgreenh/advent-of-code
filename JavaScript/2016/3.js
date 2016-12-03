@@ -1,7 +1,7 @@
 const _ = require('lodash');
-const lines = _.compact(require('../getInput')(3, 2016).split('\n'));
+const input = _.trim(require('../getInput')(3, 2016));
 
-const data = lines.map(line => _.compact(line.split(/\s+/)).map(i => parseInt(i, 10)));
+const data = input.split('\n').map(line => _.compact(line.split(/\s+/)).map(i => parseInt(i, 10)));
 const data2 = _.flatMap(_.range(data.length / 3), i => _.times(3, j => _.times(3, k =>
   data[(i * 3) + k][j]
 )));
