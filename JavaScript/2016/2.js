@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const input = require('../getInput')(2, 2016);
+
 const first = [['1', '2', '3'],
                ['4', '5', '6'],
                ['7', '8', '9']];
@@ -15,7 +16,7 @@ const result = (pad, start) => _.compact(input.split('\n')).reduce(([code, [x, y
     const newY = y + directions[command][1];
     return _.get(pad, `${newY}.${newX}`) ? [newX, newY] : [x, y];
   }, [x, y]);
-  return [code += pad[newY][newX], [newX, newY]];
+  return [code + pad[newY][newX], [newX, newY]];
 }, ['', start]);
 
 console.log(result(first, [1, 1])[0], result(second, [0, 2])[0]);

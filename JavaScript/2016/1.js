@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const input = require('../getInput')(1, 2016);
+const paintCoordsInContainer = require('../ui/paintCoordsInContainer');
 
 const commands = input.split(', ').map(comm => ([comm[0], comm.slice(1)]));
 const turn = (d, t) => ((d + 4 + (t === 'R' ? 1 : -1)) % 4);
@@ -17,3 +18,19 @@ const result = commands.reduce(([[x, y], dir, prevCoords, firstDouble], [t, step
 }, [[0, 0], 0, [], null]);
 
 console.log(_.sum(result[0].map(Math.abs)), _.sum(result[3].map(Math.abs)));
+
+
+// For electron
+module.exports = {
+  run(container) {
+    const coords = result[2].map(str => {
+      const [x, y] = str.split(',');
+      return [+x, +y];
+    });
+    paintCoordsInContainer(coords, container);
+  },
+
+  stop() {
+  },
+
+};
