@@ -23,10 +23,7 @@ console.log(_.sum(result[0].map(Math.abs)), _.sum(result[3].map(Math.abs)));
 // For electron
 module.exports = {
   run(container) {
-    const coords = result[2].map(str => {
-      const [x, y] = str.split(',');
-      return [+x, +y];
-    });
+    const coords = result[2].map(str => (([x, y]) => ([+x, +y]))(str.split(',')));
     paintCoordsInContainer(coords, container);
   },
 
