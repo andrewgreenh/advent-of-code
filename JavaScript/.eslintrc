@@ -12,6 +12,7 @@
     "no-underscore-dangle": [0],
     "no-use-before-define": [2, { "functions": false }],
     "no-param-reassign": [0],
+    "no-continue": [0],
     "no-plusplus": [0],
     "no-shadow": [0],
     "no-unused-vars": [2, { "args": "none" }],
