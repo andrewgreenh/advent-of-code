@@ -6,14 +6,14 @@ with open('5.txt') as f:
 
 nums = count()
 allHashes = (md5((start + str(i)).encode('utf-8')).hexdigest() for i in nums)
-correctHashes = (hash for hash in allHashes if hash.startswith('00000'))
+correctHashes = (currHash for currHash in allHashes if currHash.startswith('00000'))
 
 
 def first(hashes):
     result = ''
-    for hash in islice(hashes, 8):
-        result += hash[5]
-        yield hash
+    for currHash in islice(hashes, 8):
+        result += currHash[5]
+        yield currHash
     print(result)
     yield from hashes
 
