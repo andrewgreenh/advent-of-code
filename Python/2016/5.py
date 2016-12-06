@@ -1,7 +1,7 @@
 from hashlib import md5
 from itertools import count, islice
 
-with open('2016/5.txt') as f:
+with open('5.txt') as f:
     start = f.read().strip()
 
 nums = count()
@@ -20,8 +20,8 @@ def first(hashes):
 
 def second(hashes):
     result = {}
-    for hash in hashes:
-        position, char = (int(hash[5], 16), hash[6])
+    for currHash in hashes:
+        position, char = (int(currHash[5], 16), currHash[6])
         if position < 8 and position not in result:
             result[position] = char
         if len(result) == 8:
