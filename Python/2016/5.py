@@ -1,28 +1,32 @@
-import hashlib
+from hashlib import md5
+from itertools import count, islice
 
 with open('2016/5.txt') as f:
     start = f.read().strip()
 
-result1 = ''
-result2 = {}
-index = 0
+nums = count()
+allHashes = (md5((start + str(i)).encode('utf-8')).hexdigest() for i in nums)
+correctHashes = (hash for hash in allHashes if hash.startswith('00000'))
 
-while True:
-    m = hashlib.md5()
-    m.update((start + str(index)).encode('utf-8'))
-    index += 1
-    hash = m.hexdigest()
-    if hash.startswith('00000'):
-        if not len(result1) > 7:
-            result1 += hash[5]
-            print(result1, ''.join([result2[key] for key in result2]))
-        num = int(hash[5], 16)
-        if num > 7 or num in result2:
-            continue
-        result2[num] = hash[6]
-        print(result1, ''.join([result2[key] for key in result2]))
 
-    if len(result1) > 7 and len(result2) > 7:
-        break
+def first(hashes):
+    result = ''
+    for hash in islice(hashes, 8):
+        result += hash[5]
+        yield hash
+    print(result)
+    yield from hashes
 
-print(result1, ''.join([result2[key] for key in result2]))
+
+def second(hashes):
+    result = {}
+    for hash in hashes:
+        position, char = (int(hash[5], 16), hash[6])
+        if position < 8 and position not in result:
+            result[position] = char
+        if len(result) == 8:
+            print(''.join([result[key] for key in result]))
+            break
+
+
+second(first(correctHashes))
