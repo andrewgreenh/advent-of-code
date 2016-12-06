@@ -27,15 +27,15 @@ def second(hashes):
             break
 
 
-def hashIt(index):
+def hash_it(index):
     return md5((start + str(index)).encode('utf-8')).hexdigest()
 
 
 if __name__ == '__main__':
     pool = Pool()
     nums = count()
-    allHashes = pool.imap(hashIt, nums, 200000)
-    # allHashes = (hashIt(i) for i in nums)
+    allHashes = pool.imap(hash_it, nums, 200000)
+    # allHashes = (hash_it(i) for i in nums)
     correctHashes = (currHash for currHash in allHashes if currHash.startswith('00000'))
     startTime = time.time()
     second(first(correctHashes))
