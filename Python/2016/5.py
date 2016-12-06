@@ -33,11 +33,6 @@ def hash_it(index):
 
 if __name__ == '__main__':
     pool = Pool()
-    nums = count()
-    allHashes = pool.imap(hash_it, nums, 200000)
-    # allHashes = (hash_it(i) for i in nums)
-    correctHashes = (currHash for currHash in allHashes if currHash.startswith('00000'))
-    startTime = time.time()
+    allHashes = pool.imap(hash_it, count(), 200000)
+    correctHashes = filter(lambda currHash: currHash.startswith('00000'), allHashes)
     second(first(correctHashes))
-    end = time.time()
-    print('Done after: ', int(end - startTime), ' seconds')
