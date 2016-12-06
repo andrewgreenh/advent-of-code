@@ -1,4 +1,4 @@
-with open('inputs/1.txt') as f:
+with open('1.txt') as f:
     input = f.read().strip('\n').split(', ')
 
 factors = [[0, 1], [1, 0], [0, -1], [-1, 0]]

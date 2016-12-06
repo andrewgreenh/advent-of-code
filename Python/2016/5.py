@@ -1,12 +1,10 @@
+import time
 from hashlib import md5
 from itertools import count, islice
+from multiprocessing import Pool
 
 with open('5.txt') as f:
     start = f.read().strip()
-
-nums = count()
-allHashes = (md5((start + str(i)).encode('utf-8')).hexdigest() for i in nums)
-correctHashes = (currHash for currHash in allHashes if currHash.startswith('00000'))
 
 
 def first(hashes):
@@ -29,4 +27,17 @@ def second(hashes):
             break
 
 
-second(first(correctHashes))
+def hashIt(index):
+    return md5((start + str(index)).encode('utf-8')).hexdigest()
+
+
+if __name__ == '__main__':
+    pool = Pool()
+    nums = count()
+    allHashes = pool.imap(hashIt, nums, 200000)
+    # allHashes = (hashIt(i) for i in nums)
+    correctHashes = (currHash for currHash in allHashes if currHash.startswith('00000'))
+    startTime = time.time()
+    second(first(correctHashes))
+    end = time.time()
+    print('Done after: ', int(end - startTime), ' seconds')
