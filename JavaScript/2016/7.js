@@ -11,17 +11,12 @@ const parse = line => {
       [[], []]
     ).map(i => i.join(' - '));
 };
-
 const ips = lines.map(parse);
-const hasAbba = s => {
-  const z = _.zip(s.split(''), s.slice(1).split(''), s.slice(2).split(''), s.slice(3).split(''));
-  return _.some(z, ([a, b, c, d]) => a !== b && a === d && b === c);
-};
+const hasAbba = s => _.some(_.slide(s, 4), ([a, b, c, d]) => a !== b && a === d && b === c);
 const canTLS = ([sn, hn]) => hasAbba(sn) && !hasAbba(hn);
-const canSSL = ([sn, hn]) => {
-  const z = _.zip(sn.split(''), sn.slice(1).split(''), sn.slice(2).split(''));
-  return _.some(z, ([a, b, c]) => a === c && a !== b && _.includes(hn, b + a + b));
-};
+const canSSL = ([sn, hn]) =>
+  _.some(_.slide(sn, 3), ([a, b, c]) => a === c && a !== b && _.includes(hn, b + a + b));
+
 
 console.log(ips.filter(canTLS).length);
 console.log(ips.filter(canSSL).length);
