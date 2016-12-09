@@ -1,9 +1,7 @@
-const fs = require('fs');
 const _ = require('lodash');
 const lines = require('../getInput')(8, 2016).trim().split('\n');
 
-const rawStdout = new fs.SyncWriteStream(1, { autoClose: false });
-const write = rawStdout.write.bind(rawStdout);
+const write = process.stdout.write.bind(process.stdout);
 
 function rect(grid, x, y) {
   _.range(y).forEach(i => {
@@ -71,7 +69,7 @@ animate();
 
 function animate(i = 0) {
   print(gridHistory[i]);
-  if (i < gridHistory.length - 1) setTimeout(() => animate(i + 1), 50);
+  if (i < gridHistory.length - 1) setTimeout(() => animate(i + 1), 20);
   else {
     write('\u001b[6B');
     console.log(countLights(gridHistory[i]));
