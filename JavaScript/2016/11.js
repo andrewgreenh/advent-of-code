@@ -1,5 +1,6 @@
 const _ = require('lodash');
 const aStar = require('a-star');
+const myAStar = require('../aStar');
 
 const testFloors = [
   'HM LM'.split(' '),
@@ -23,7 +24,7 @@ const secondFloors = [
 
 const floorCount = 4;
 const startingState = {
-  floors: secondFloors,
+  floors: firstFloors,
   elevator: 0,
 };
 
@@ -101,7 +102,7 @@ function hashState({ elevator, floors }) {
   return `${elevator}-${hashedFloors}`;
 }
 
-console.time('start');
+console.time('lib');
 const result = aStar({
   start: startingState,
   isEnd,
@@ -110,6 +111,17 @@ const result = aStar({
   heuristic: getDistanceGuess,
   hash: hashState,
 });
+console.timeEnd('lib');
 
-console.timeEnd('start');
+// console.time('mystar');
+// const result = myAStar({
+//   estimateDist: getDistanceGuess,
+//   getNeighbourDist: getDistanceBetweenNeighbours,
+//   getNeighbours,
+//   hashData: hashState,
+//   isEnd,
+//   startNode: startingState,
+// });
+// console.timeEnd('mystar');
+
 console.log(result);
