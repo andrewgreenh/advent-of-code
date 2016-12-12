@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const aStar = require('a-star');
 const myAStar = require('../aStar');
 
 const testFloors = [
@@ -24,7 +23,7 @@ const secondFloors = [
 
 const floorCount = 4;
 const startingState = {
-  floors: firstFloors,
+  floors: secondFloors,
   elevator: 0,
 };
 
@@ -80,7 +79,7 @@ function getDistanceBetweenNeighbours() {
 function getDistanceGuess(state) {
   return _.reduce(
     state.floors,
-    (sum, floor, index) => sum + floor.length * (floorCount - index - 1),
+    (sum, floor, index) => sum + floor.length * 0.25 * (floorCount - index - 1),
     0
   );
 }
@@ -102,26 +101,15 @@ function hashState({ elevator, floors }) {
   return `${elevator}-${hashedFloors}`;
 }
 
-console.time('lib');
-const result = aStar({
-  start: startingState,
+console.time('mystar');
+const myResult = myAStar({
+  estimateDist: getDistanceGuess,
+  getNeighbourDist: getDistanceBetweenNeighbours,
+  getNeighbours,
+  hashData: hashState,
   isEnd,
-  neighbor: getNeighbours,
-  distance: getDistanceBetweenNeighbours,
-  heuristic: getDistanceGuess,
-  hash: hashState,
+  startNode: startingState,
 });
-console.timeEnd('lib');
+console.timeEnd('mystar');
 
-// console.time('mystar');
-// const result = myAStar({
-//   estimateDist: getDistanceGuess,
-//   getNeighbourDist: getDistanceBetweenNeighbours,
-//   getNeighbours,
-//   hashData: hashState,
-//   isEnd,
-//   startNode: startingState,
-// });
-// console.timeEnd('mystar');
-
-console.log(result);
+console.log(myResult);
