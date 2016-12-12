@@ -4,6 +4,7 @@
   "description": "Solutions to the daily programming challanges of http://adventofcode.com/",
   "main": "ui/main.js",
   "dependencies": {
+    "a-star": "^0.2.0",
     "electron": "^1.4.10",
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^11.1.0",
