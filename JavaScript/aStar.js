@@ -68,8 +68,16 @@ module.exports = function aStar(config) {
       }
     }
   }
-  return 'Fail :)';
+  return fail(closedNodesByHash, counter);
 };
+
+function fail(closedNodesByHash, counter) {
+  return {
+    status: 'Fail :(',
+    expandedNodeCounter: counter,
+    getExpandedNodes: () => closedNodesByHash.values(),
+  };
+}
 
 function finish(node, counter, closedNodesByHash) {
   const path = recursiveNodeToArray(node);
