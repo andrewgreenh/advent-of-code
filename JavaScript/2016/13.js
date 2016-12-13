@@ -12,9 +12,7 @@ function getNeighbours([x, y]) {
     if (x < 0 || y < 0) return false;
     const n = (x * x + 3 * x + 2 * x * y + y + y * y) + favNumber;
     const bitCount = n.toString(2).split('').reduce((sum, i) => sum + (i === '1' ? 1 : 0), 0);
-    const isEven = bitCount % 2 === 0;
-    if (isEven) return true;
-    return false;
+    return bitCount % 2 === 0;
   });
 }
 
@@ -25,7 +23,6 @@ const result = aStar({
   hashData: pos => pos.join('-'),
   isEnd: ([x, y]) => x === goal[0] && y === goal[1],
   startNode: start,
-  estimationWeight: 1,
 });
 console.log(result);
 

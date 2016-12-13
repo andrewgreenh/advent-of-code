@@ -8,6 +8,7 @@ module.exports = function aStar(config) {
     getNeighbourDist,
     getNeighbours,
     hashData,
+    heapComperator = (a, b) => a.f - b.f,
     isEnd,
     maxCosts = Infinity,
     startNode: startData,
@@ -21,7 +22,7 @@ module.exports = function aStar(config) {
     hash: hashData(startData),
   };
   const openNodesByHash = new Map();
-  const openNodes = new Heap((a, b) => a.f - b.f);
+  const openNodes = new Heap(heapComperator);
   const closedNodesByHash = new Map();
 
   openNodesByHash.set(startNode.hash, startNode);
