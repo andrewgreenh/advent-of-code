@@ -11,8 +11,7 @@ function getNeighbours([x, y]) {
   return positions.filter(([x, y]) => {
     if (x < 0 || y < 0) return false;
     const n = (x * x + 3 * x + 2 * x * y + y + y * y) + favNumber;
-    const bitCount = n.toString(2).split('').reduce((sum, i) => sum + (i === '1' ? 1 : 0), 0);
-    return bitCount % 2 === 0;
+    return n.toString(2).split('').reduce((isEven, i) => (i === '1' ? !isEven : isEven), true);
   });
 }
 
