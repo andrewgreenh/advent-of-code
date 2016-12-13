@@ -2,16 +2,15 @@ const Heap = require('heap');
 
 module.exports = function aStar(config) {
   const {
-    estimateDist,
     useCloseList = true,
   } = config;
-  if (estimateDist && useCloseList) return aStarWithHeuristig(config);
-  return aStarWithoutHeuristic(config);
+  if (useCloseList) return aStarWithClosedList(config);
+  return aStarWithoutClosedList(config);
 };
 
-function aStarWithHeuristig(config) {
+function aStarWithClosedList(config) {
   const {
-    estimateDist,
+    estimateDist = () => 0,
     getNeighbourDist,
     getNeighbours,
     hashData,
@@ -75,8 +74,9 @@ function aStarWithHeuristig(config) {
   return 'Fail :)';
 }
 
-function aStarWithoutHeuristic(config) {
+function aStarWithoutClosedList(config) {
   const {
+    estimateDist = () => 0,
     getNeighbourDist,
     getNeighbours,
     hashData,
@@ -86,11 +86,13 @@ function aStarWithoutHeuristic(config) {
 
   const startNode = {
     data: startData,
+    f: estimateDist(startData),
     g: 0,
+    h: estimateDist(startData),
     hash: hashData(startData),
   };
   const openNodesByHash = new Map();
-  const openNodes = new Heap((a, b) => a.g - b.g);
+  const openNodes = new Heap((a, b) => a.f - b.f);
 
   openNodesByHash.set(startNode.hash, startNode);
   openNodes.push(startNode);
@@ -115,9 +117,13 @@ function aStarWithoutHeuristic(config) {
       if (isInOpenList) {
         existingNode.g = g;
         existingNode.previousNode = node;
+        existingNode.f = g + existingNode.h;
       } else {
+        const h = estimateDist(currentData);
         const neighbourNode = {
           data: currentData,
+          f: g + h,
+          h,
           g,
           hash,
           previousNode: node,
@@ -130,10 +136,11 @@ function aStarWithoutHeuristic(config) {
   return 'Fail :)';
 }
 
+
 function finish(node, counter) {
   return {
     status: 'success',
-    counter,
+    expandedNodes: counter,
     node,
     cost: node.g,
   };
