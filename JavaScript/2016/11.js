@@ -76,14 +76,6 @@ function getDistanceBetweenNeighbours() {
   return 1;
 }
 
-function getDistanceGuess(state) {
-  return _.reduce(
-    state.floors,
-    (sum, floor, index) => sum + floor.length * 0.25 * (floorCount - index - 1),
-    0
-  );
-}
-
 function hashFloors(floors) {
   const pairs = {};
   floors.forEach((floor, index) => {
@@ -103,7 +95,6 @@ function hashState({ elevator, floors }) {
 
 console.time('mystar');
 const myResult = myAStar({
-  estimateDist: getDistanceGuess,
   getNeighbourDist: getDistanceBetweenNeighbours,
   getNeighbours,
   hashData: hashState,
