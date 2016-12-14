@@ -25,6 +25,15 @@ function getHash(salt, index) {
   return cache[salt + index];
 }
 
+function isGoodHash(hash, index, tripple) {
+  for (let i = index + 1; i < index + 1001; i++) {
+    const nextHash = getHash(salt, i);
+    const hasFive = _.includes(nextHash, _.repeat(tripple[0], 5));
+    if (hasFive) return true;
+  }
+  return false;
+}
+
 let index = 0;
 while (goodIndices.length < 64) {
   if (index % 1000 === 0) write(`Index: ${index}, good hashes: ${goodIndices.length}\r`);
@@ -34,17 +43,7 @@ while (goodIndices.length < 64) {
     index++;
     continue;
   }
-  let hasGoodComing = false;
-  for (let i = index + 1; i < index + 1001; i++) {
-    const nextHash = getHash(salt, i);
-    const hasFive = _.includes(nextHash, _.repeat(tripple[0], 5));
-    if (!hasFive) {
-      continue;
-    }
-    hasGoodComing = true;
-    break;
-  }
-  if (hasGoodComing) {
+  if (isGoodHash(nextHash, index, tripple)) {
     goodIndices.push(index);
     index++;
     continue;
@@ -52,4 +51,4 @@ while (goodIndices.length < 64) {
   index++;
 }
 
-console.log('\n', goodIndices);
+console.log('\n', _.last(goodIndices));
