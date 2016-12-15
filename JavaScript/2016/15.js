@@ -1,16 +1,8 @@
-const _ = require('lodash');
-const lines = require('../getInput')(15, 2016).trim().split('\n');
+const input = [[17, 1], [7, 0], [19, 2], [5, 0], [3, 0], [13, 5], [11, 0]];
+const d = input.map(([size, position], index) => t => ((position + t + 1 + index) % size === 0));
 
-const d = lines.map((l, index) => {
-  const [, size, position] = l.match(/^\w+ #\d+ has (\d+) \w+; \w+ time=0, it is at \w+ (\d+)./);
-  return t => ((+position + t + 1 + index) % +size === 0);
-});
-const d2 = [...d, t => ((t + 1 + 6) % 11 === 0)];
-
-let t = 0;
-while (!_.every(d, d => d(t))) t++;
-console.log(t);
-
-t = 0;
-while (!_.every(d2, d => d(t))) t++;
-console.log(t);
+let t1 = 0;
+while (d.slice(0, 6).some(i => !i(t1))) t1++;
+let t2 = 0;
+while (d.some(i => !i(t2))) t2++;
+console.log(t1, t2);
