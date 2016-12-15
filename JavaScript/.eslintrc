@@ -20,6 +20,7 @@
     "no-mixed-operators": [0],
     "no-eval": [0],
     "no-console": [0],
+    "no-loop-func": [0],
     "prefer-template": [0],
     "react/display-name": [0],
     "react/no-find-dom-node": [0],
