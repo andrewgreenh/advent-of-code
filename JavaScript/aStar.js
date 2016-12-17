@@ -3,22 +3,49 @@ const Heap = require('heap');
 
 module.exports = function aStar(config) {
   const {
-    estimateDist = () => 0,
+    // Used to estimate remaining cost of a node. MUST NOT overestimate the cost.
+    estimateCost = () => 0,
+
+    /*
+     * Tweaks the order in which nodes get explored.
+     *   0 -> Djikstra-search;
+     *   1 -> Very fast but not fastes path
+     */
     estimationWeight = 0.5,
-    getNeighbourDist,
+
+    // Calculates cost between 2 neighbour nodes.
+    getNeighbourCost,
+
+    // Returns neighbours of a given node.
     getNeighbours,
+
+    // Returns a string representation of the node.
     hashData,
+
+    // Order in which the nodes get expanded. Return negative number if a should come before b.
     heapComperator = (a, b) => a.f - b.f,
+
+    // Determines if a node is the goal.
     isEnd,
+
+    // When maxCosts is given, the algorithm stops when maxCosts is reached
     maxCosts = Infinity,
+
+    // First node in the open list
     startNode: startData,
   } = config;
 
   const startNode = {
+    // Data for this node (this is passed from the outside)
     data: startData,
-    f: estimationWeight * estimateDist(startData),
+
+    // Current costs to reach this node
     g: 0,
-    h: estimateDist(startData),
+
+    // Estimated remaining costs for this node.
+    h: estimateCost(startData),
+
+    f: estimationWeight * estimateCost(startData),
     hash: hashData(startData),
   };
   const openNodesByHash = new Map();
@@ -44,7 +71,7 @@ module.exports = function aStar(config) {
       const currentData = neighbourData[i];
       const hash = hashData(currentData);
       if (closedNodesByHash.has(hash)) continue;
-      const g = node.g + getNeighbourDist(node.data, currentData);
+      const g = node.g + getNeighbourCost(node.data, currentData);
 
       const existingNode = openNodesByHash.get(hash);
       const isInOpenList = existingNode !== undefined;
@@ -54,7 +81,7 @@ module.exports = function aStar(config) {
         existingNode.previousNode = node;
         existingNode.f = g + existingNode.h;
       } else {
-        const h = estimateDist(currentData);
+        const h = estimateCost(currentData);
         const neighbourNode = {
           data: currentData,
           f: (1 - estimationWeight) * g + estimationWeight * h,
