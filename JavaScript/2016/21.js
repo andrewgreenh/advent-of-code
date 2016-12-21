@@ -1,3 +1,4 @@
+const permute = require('../permutate');
 const lines = require('../getInput')(21, 2016).trim().split('\n');
 
 const start = 'abcdefgh';
@@ -15,9 +16,9 @@ const rotateL = (s, n) =>
   (n % s.length === 0 ? s : s.substr(n % s.length) + s.substr(0, n % s.length));
 const rotateR = (s, n) =>
   (n % s.length === 0 ? s : s.substr(-(n % s.length)) + s.substr(0, s.length - (n % s.length)));
-const rotateS = (s, a) => {
+const rotateS = (s, a, mappings) => {
   const index = s.indexOf(a);
-  return rotateR(s, 1 + index + (index >= 4 ? 1 : 0));
+  return rotateR(s, mappings[index]);
 };
 const reverse = (s, i, j) =>
   s.substr(0, i) + s.substr(i, j-i+1).split('').reverse().join('') + s.substr(j + 1);
@@ -28,7 +29,7 @@ const ops = {
   rotate: rest => {
     if (rest[0] === 'left') return s => rotateL(s, +rest[1]);
     if (rest[0] === 'right') return s => rotateR(s, +rest[1]);
-    return s => rotateS(s, rest[5]);
+    return s => rotateS(s, rest[5], [1, 2, 3, 4, 6, 7, 0, 1]);
   },
   swap: rest => {
     if (rest[0] === 'position') return s => swapAt(s, +rest[1], +rest[4]);
@@ -37,25 +38,15 @@ const ops = {
   move: rest => s => move(s, +rest[1], +rest[4]),
 };
 
-const reverseOps = {
-  reverse: rest => s => reverse(s, +rest[3], +rest[1]),
-  rotate: rest => {
-    if (rest[0] === 'left') return s => rotateR(s, +rest[1]);
-    if (rest[0] === 'right') return s => rotateL(s, +rest[1]);
-    return s => rotateS(s, rest[5]);
-  },
-  swap: rest => {
-    if (rest[0] === 'position') return s => swapAt(s, +rest[4], +rest[1]);
-    return s => swap(s, rest[4], rest[1]);
-  },
-  move: rest => s => move(s, +rest[4], +rest[1]),
-};
-
-const parse = ops => line => {
+const parse = line => {
   const [command, ...rest] = line.split(' ');
-  return (...args) => { console.log(...args); return ops[command](rest)(...args); };
+  return (...args) => ops[command](rest)(...args);
 };
 
-// const result1 = lines.map(parse(ops)).reduce((last, fn) => fn(last), start);
-const result2 = lines.reverse().map(parse(reverseOps)).reduce((last, fn) => fn(last), start);
+const scramble = flow(...lines.map(parse));
+const result1 = scramble(start);
+console.log(result1);
+console.time('part2');
+const result2 = permute(start.split('')).map(i => i.join('')).filter(s => scramble(s) === end)[0];
+console.timeEnd('part2');
 console.log(result2);
