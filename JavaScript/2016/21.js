@@ -16,10 +16,7 @@ const rotateL = (s, n) =>
   (n % s.length === 0 ? s : s.substr(n % s.length) + s.substr(0, n % s.length));
 const rotateR = (s, n) =>
   (n % s.length === 0 ? s : s.substr(-(n % s.length)) + s.substr(0, s.length - (n % s.length)));
-const rotateS = (s, a, mappings) => {
-  const index = s.indexOf(a);
-  return rotateR(s, mappings[index]);
-};
+const rotateS = (s, a, mappings) => rotateR(s, mappings[s.indexOf(a)]);
 const reverse = (s, i, j) =>
   s.substr(0, i) + s.substr(i, j-i+1).split('').reverse().join('') + s.substr(j + 1);
 const move = (s, i, j) => flow(remove(i), insert(s[i], j))(s);
