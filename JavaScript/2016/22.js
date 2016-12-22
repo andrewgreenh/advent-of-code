@@ -1,6 +1,7 @@
 const _ = require('lodash');
 const keypress = require('keypress');
 const lines = require('../getInput')(22, 2016).trim().split('\n').slice(2);
+const aStar = require('../aStar');
 
 
 const parse = line => {
@@ -39,11 +40,6 @@ function toSimple(grid) {
 }
 
 const write = process.stdout.write.bind(process.stdout);
-function paintGrid(grid, steps, up = true) {
-  if (up) write(`\u001b[${grid.length}A`);
-  write(_.map(grid, row => row.join(' ')).join('\n') + '\r');
-  write('\n Steps: ' + steps + ' --- Press escape to reset\r');
-}
 
 function part1(nodes) {
   const wouldFit = (nodeA, nodeB) =>
@@ -64,6 +60,22 @@ const startNode = _.find(simpleNodes, 'empty');
 let state = _.cloneDeep(grid);
 let position = [startNode.x, startNode.y];
 let stepCounter = 0;
+
+const startState = [[startNode.x, startNode.y], [maxX, 0]];
+const result = aStar({
+  getNeighbours,
+  isEnd,
+  hashData: hash,
+  startNode: startState,
+});
+
+function paintGrid(grid, steps, up = true) {
+  if (up) write(`\u001b[${grid.length + 1}A`);
+  write(_.map(grid, row => row.join(' ')).join('\n') + '\r');
+  write('\n Steps: ' + steps + ' --- Press escape to reset\r');
+  write(`\n Best path takes ${result.cost} steps.\r`);
+}
+
 
 paintGrid(grid, stepCounter, false);
 const handleKey = name => {
@@ -106,6 +118,35 @@ const handleKey = name => {
   }
 };
 
+function getNeighbours([[x, y], [xg, yg]]) {
+  const neighbours = [];
+  if (x < maxX && grid[y][x+1] !== '#') {
+    if (y === yg && x+1 === xg) neighbours.push([[x+1, y], [xg-1, yg]]);
+    else neighbours.push([[x+1, y], [xg, yg]]);
+  }
+  if (x > 0 && grid[y][x-1] !== '#') {
+    if (y === yg && x-1 === xg) neighbours.push([[x-1, y], [xg+1, yg]]);
+    else neighbours.push([[x-1, y], [xg, yg]]);
+  }
+  if (y < maxY && grid[y+1][x] !== '#') {
+    if (y === yg+1 && x === xg) neighbours.push([[x, y+1], [xg, yg-1]]);
+    else neighbours.push([[x, y+1], [xg, yg]]);
+  }
+  if (y > 0 && grid[y-1][x] !== '#') {
+    if (y === yg-1 && x === xg) neighbours.push([[x, y-1], [xg, yg+1]]);
+    else neighbours.push([[x, y-1], [xg, yg]]);
+  }
+
+  return neighbours;
+}
+
+function hash([[x1, y1], [x2, y2]]) {
+  return `${x1},${y1}-${x2},${y2}`;
+}
+
+function isEnd([pos, [x, y]]) {
+  return x === 0 && y === 0;
+}
 
 keypress(process.stdin);
 

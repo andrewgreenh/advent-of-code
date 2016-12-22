@@ -14,7 +14,7 @@ module.exports = function aStar(config) {
     estimationWeight = 0.5,
 
     // Calculates cost between 2 neighbour nodes.
-    getNeighbourCost,
+    getNeighbourCost = () => 1,
 
     // Returns neighbours of a given node.
     getNeighbours,
