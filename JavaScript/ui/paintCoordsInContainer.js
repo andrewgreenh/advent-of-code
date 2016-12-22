@@ -1,6 +1,6 @@
 const _ = require('lodash');
 
-module.exports = function paintCoordsInContainer(coords, container, timeout = 1) {
+module.exports = function paintCoordsInContainer(coords, container, timeout = 1, clearBetween) {
   let interval = null;
   const canvas = document.createElement('canvas');
   const p = document.createElement('p');
@@ -30,6 +30,7 @@ module.exports = function paintCoordsInContainer(coords, container, timeout = 1)
       return;
     }
     const [x, y] = position;
+    if (clearBetween) ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = 'red';
     ctx.fillRect(transformX(x), transformY(y), widthScale, heightScale);
     p.innerHTML = `X: ${x}, Y: ${y}`;
