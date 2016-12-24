@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const grid = require('../getInput')('24', 2016).trim().split('\n').map(l => l.split(''));
 const aStar = require('../aStar');
-const paintCoordsInContainer = require('../ui/paintCoordsInContainer');
 require('../permutate');
 require('../loadSlide');
 
@@ -48,25 +47,9 @@ for (let i = 0; i <= maxNumber; i++) {
 const result = _(_.range(maxNumber)).map(i => i + 1).permute().map(path =>
   _([0, ...path]).slide(2).map(([i, j]) => distances[i][j]).sum()
 ).value();
+const result2 = _(_.range(maxNumber)).map(i => i + 1).permute().map(path =>
+  _([0, ...path, 0]).slide(2).map(([i, j]) => distances[i][j]).sum()
+).value();
 
 console.log(_.min(result));
-
-module.exports = {
-  run(container) {
-    const from = 3;
-    const to = 7;
-    const config = {
-      getNeighbours,
-      hashData: ([x, y]) => `${x}-${y}`,
-      isEnd: ([x, y]) => x === numbers[to][0] && y === numbers[to][1],
-      startNode: [numbers[from][0], numbers[from][1]],
-    };
-    const result = aStar(config);
-    const coords = Array.from(result.getPath()).map(n => n.data);
-    paintCoordsInContainer(coords, container, 200);
-  },
-
-  stop() {
-  },
-
-};
+console.log(_.min(result2));
