@@ -65,7 +65,6 @@ module.exports = function aStar(config) {
     if (node.g > maxCosts) return finish(node, counter, closedNodesByHash);
     counter++;
 
-
     const neighbourData = getNeighbours(node.data);
     for (let i = 0; i < neighbourData.length; i++) {
       const currentData = neighbourData[i];

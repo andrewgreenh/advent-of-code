@@ -1,25 +1,15 @@
-var _ = require('lodash');
+const _ = require('lodash');
 
 module.exports = permute;
 
 function permute(array) {
-  var results = [];
-  function permute(arr, memo) {
-    var cur, memo = memo || [];
-
-    for (var i = 0; i < arr.length; i++) {
-      cur = arr.splice(i, 1);
-      if (arr.length === 0) {
-        results.push(memo.concat(cur));
-      }
-      permute(arr.slice(), memo.concat(cur));
-      arr.splice(i, 0, cur[0]);
-    }
-    return results;
-  }
-  return permute(array);
+  if (array.length < 1) return [array];
+  return _.flatMap(array, (item, index, array) => {
+    const remaining = [...array.slice(0, index), ...array.slice(index + 1)];
+    return permute(remaining).map(items => [item, ...items]);
+  });
 }
 
 _.mixin({
-  permute: permute
+  permute,
 });
