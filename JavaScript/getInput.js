@@ -9,7 +9,7 @@ module.exports = function getInput(day, year) {
   } catch (e) {
     if (e.errno === -4058) {
       // File not found
-      const msg = `The file ${day}.txt could not be found! Try: node load ${day}`;
+      const msg = `The file ${day}.txt could not be found! Try: node load ${day} ${year}`;
       throw new Error(msg);
     }
     throw e;
