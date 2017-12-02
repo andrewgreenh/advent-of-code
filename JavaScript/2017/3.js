@@ -1,7 +1,7 @@
 const _ = require('lodash');
-const input = require('../getInput')(3, 2017);
+const input = require('../getInput')(3, 2017).trim();
 
-const parse = x => x.trim();
+const parse = x => x;
 
 const result1 = _(input).thru(parse);
 
