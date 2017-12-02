@@ -1,10 +1,10 @@
 {
+  "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
     "target": "ESNEXT"
-  },
-  "include": ["src/**/*"]
+  }
 }
