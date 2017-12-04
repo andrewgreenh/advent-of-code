@@ -1,10 +1,11 @@
 import * as it from './';
 
-const range = it.range(0, 10)
-const result: number[] = it.pipe(range)(
-  it.dropWhile(i => i < 7),
-  it.toArray
+it.pipe(it.range(0))(
+  it.map((i: number) => i * i),
+  it.flatMap((i: number) => [i, i, i]),
+  it.drop(5),
+  it.filter((i: number) => i % 2 === 0),
+  it.takeWhile(i => i < 100),
+  it.sum,
+  x => console.log(x),
 );
-
-
-console.log(result);
