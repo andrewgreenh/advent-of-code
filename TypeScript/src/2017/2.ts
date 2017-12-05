@@ -1,20 +1,33 @@
-import combinations from '../lib/combinations';
-import getInput from '../lib/getInput';
+import { words } from '../lib/ts-it/words'
+import { max } from '../lib/ts-it/max'
+import { min } from '../lib/ts-it/min'
+import combinations from '../lib/combinations'
+import getInput from '../lib/getInput'
+import { lines } from '../lib/ts-it/lines'
+import { sort } from '../lib/ts-it/sort'
+import { map } from '../lib/ts-it/map'
 
-const input = getInput(2, 2017).trim();
+const input = getInput(2, 2017).trim()
 
-const parse = (x: string) =>
-  x
-    .split('\n')
-    .map(row => row.split('\t').map(Number))
-    .map(row => row.sort((a, b) => a - b));
+function solve(checksum) {
+  let result = 0
+  for (let line of lines(input)) {
+    let nums = [...sort<number>()(map(Number)(words(line)))]
+    result += checksum(nums)
+  }
+  return result
+}
 
-const result1 = parse(input)
-  .map(row => row[row.length - 1] - row[0])
-  .reduce((a, b) => a + b, 0);
+function check1(nums: number[]) {
+  return max(nums) - min(nums)
+}
 
-const result2 = parse(input)
-  .map(row => combinations(row, 2).filter(([a, b]) => b % a === 0)[0])
-  .reduce((agg, [a, b]) => agg + b / a, 0);
-console.log(result1);
-console.log(result2);
+function check2(nums: number[]) {
+  let result = 0
+  for (let [a, b] of combinations(nums, 2)) {
+    if (b % a === 0) result += b / a
+  }
+  return result
+}
+
+;[check1, check2].map(x => solve(x)).forEach(x => console.log(x))

@@ -1,4 +1,4 @@
-import * as it from './';
+import * as it from './'
 
 it.pipe(it.range(0))(
   it.map((i: number) => i * i),
@@ -8,4 +8,4 @@ it.pipe(it.range(0))(
   it.takeWhile(i => i < 100),
   it.sum,
   x => console.log(x),
-);
+)

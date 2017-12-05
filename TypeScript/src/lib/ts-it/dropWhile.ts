@@ -1,17 +1,17 @@
-import { iter } from './iter';
-import { range } from './range';
+import { iter } from './iter'
+import { range } from './range'
 
 export function dropWhile<T>(iteratee: (value: T) => boolean) {
   return function* remainingValues(iterable: Iterable<T>) {
-    const iterator = iter(iterable);
+    const iterator = iter(iterable)
     while (true) {
-      const value = iterator.next().value;
-      const continueDropping = iteratee(value);
+      const value = iterator.next().value
+      const continueDropping = iteratee(value)
       if (!continueDropping) {
-        yield value;
-        break;
+        yield value
+        break
       }
     }
-    yield* iterator;
-  };
+    yield* iterator
+  }
 }
