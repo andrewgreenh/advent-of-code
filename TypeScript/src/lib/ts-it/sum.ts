@@ -1,5 +1,9 @@
 import { reduce } from './reduce'
 
-export function sum(iter: Iterable<number>) {
-  return reduce((a: number, b: number) => a + b, 0)(iter)
+export function sum(iter: Iterable<any>): number {
+  return reduce((a: number, b: any) => {
+    const number = Number(b)
+    if (Number.isNaN(number)) return a
+    return a + b
+  }, 0)(iter)
 }
