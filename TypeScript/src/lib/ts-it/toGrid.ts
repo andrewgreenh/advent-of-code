@@ -1,7 +1,4 @@
 import { enumerate } from './enumerate'
-import { range } from './range'
-import { printGrid } from './printGrid'
-import { transpose } from './transpose2d'
 
 export function toGrid<T>(xDim: number) {
   return function grid(iter: Iterable<T>) {

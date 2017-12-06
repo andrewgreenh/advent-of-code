@@ -1,5 +1,5 @@
 export class LoopedList<T> {
-  private items: T[]
+  public items: T[]
 
   constructor(iter: Iterable<T>) {
     this.items = [...iter]
@@ -9,7 +9,7 @@ export class LoopedList<T> {
     return this.items[this.correctIndex(index)]
   }
 
-  private correctIndex(index: number) {
+  public correctIndex(index: number) {
     return index >= 0 ? index % this.items.length : this.items.length + index % this.items.length
   }
 
