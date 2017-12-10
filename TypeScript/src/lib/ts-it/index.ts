@@ -1,3 +1,5 @@
+export { chunk } from './chunk'
+export { cycle } from './cycle'
 export { drop } from './drop'
 export { dropWhile } from './dropWhile'
 export { filter } from './filter'

@@ -1,7 +1,13 @@
-export function reduce<T, A>(reducer: (last: A, current: T) => A, initialValue: A) {
+export function reduce<T, A>(reducer: (last: A | T, current: T) => A, initialValue?: A | T) {
   return function(iter: Iterable<T>) {
     let last = initialValue
-    for (const value of iter) last = reducer(last, value)
-    return last
+    for (const value of iter) {
+      if (!last) {
+        last = value
+        continue
+      }
+      last = reducer(<A | T>last, value)
+    }
+    return <A>last
   }
 }
