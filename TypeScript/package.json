@@ -10,10 +10,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/graphlib": "^2.1.4",
     "@types/jest": "^21.1.8",
     "@types/lodash": "^4.14.86",
     "@types/node": "^8.0.53",
     "@types/request": "^2.0.8",
+    "@types/webpack": "^3.8.1",
     "jest": "^21.2.1",
     "ts-jest": "^21.2.4",
     "ts-node": "^3.3.0",
@@ -22,6 +24,7 @@
     "webpack": "^3.10.0"
   },
   "dependencies": {
+    "graphlib": "^2.1.1",
     "lodash": "^4.17.4",
     "request": "^2.83.0"
   },
