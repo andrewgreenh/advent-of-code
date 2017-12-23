@@ -2,7 +2,6 @@ import * as _ from 'lodash'
 
 import getInput from '../lib/getInput'
 import { lines } from '../lib/ts-it/lines'
-import { VM, InstructionSet, VMState } from '../lib/VM'
 
 let cs = [...lines(getInput(18, 2017))]
 let index = 0

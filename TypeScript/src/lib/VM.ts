@@ -1,6 +1,33 @@
 import * as _ from 'lodash'
 import { lines } from './ts-it/lines'
 
+const defaultInstructionSet = {
+  set: ([a, b]) => (vmState: VMState) => {
+    vmState.registers.set(a, vmState.registers.get(b))
+    vmState.index++
+  },
+  add: ([a, b]) => (vmState: VMState) => {
+    vmState.registers.set(a, vmState.registers.get(a) + vmState.registers.get(b))
+    vmState.index++
+  },
+  mul: ([a, b]) => (vmState: VMState) => {
+    vmState.registers.set(a, vmState.registers.get(a) * vmState.registers.get(b))
+    vmState.index++
+  },
+  mod: ([a, b]) => (vmState: VMState) => {
+    vmState.registers.set(a, vmState.registers.get(a) % vmState.registers.get(b))
+    vmState.index++
+  },
+  jgz: ([a, b]) => (vmState: VMState) => {
+    if (vmState.registers.get(a) > 0) vmState.index += vmState.registers.get(b)
+    else vmState.index++
+  },
+  jnz: ([a, b]) => (vmState: VMState) => {
+    if (vmState.registers.get(a) !== 0) vmState.index += vmState.registers.get(b)
+    else vmState.index++
+  },
+}
+
 export class Registers {
   private state: object = {}
   constructor(initializer: object, private defaultValue: any = 0) {
@@ -15,6 +42,10 @@ export class Registers {
 
   public set(name: string, value: any) {
     this.state[name] = value
+  }
+
+  public plain() {
+    return this.state
   }
 }
 
@@ -38,10 +69,11 @@ export interface Handlers {
 export class VM {
   private vmState: VMState
   private instructions: string[]
+  private instructionSet: InstructionSet
   private handlers: Handlers
 
   constructor(
-    private instructionSet: InstructionSet,
+    instructionSet: InstructionSet,
     private input: string,
     registerInitializer: object = {},
     initialIndex: number = 0,
@@ -49,6 +81,7 @@ export class VM {
     initialCustomState: object = {},
     handlers?: Handlers,
   ) {
+    this.instructionSet = _.defaults(instructionSet, defaultInstructionSet)
     this.vmState = {
       registers: new Registers(registerInitializer, defaultRegisterValue),
       index: initialIndex,
@@ -64,11 +97,17 @@ export class VM {
   }
 
   public step() {
+    this.handlers.onStep(this.vmState)
     if (!this.handlers.canStep(this.vmState)) return
     let instruction = this.instructions[this.vmState.index]
     if (!instruction) return this.handlers.onDone(this.vmState)
     let [name, ...args] = instruction.split(' ')
     this.instructionSet[name](args)(this.vmState)
+    this.handlers.onAfterStep(this.vmState)
+  }
+
+  public getState() {
+    return this.vmState
   }
 }
 
