@@ -1,3 +1,5 @@
 export function max(iter: Iterable<number>) {
-  return Math.max(...iter)
+  let max = -Infinity
+  for (let value of iter) if (value > max) max = value
+  return max
 }
