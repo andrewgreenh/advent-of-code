@@ -2,33 +2,53 @@ import Heap from './Heap'
 import * as _ from 'lodash'
 
 export interface AStarConfig<DataType> {
-  // Used to estimate remaining cost of a node. MUST NOT overestimate the cost.
-  estimateCost: (data: DataType) => number
+  /**
+   * Used to estimate remaining cost of a node. MUST NOT overestimate the cost.
+   * Defaults to () => 0
+   */
+  estimateCost?: (data: DataType) => number
 
-  /*
-     * Tweaks the order in which nodes get explored.
-     *   0 -> Djikstra-search;
-     *   1 -> Very fast but not fastes path
-     */
-  estimationWeight: number
+  /**
+   * Tweaks the order in which nodes get explored.
+   *   0 -> Djikstra-search;
+   *   1 -> Very fast but not fastes path
+   * defaults to 0.5 for a*
+   */
+  estimationWeight?: number
 
-  // Calculates cost between 2 neighbour nodes.
-  getNeighbourCost: (data1: DataType, data2: DataType) => number
+  /**
+   * Calculates cost between 2 neighbour nodes.
+   * Defaults to () => 1
+   */
+  getNeighbourCost?: (data1: DataType, data2: DataType) => number
 
-  // Returns neighbours of a given node.
+  /**
+   * Returns neighbours of a given node.
+   */
   getNeighbours: (data: DataType) => DataType[]
 
-  // Returns a string representation of the node.
-  hashData: (data: DataType) => string
+  /**
+   * Returns a string representation of the node.
+   * Defaults to toString()
+   */
+  hashData?: (data: DataType) => string
 
-  // Order in which the nodes get expanded. Return negative number if a should come before b.
-  heapComperator: (node1: AStarNode<DataType>, node2: AStarNode<DataType>) => number
+  /**
+   * Order in which the nodes get expanded. Return negative number if a should come before b.
+   * Defaults to a.f - b.f
+   */
+  heapComperator?: (node1: AStarNode<DataType>, node2: AStarNode<DataType>) => number
 
-  // Determines if node is the goal.
+  /**
+   * Determines if node is the goal.
+   */
   isEnd: (data: DataType) => boolean
 
-  // When maxCosts is given, the algorithm stops when maxCosts is reached
-  maxCosts: number
+  /**
+   * When maxCosts is given, the algorithm stops when maxCosts is reached
+   * Defaults to Infinity
+   */
+  maxCosts?: number
 
   // First node in the open list
   startNode: DataType
@@ -52,13 +72,13 @@ interface AStarNode<DataType> {
   previousNode?: AStarNode<DataType>
 }
 
-function aStar<DataType>(config: AStarConfig<DataType>) {
+export function aStar<DataType>(config: AStarConfig<DataType>) {
   const {
     estimateCost = () => 0,
     estimationWeight = 0.5,
     getNeighbourCost = () => 1,
     getNeighbours,
-    hashData,
+    hashData = x => x.toString(),
     heapComperator = (a: AStarNode<DataType>, b: AStarNode<DataType>) => a.f - b.f,
     isEnd,
     maxCosts = Infinity,
@@ -124,32 +144,61 @@ function aStar<DataType>(config: AStarConfig<DataType>) {
   return fail(closedNodesByHash, counter)
 }
 
-function fail(closedNodesByHash, counter) {
+interface AStarResult<T> {
+  status: string
+  expandedNodeCounter: number
+  getExpandedNodes: () => IterableIterator<AStarNode<T>>
+  isFail: (this: AStarResult<T>) => this is AStarFailResult<T>
+  isSuccess: (this: AStarResult<T>) => this is AStarSuccessResult<T>
+}
+
+interface AStarFailResult<T> extends AStarResult<T> {
+  status: 'Fail :('
+}
+
+interface AStarSuccessResult<T> extends AStarResult<T> {
+  cost: number
+  target: AStarNode<T>
+  getPath: () => AStarNode<T>[]
+}
+
+function fail<T>(
+  closedNodesByHash: Map<string, AStarNode<T>>,
+  counter: number,
+): AStarFailResult<T> {
   return {
-    status: 'Fail :(',
     expandedNodeCounter: counter,
     getExpandedNodes: () => closedNodesByHash.values(),
+    isFail: () => true,
+    isSuccess: () => false,
+    status: 'Fail :(',
   }
 }
 
-function finish(node, counter, closedNodesByHash) {
+function finish<T>(
+  node: AStarNode<T>,
+  counter: number,
+  closedNodesByHash: Map<string, AStarNode<T>>,
+): AStarSuccessResult<T> {
   const path = recursiveNodeToArray(node)
   return {
-    status: 'success',
     cost: node.g,
     expandedNodeCounter: counter,
     getExpandedNodes: () => closedNodesByHash.values(),
-    target: path[path.length - 1],
     getPath: () => path,
+    isFail: () => false,
+    isSuccess: () => true,
+    status: 'success',
+    target: path[path.length - 1],
   }
 }
 
-function recursiveNodeToArray(node) {
-  const result = []
+function recursiveNodeToArray<T>(node: AStarNode<T>) {
+  const result: AStarNode<T>[] = []
   let current = node
   while (current) {
-    result.unshift(_.omit(current, 'previousNode'))
-    current = current.previousNode
+    result.unshift(_.omit(current, 'previousNode') as AStarNode<T>)
+    current = current.previousNode as AStarNode<T>
   }
   return result
 }
