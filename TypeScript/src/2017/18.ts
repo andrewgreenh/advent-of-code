@@ -30,7 +30,7 @@ class Program {
   public index = 0
   private queue: any[] = []
   public sendCount = 0
-  public partner: Program
+  public partner?: Program
 
   constructor(public regs: any, public instr: any) {}
 
@@ -49,8 +49,8 @@ class Program {
     if (a === 'set') this.regs[b] = this.get(c)
     if (a === 'snd') {
       this.sendCount++
-      this.partner.send(this.get(b))
-      this.partner.isWaiting = false
+      this.partner!.send(this.get(b))
+      this.partner!.isWaiting = false
     }
     if (a === 'add') this.regs[b] = this.get(b) + this.get(c)
     if (a === 'mul') this.regs[b] = this.get(b) * this.get(c)

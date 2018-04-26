@@ -78,7 +78,7 @@ export function aStar<DataType>(config: AStarConfig<DataType>) {
     estimationWeight = 0.5,
     getNeighbourCost = () => 1,
     getNeighbours,
-    hashData = x => x.toString(),
+    hashData = (x: { toString: () => string }) => x.toString(),
     heapComperator = (a: AStarNode<DataType>, b: AStarNode<DataType>) => a.f - b.f,
     isEnd,
     maxCosts = Infinity,

@@ -7,7 +7,7 @@ interface Node<T> {
 }
 
 export class Deque<T> {
-  private head: Node<T>
+  private head?: Node<T>
   constructor(...values: T[]) {
     values.forEach(this.append.bind(this))
   }
@@ -31,6 +31,7 @@ export class Deque<T> {
   }
 
   public rotate(n: number) {
+    if (!this.head) return
     let rotateLeft = n < 0
     n = Math.abs(n)
     for (let i = 0; i < n; i++) {
