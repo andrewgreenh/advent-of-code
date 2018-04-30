@@ -1,4 +1,4 @@
-import { enumerate } from './enumerate'
+import { enumerate } from './enumerate';
 
 export function toGrid<T>(xDim: number) {
   return function grid(iter: Iterable<T>) {

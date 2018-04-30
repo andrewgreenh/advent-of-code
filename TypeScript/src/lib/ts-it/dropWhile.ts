@@ -1,5 +1,4 @@
-import { iter } from './iter'
-import { range } from './range'
+import { iter } from './iter';
 
 export function dropWhile<T>(iteratee: (value: T) => boolean | undefined) {
   return function* remainingValues(iterable: Iterable<T>) {

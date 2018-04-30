@@ -1,4 +1,4 @@
-import { enumerate } from './enumerate'
+import { enumerate } from './enumerate';
 
 export function transpose<T>(iter: Iterable<Iterable<T>>) {
   const result: T[][] = []

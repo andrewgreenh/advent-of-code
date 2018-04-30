@@ -1,5 +1,6 @@
-import Heap from './Heap'
-import * as _ from 'lodash'
+import * as _ from 'lodash';
+
+import Heap from './Heap';
 
 export interface AStarConfig<DataType> {
   /**

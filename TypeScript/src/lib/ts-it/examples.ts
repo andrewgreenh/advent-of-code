@@ -1,11 +1,7 @@
-import * as it from './'
+import { pipe } from './pipe';
+import { printGrid } from './printGrid';
+import { range } from './range';
+import { rotate } from './rotate';
+import { toGrid } from './toGrid';
 
-it.pipe(it.range(0))(
-  it.map((i: number) => i * i),
-  it.flatMap((i: number) => [i, i, i]),
-  it.drop(5),
-  it.filter((i: number) => i % 2 === 0),
-  it.takeWhile(i => i < 100),
-  it.sum,
-  x => console.log(x),
-)
+pipe(range(0, 16))(toGrid(4), rotate('counterclockwise'), printGrid);

@@ -1,5 +1,5 @@
-import { iter } from './iter'
-import { range } from './range'
+import { iter } from './iter';
+import { range } from './range';
 
 export function drop<T>(count: number) {
   return function* remainingValues(iterable: Iterable<T>) {

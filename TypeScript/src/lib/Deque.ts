@@ -1,4 +1,4 @@
-import { enumerate } from './ts-it/enumerate'
+import { enumerate } from './ts-it/enumerate';
 
 interface Node<T> {
   value: T

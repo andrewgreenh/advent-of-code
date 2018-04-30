@@ -1,6 +1,6 @@
-import { map } from './map'
-import { join } from './join'
+import { join } from './join';
+import { map } from './map';
 
-export function printGrid(iter: Iterable<Iterable<any>>) {
-  console.log(join('\n')(map<Iterable<any>, string>(line => join('\t')(line))(iter)))
+export function printGrid<T>(iter: Iterable<Iterable<T>>) {
+  console.log(join('\n')(map<Iterable<T>, string>(line => join('\t')(line))(iter)))
 }

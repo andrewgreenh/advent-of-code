@@ -1,8 +1,4 @@
-export interface Entry<T> {
-  [0]: number
-  [1]: T
-  [Symbol.iterator](): IterableIterator<any>
-}
+export type Entry<T> = [number, T]
 
 export function* enumerate<T>(iter: Iterable<T>) {
   let i = 0

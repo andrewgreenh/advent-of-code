@@ -1,4 +1,4 @@
-import { iter } from './iter'
+import { iter } from './iter';
 
 export function* zip<A, B>(iterable1: Iterable<A>, iterable2: Iterable<B>) {
   let iter1 = iter(iterable1)

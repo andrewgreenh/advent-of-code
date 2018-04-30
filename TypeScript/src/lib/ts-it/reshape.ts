@@ -1,5 +1,5 @@
-import { toGrid } from './toGrid'
-import { flatten } from './flatten'
+import { flatten } from './flatten';
+import { toGrid } from './toGrid';
 
 export function reshape<T>(xDim: number) {
   return function* reshaped(iter: Iterable<Iterable<T>>) {
