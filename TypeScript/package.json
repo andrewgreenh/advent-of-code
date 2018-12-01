@@ -11,18 +11,18 @@
   "license": "ISC",
   "devDependencies": {
     "@types/graphlib": "^2.1.4",
-    "@types/jest": "^21.1.8",
+    "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.86",
-    "@types/node": "^8.0.53",
+    "@types/node": "^10.12.11",
     "@types/request": "^2.0.8",
-    "@types/webpack": "^3.8.1",
-    "jest": "^21.2.1",
-    "ts-jest": "^21.2.4",
-    "ts-node": "^3.3.0",
+    "@types/webpack": "^4.4.20",
+    "jest": "^23.6.0",
+    "ts-jest": "^23.10.5",
+    "ts-node": "^7.0.1",
     "tslint": "^5.8.0",
-    "typescript": "^2.8.3",
-    "typesync": "^0.2.5",
-    "webpack": "^3.10.0"
+    "typescript": "^3.2.1",
+    "typesync": "^0.4.0",
+    "webpack": "^4.26.1"
   },
   "dependencies": {
     "graphlib": "^2.1.1",

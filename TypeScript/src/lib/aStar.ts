@@ -195,7 +195,7 @@ function finish<T>(
 }
 
 function recursiveNodeToArray<T>(node: AStarNode<T>) {
-  const result: AStarNode<T>[] = []
+  const result: Omit<AStarNode<T>, 'previousNode'>[] = []
   let current = node
   while (current) {
     result.unshift(_.omit(current, 'previousNode') as AStarNode<T>)
