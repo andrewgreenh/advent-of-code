@@ -1,7 +1,8 @@
+import { combinations } from './combinations';
+import { iterable } from './iterable';
 import { pipe } from './pipe';
-import { printGrid } from './printGrid';
 import { range } from './range';
-import { rotate } from './rotate';
-import { toGrid } from './toGrid';
+import { toArray } from './toArray';
 
-pipe(range(0, 16))(toGrid(4), rotate('counterclockwise'), printGrid);
+const i = iterable(() => range(0, 16));
+pipe(i)(combinations(2), toArray, a => console.log(a));
