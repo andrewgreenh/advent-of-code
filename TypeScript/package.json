@@ -27,7 +27,7 @@
   "dependencies": {
     "graphlib": "^2.1.1",
     "lodash": "^4.17.4",
-    "request": "^2.83.0"
+    "sync-request": "^6.0.0"
   },
   "jest": {
     "transform": {

@@ -1,19 +1,21 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import * as fs from 'fs';
+import * as path from 'path';
+
+import { getInputOfDay } from '../../load';
 
 function getInput(day: number, year: number): string {
-  const inputPath = path.join(__dirname, `../${year}/${day}.txt`)
+  const inputPath = path.join(__dirname, `../${year}/${day}.txt`);
   try {
-    const inputString = fs.readFileSync(inputPath, 'utf8')
-    return inputString
+    const inputString = fs.readFileSync(inputPath, 'utf8');
+    return inputString;
   } catch (e) {
+    // File not found
     if (e.errno === -4058) {
-      // File not found
-      const msg = `The file ${day}.txt could not be found! Try: node load ${day} ${year}`
-      throw new Error(msg)
+      const content = getInputOfDay(day, year);
+      return content;
     }
-    throw e
+    throw e;
   }
 }
 
-export default getInput
+export default getInput;
