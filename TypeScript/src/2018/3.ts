@@ -4,16 +4,14 @@ import { first } from '../lib/ts-it/first';
 import { flatten } from '../lib/ts-it/flatten';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
+import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 import { size } from '../lib/ts-it/size';
 import { toGrid } from '../lib/ts-it/toGrid';
 
 const input = getInput(3, 2018);
-const claims = pipe(input)(
-  stringToLines,
-  map(line => line.match(/\d+/g)!.map(Number)),
-);
+const claims = pipe(input)(stringToLines, map(numbers));
 
 const n = 1000;
 const grid = toGrid(n)(Array(n * n));
