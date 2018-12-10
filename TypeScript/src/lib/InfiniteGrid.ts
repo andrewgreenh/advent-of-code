@@ -13,10 +13,10 @@ export class InfiniteGrid<CellType> {
   private grid: {
     [key: string]: CellType | undefined;
   } = {};
-  public maxX = 0;
-  public minX = 0;
-  public maxY = 0;
-  public minY = 0;
+  public maxX = -Infinity;
+  public minX = Infinity;
+  public maxY = -Infinity;
+  public minY = Infinity;
 
   private getId([x, y]: Vector) {
     return `${x}-${y}`;
@@ -38,34 +38,22 @@ export class InfiniteGrid<CellType> {
 
   public *neighbours(p: Vector) {
     const neighbourVectors = [...this.neighbourVectors(p)];
-    yield* map<Vector, CellType | undefined>(p =>
-      this.get(p),
-    )(neighbourVectors);
+    yield* map<Vector, CellType | undefined>(p => this.get(p))(
+      neighbourVectors,
+    );
   }
 
-  public *neighbourVectors([
-    x,
-    y,
-  ]: Vector): IterableIterator<Vector> {
-    const deltas = <Vector[]>(
-      (<any>combinations([-1, 0, 1], 2, true))
-    );
+  public *neighbourVectors([x, y]: Vector): IterableIterator<Vector> {
+    const deltas = <Vector[]>(<any>combinations([-1, 0, 1], 2, true));
     yield* deltas
       .filter(([dx, dy]) => dx !== 0 || dy !== 0)
       .map<Vector>(([dx, dy]) => [x + dx, y + dy]);
   }
 
-  public *spiralAround([x, y]: Vector): IterableIterator<
-    Vector
-  > {
+  public *spiralAround([x, y]: Vector): IterableIterator<Vector> {
     let stepSize = 1;
     let step = -1;
-    const moves = [
-      () => y++,
-      () => x++,
-      () => y--,
-      () => x--,
-    ];
+    const moves = [() => y++, () => x++, () => y--, () => x--];
     while (true) {
       for (let move of moves) {
         for (let i = 0; i < stepSize; i++, move(), step++) {
@@ -78,12 +66,8 @@ export class InfiniteGrid<CellType> {
 
   public toGrid(): (CellType | undefined)[][] {
     let grid: (CellType | undefined)[][] = [];
-    for (const [yi, y] of enumerate(
-      range(this.minY, this.maxY + 1),
-    )) {
-      for (const [xi, x] of enumerate(
-        range(this.minX, this.maxX + 1),
-      )) {
+    for (const [yi, y] of enumerate(range(this.minY, this.maxY + 1))) {
+      for (const [xi, x] of enumerate(range(this.minX, this.maxX + 1))) {
         if (!grid[yi]) grid[yi] = [];
         grid[yi][xi] = this.get([x, y]);
       }

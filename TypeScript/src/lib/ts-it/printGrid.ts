@@ -4,6 +4,13 @@ import { pipe } from './pipe';
 
 export function printGrid<T>(
   iter: Iterable<Iterable<T | undefined>>,
+  defaultValue = '',
+  joinColumns = '\t',
 ) {
-  console.log(pipe(iter)(map(join('\t')), join('\n')));
+  console.log(
+    pipe(iter)(
+      map(line => pipe(line)(map(x => x || defaultValue), join(joinColumns))),
+      join('\n'),
+    ),
+  );
 }
