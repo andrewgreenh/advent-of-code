@@ -2,12 +2,12 @@ import getInput from '../lib/getInput';
 import { filter } from '../lib/ts-it/filter';
 import { first } from '../lib/ts-it/first';
 import { flatten } from '../lib/ts-it/flatten';
+import { len } from '../lib/ts-it/len';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
-import { size } from '../lib/ts-it/size';
 import { toGrid } from '../lib/ts-it/toGrid';
 
 const input = getInput(3, 2018);
@@ -28,6 +28,6 @@ for (const [id, left, top, width, height] of claims) {
     }
   }
 }
-console.log(pipe(grid)(flatten, filter(x => x === Infinity), size));
+console.log(pipe(grid)(flatten, filter(x => x === Infinity), len));
 
 console.log(pipe(grid)(flatten, filter(x => x && !overlapped.has(x)), first));

@@ -1,10 +1,9 @@
-import { any } from '../lib/ts-it/any'
-import { range } from '../lib/ts-it/range'
-import { reject } from '../lib/ts-it/reject'
-import { size } from '../lib/ts-it/size'
-import { isPrime } from '../lib/isPrime'
+import { isPrime } from '../lib/isPrime';
+import { len } from '../lib/ts-it/len';
+import { range } from '../lib/ts-it/range';
+import { reject } from '../lib/ts-it/reject';
 
-let start = 105700
-let end = 122700
-let result = size(reject<number>(isPrime)(range(start, end + 1, 17)))
-console.log(result)
+let start = 105700;
+let end = 122700;
+let result = len(reject<number>(isPrime)(range(start, end + 1, 17)));
+console.log(result);

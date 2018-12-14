@@ -1,7 +1,7 @@
 import { filter } from '../lib/ts-it/filter';
+import { len } from '../lib/ts-it/len';
 import { pipe } from '../lib/ts-it/pipe';
 import { seqOf } from '../lib/ts-it/seqOf';
-import { size } from '../lib/ts-it/size';
 import { take } from '../lib/ts-it/take';
 import { zip } from '../lib/ts-it/zip';
 
@@ -23,6 +23,6 @@ let pairs = zip<number, number>(getGen(a, factorA), getGen(b, factorB));
 let result = pipe(pairs)(
   take(count),
   filter(([a, b]) => (a & 0xffff) === (b & 0xffff)),
-  size,
+  len,
 );
 console.log(result);
