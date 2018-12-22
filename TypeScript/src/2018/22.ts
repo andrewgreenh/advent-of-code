@@ -9,7 +9,10 @@ const depth = numbers(strings[0])[0];
 const target = numbers(strings[1]);
 const start = [0, 0];
 
-const cache = { [key(start)]: 0, [key(target)]: 0 };
+const cache = {
+  [key(start)]: 0 + (depth % 20183),
+  [key(target)]: 0 + (depth % 20183),
+};
 function getLevel(pos: number[]) {
   const k = key(pos);
   if (cache[k] !== undefined) return cache[k];
