@@ -71,7 +71,6 @@ for (const c of regex) {
 printGrid(maze.toGrid(), '#', '');
 
 const aStartResult = aStar<Vector>({
-  estimationWeight: 0,
   getNeighbourCost: () => 1,
   getNeighbours: ([x, y]) => {
     const n = [] as Vector[];

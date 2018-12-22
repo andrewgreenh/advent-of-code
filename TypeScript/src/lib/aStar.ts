@@ -10,14 +10,6 @@ export interface AStarConfig<DataType> {
   estimateCost?: (data: DataType) => number;
 
   /**
-   * Tweaks the order in which nodes get explored.
-   *   0 -> Djikstra-search;
-   *   1 -> Very fast but not fastes path
-   * defaults to 0.5 for a*
-   */
-  estimationWeight?: number;
-
-  /**
    * Calculates cost between 2 neighbour nodes.
    * Defaults to () => 1
    */
@@ -67,7 +59,7 @@ interface AStarNode<DataType> {
   // Estimated remaining costs for this node.
   h: number;
 
-  // Weighted addition of g and h. This is the cost value that is used to determine next nodes.
+  // Sum of g and h. This is the cost value that is used to determine next nodes.
   f: number;
 
   // Identifier for this data node. Used to prevent duplicates.
@@ -79,7 +71,6 @@ interface AStarNode<DataType> {
 export function aStar<DataType>(config: AStarConfig<DataType>) {
   const {
     estimateCost = () => 0,
-    estimationWeight = 0.5,
     getNeighbourCost = () => 1,
     getNeighbours,
     hashData = (x: { toString: () => string }) => x.toString(),
@@ -99,7 +90,7 @@ export function aStar<DataType>(config: AStarConfig<DataType>) {
     data: startData,
     g: 0,
     h: estimateCost(startData),
-    f: estimationWeight * estimateCost(startData),
+    f: estimateCost(startData),
     hash: hashData(startData),
   };
   const openNodesByHash = new Map<string, AStarNode<DataType>>();
@@ -131,13 +122,12 @@ export function aStar<DataType>(config: AStarConfig<DataType>) {
       if (existingNode !== undefined) {
         existingNode.g = g;
         existingNode.previousNode = node;
-        existingNode.f =
-          (1 - estimationWeight) * g + estimationWeight * existingNode.h;
+        existingNode.f = g + existingNode.h;
       } else {
         const h = estimateCost(currentData);
         const neighbourNode = {
           data: currentData,
-          f: (1 - estimationWeight) * g + estimationWeight * h,
+          f: g + h,
           h,
           g,
           hash,

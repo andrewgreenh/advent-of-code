@@ -44,7 +44,6 @@ type Node = {
 
 const hashNode = (node: Node) => `${node.stuff}%${key(node.pos)}`;
 const path = aStar<Node>({
-  estimationWeight: 0,
   getNeighbourCost: (a, b) => (a.stuff === b.stuff ? 1 : 7),
   getNeighbours: node => {
     return [...possiblePossitions(node), possibleEquipment(node)];
