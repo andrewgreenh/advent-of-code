@@ -9,7 +9,12 @@ export function printGrid<T>(
 ) {
   console.log(
     pipe(iter)(
-      map(line => pipe(line)(map(x => x || defaultValue), join(joinColumns))),
+      map(line =>
+        pipe(line)(
+          map(x => (x === undefined ? defaultValue : x)),
+          join(joinColumns),
+        ),
+      ),
       join('\n'),
     ),
   );
