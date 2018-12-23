@@ -103,6 +103,7 @@ export function aStar<DataType>(config: AStarConfig<DataType>) {
   let counter = 0;
   while (openNodes.size !== 0) {
     const node = openNodes.pop() as AStarNode<DataType>;
+    if (!openNodesByHash.has(node.hash)) continue;
     openNodesByHash.delete(node.hash);
 
     closedNodesByHash.set(node.hash, node);
@@ -119,23 +120,18 @@ export function aStar<DataType>(config: AStarConfig<DataType>) {
 
       const existingNode = openNodesByHash.get(hash);
       if (existingNode !== undefined && g >= existingNode.g) continue;
-      if (existingNode !== undefined) {
-        existingNode.g = g;
-        existingNode.previousNode = node;
-        existingNode.f = g + existingNode.h;
-      } else {
-        const h = estimateCost(currentData);
-        const neighbourNode = {
-          data: currentData,
-          f: g + h,
-          h,
-          g,
-          hash,
-          previousNode: node,
-        };
-        openNodesByHash.set(hash, neighbourNode);
-        openNodes.add(neighbourNode);
-      }
+
+      const h = estimateCost(currentData);
+      const neighbourNode = {
+        data: currentData,
+        f: g + h,
+        h,
+        g,
+        hash,
+        previousNode: node,
+      };
+      openNodesByHash.set(hash, neighbourNode);
+      openNodes.add(neighbourNode);
     }
   }
   return fail(closedNodesByHash, counter);
