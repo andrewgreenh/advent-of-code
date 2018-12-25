@@ -5,15 +5,21 @@
   "tasks": [
     {
       "label": "watch",
-      "type": "npm",
-      "script": "watch",
+      "type": "shell",
+      "command": "tsc",
+      "args": ["-w", "-p", "."],
       "presentation": {
         "echo": false,
         "reveal": "never",
         "focus": false,
         "panel": "shared",
-        "clear": false
+        "clear": true
       },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "isBackground": true,
       "runOptions": {
         "runOn": "folderOpen"
       },
