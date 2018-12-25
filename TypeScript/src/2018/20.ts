@@ -1,8 +1,8 @@
 import { uniqBy } from 'lodash';
 
-import { aStar } from '../lib/aStar';
 import getInput from '../lib/getInput';
 import { InfiniteGrid } from '../lib/InfiniteGrid';
+import { aStar } from '../lib/lazy-graph/aStar';
 import { filter } from '../lib/ts-it/filter';
 import { len } from '../lib/ts-it/len';
 import { map } from '../lib/ts-it/map';

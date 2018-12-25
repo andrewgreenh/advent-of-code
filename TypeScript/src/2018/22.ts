@@ -1,5 +1,5 @@
-import { aStar } from '../lib/aStar';
 import getInput from '../lib/getInput';
+import { LazyGraph } from '../lib/lazy-graph/LazyGraph';
 import { lines } from '../lib/ts-it/lines';
 import { numbers } from '../lib/ts-it/numbers';
 import { range } from '../lib/ts-it/range';
@@ -31,16 +31,17 @@ console.log(sum);
 
 const hashNode = (node: number[]) => node.join('---');
 const abs = Math.abs;
-const path = aStar<number[]>({
-  estimateCost: d => abs(d[0] - end[0]) + abs(d[1] - end[1]),
-  getNeighbourCost: (a, b) => (a[2] === b[2] ? 1 : 7),
+const graph = new LazyGraph<number[]>({
   getNeighbours: ([x, y, t]) => [
     [x, y, [0, 1, 2].find(i => i !== t && i !== risk([x, y]))!],
     ...[[x + 1, y, t], [x, y + 1, t], [x - 1, y, t], [x, y - 1, t]].filter(
       ([x, y, t]) => x >= 0 && y >= 0 && risk([x, y]) !== t,
     ),
   ],
-  hashData: hashNode,
+  getNeighbourCost: (a, b) => (a[2] === b[2] ? 1 : 7),
+});
+const path = graph.findPath({
+  estimateCost: d => abs(d[0] - end[0]) + abs(d[1] - end[1]),
   isEnd: node => hashNode(node) === hashNode(end),
   startNode: start,
 });

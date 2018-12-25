@@ -1,5 +1,5 @@
-import { aStar, AStarSuccessResult } from '../lib/aStar';
 import getInput from '../lib/getInput';
+import { aStar, AStarSuccessResult } from '../lib/lazy-graph/aStar';
 import { filter } from '../lib/ts-it/filter';
 import { find } from '../lib/ts-it/find';
 import { first } from '../lib/ts-it/first';
