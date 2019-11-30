@@ -39,7 +39,12 @@ describe('combinations', () => {
 
   it('should return all options, when replacement is activated', () => {
     const array = [1, 2];
-    const expected = [[1, 1], [1, 2], [2, 1], [2, 2]];
+    const expected = [
+      [1, 1],
+      [1, 2],
+      [2, 1],
+      [2, 2],
+    ];
     const actual = combinations(array, 2, true);
     expect(actual).toEqual(expected);
   });

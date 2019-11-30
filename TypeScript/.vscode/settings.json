@@ -8,7 +8,9 @@
     "**/*.js": { "when": "$(basename).ts" },
     "**/*.map": { "when": "$(basename).map" }
   },
-  "typescriptHero.resolver.resolverMode": "TypeScript",
   "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
   "typescript.tsdk": "node_modules\\typescript\\lib"
 }
