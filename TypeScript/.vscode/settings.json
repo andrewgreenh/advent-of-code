@@ -9,5 +9,6 @@
     "**/*.map": { "when": "$(basename).map" }
   },
   "typescriptHero.resolver.resolverMode": "TypeScript",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

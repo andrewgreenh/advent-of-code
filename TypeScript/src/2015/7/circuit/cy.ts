@@ -1,1 +1,1 @@
-module.exports = 1 & require('./cx')
+module.exports = 1 & require('./cx');

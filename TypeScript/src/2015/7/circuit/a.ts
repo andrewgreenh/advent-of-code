@@ -1,1 +1,1 @@
-module.exports = require('./lx')
+module.exports = require('./lx');

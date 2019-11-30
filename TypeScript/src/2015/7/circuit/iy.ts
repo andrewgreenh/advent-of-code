@@ -1,1 +1,1 @@
-module.exports = require('./iw') | require('./ix')
+module.exports = require('./iw') | require('./ix');

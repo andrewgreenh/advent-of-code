@@ -1,1 +1,1 @@
-module.exports = ~require('./cr')
+module.exports = ~require('./cr');

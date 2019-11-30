@@ -1,1 +1,1 @@
-module.exports = require('./hz') >> 1
+module.exports = require('./hz') >> 1;

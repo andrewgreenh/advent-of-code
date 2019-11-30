@@ -1,1 +1,1 @@
-module.exports = require('./hx') | require('./hy')
+module.exports = require('./hx') | require('./hy');

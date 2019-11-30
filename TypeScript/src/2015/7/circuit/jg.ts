@@ -1,1 +1,1 @@
-module.exports = require('./iu') | require('./jf')
+module.exports = require('./iu') | require('./jf');

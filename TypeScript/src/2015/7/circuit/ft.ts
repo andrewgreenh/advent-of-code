@@ -1,1 +1,1 @@
-module.exports = require('./fq') & require('./fr')
+module.exports = require('./fq') & require('./fr');

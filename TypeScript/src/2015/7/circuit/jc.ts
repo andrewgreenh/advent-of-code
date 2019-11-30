@@ -1,1 +1,1 @@
-module.exports = require('./iv') | require('./jb')
+module.exports = require('./iv') | require('./jb');

@@ -1,1 +1,1 @@
-module.exports = require('./fw') & require('./fy')
+module.exports = require('./fw') & require('./fy');

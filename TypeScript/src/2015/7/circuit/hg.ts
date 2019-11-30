@@ -1,1 +1,1 @@
-module.exports = require('./he') >> 3
+module.exports = require('./he') >> 3;

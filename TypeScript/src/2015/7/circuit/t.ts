@@ -1,1 +1,1 @@
-module.exports = require('./c') << 1
+module.exports = require('./c') << 1;

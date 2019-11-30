@@ -1,1 +1,1 @@
-module.exports = require('./ba') & require('./bc')
+module.exports = require('./ba') & require('./bc');

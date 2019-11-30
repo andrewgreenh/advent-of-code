@@ -1,1 +1,1 @@
-module.exports = require('./fm') | require('./fn')
+module.exports = require('./fm') | require('./fn');

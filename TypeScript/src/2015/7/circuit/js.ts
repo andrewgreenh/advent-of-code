@@ -1,1 +1,1 @@
-module.exports = require('./jp') >> 5
+module.exports = require('./jp') >> 5;

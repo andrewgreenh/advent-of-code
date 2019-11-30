@@ -11,7 +11,7 @@ export class LoopedList<T> {
 
   public correctIndex(index: number) {
     const l = this.items.length;
-    return index >= 0 ? index % l : ((index % l) + l) % l;
+    return index >= 0 ? index % l : (index % l + l) % l;
   }
 
   public set(index: number, value: T) {

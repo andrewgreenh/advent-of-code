@@ -1,1 +1,1 @@
-module.exports = require('./iy') & require('./ja')
+module.exports = require('./iy') & require('./ja');

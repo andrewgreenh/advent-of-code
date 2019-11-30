@@ -1,1 +1,1 @@
-module.exports = require('./t') | require('./s')
+module.exports = require('./t') | require('./s');

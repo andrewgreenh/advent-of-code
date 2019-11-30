@@ -1,1 +1,1 @@
-module.exports = require('./df') | require('./dg')
+module.exports = require('./df') | require('./dg');

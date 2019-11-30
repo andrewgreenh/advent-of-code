@@ -1,1 +1,1 @@
-module.exports = require('./bz') & require('./cb')
+module.exports = require('./bz') & require('./cb');

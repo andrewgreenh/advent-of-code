@@ -1,1 +1,1 @@
-module.exports = require('./ep') | require('./eo')
+module.exports = require('./ep') | require('./eo');

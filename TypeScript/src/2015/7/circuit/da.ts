@@ -1,1 +1,1 @@
-module.exports = require('./cz') | require('./cy')
+module.exports = require('./cz') | require('./cy');

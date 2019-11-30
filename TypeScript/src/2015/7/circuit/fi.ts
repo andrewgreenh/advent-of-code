@@ -1,1 +1,1 @@
-module.exports = require('./ff') & require('./fh')
+module.exports = require('./ff') & require('./fh');

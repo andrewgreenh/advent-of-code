@@ -1,1 +1,1 @@
-module.exports = require('./ly') | require('./lz')
+module.exports = require('./ly') | require('./lz');

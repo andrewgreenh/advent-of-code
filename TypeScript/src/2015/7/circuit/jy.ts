@@ -1,1 +1,1 @@
-module.exports = require('./jq') & require('./jw')
+module.exports = require('./jq') & require('./jw');

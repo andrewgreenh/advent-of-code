@@ -1,1 +1,1 @@
-module.exports = require('./jk') << 15
+module.exports = require('./jk') << 15;

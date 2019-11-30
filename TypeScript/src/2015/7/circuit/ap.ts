@@ -1,1 +1,1 @@
-module.exports = require('./ao') | require('./an')
+module.exports = require('./ao') | require('./an');

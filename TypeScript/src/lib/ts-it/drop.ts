@@ -3,10 +3,10 @@ import { range } from './range';
 
 export function drop<T>(count: number) {
   return function* remainingValues(iterable: Iterable<T>) {
-    const iterator = iter(iterable)
+    const iterator = iter(iterable);
     for (const i of range(0, count)) {
-      const value = iterator.next()
+      const value = iterator.next();
     }
-    yield* iterator
-  }
+    yield* iterator;
+  };
 }

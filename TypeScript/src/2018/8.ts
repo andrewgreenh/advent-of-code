@@ -22,8 +22,9 @@ const sumMeta = (node: Node) =>
 
 const weirdSum = (node: Node) =>
   node.children.length
-    ? sumBy((index: number) =>
-        node.children[index - 1] ? weirdSum(node.children[index - 1]) : 0,
+    ? sumBy(
+        (index: number) =>
+          node.children[index - 1] ? weirdSum(node.children[index - 1]) : 0,
       )(node.metadata)
     : sum(node.metadata);
 

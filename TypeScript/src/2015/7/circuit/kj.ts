@@ -1,1 +1,1 @@
-module.exports = require('./kf') << 15
+module.exports = require('./kf') << 15;

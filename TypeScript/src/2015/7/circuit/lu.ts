@@ -1,1 +1,1 @@
-module.exports = require('./lr') & require('./lt')
+module.exports = require('./lr') & require('./lt');

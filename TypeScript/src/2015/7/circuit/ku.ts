@@ -1,1 +1,1 @@
-module.exports = ~require('./kt')
+module.exports = ~require('./kt');

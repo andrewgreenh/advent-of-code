@@ -1,1 +1,1 @@
-module.exports = ~require('./ft')
+module.exports = ~require('./ft');

@@ -1,1 +1,1 @@
-module.exports = require('./kl') & require('./kr')
+module.exports = require('./kl') & require('./kr');

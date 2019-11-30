@@ -1,1 +1,1 @@
-module.exports = require('./cq') & require('./cs')
+module.exports = require('./cq') & require('./cs');

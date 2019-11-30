@@ -1,1 +1,1 @@
-module.exports = ~require('./im')
+module.exports = ~require('./im');

@@ -1,1 +1,1 @@
-module.exports = require('./lw') | require('./lv')
+module.exports = require('./lw') | require('./lv');

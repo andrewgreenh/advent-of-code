@@ -1,1 +1,1 @@
-module.exports = require('./as') >> 1
+module.exports = require('./as') >> 1;

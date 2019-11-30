@@ -1,1 +1,1 @@
-module.exports = require('./ap') << 1
+module.exports = require('./ap') << 1;

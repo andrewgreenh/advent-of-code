@@ -1,1 +1,1 @@
-module.exports = require('./kb') & require('./kd')
+module.exports = require('./kb') & require('./kd');

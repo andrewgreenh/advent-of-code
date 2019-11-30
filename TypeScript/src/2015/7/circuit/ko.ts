@@ -1,1 +1,1 @@
-module.exports = require('./km') | require('./kn')
+module.exports = require('./km') | require('./kn');

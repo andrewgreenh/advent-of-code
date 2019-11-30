@@ -1,1 +1,1 @@
-module.exports = require('./ab') & require('./ad')
+module.exports = require('./ab') & require('./ad');

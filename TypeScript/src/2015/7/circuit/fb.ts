@@ -1,1 +1,1 @@
-module.exports = require('./eu') | require('./fa')
+module.exports = require('./eu') | require('./fa');

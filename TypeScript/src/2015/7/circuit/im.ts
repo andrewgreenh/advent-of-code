@@ -1,1 +1,1 @@
-module.exports = require('./hz') & require('./ik')
+module.exports = require('./hz') & require('./ik');

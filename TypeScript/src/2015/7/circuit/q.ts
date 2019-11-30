@@ -1,1 +1,1 @@
-module.exports = ~require('./p')
+module.exports = ~require('./p');

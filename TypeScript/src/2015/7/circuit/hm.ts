@@ -1,1 +1,1 @@
-module.exports = require('./hf') | require('./hl')
+module.exports = require('./hf') | require('./hl');

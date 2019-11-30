@@ -1,1 +1,1 @@
-module.exports = ~require('./di')
+module.exports = ~require('./di');

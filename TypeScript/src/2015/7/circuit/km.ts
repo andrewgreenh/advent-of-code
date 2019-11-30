@@ -1,1 +1,1 @@
-module.exports = require('./kk') >> 3
+module.exports = require('./kk') >> 3;

@@ -1,7 +1,11 @@
 export function pipe<TInitial>(initial: TInitial) {
   function through<A>(fn0: (tinitial: TInitial) => A): A;
   function through<A, B>(fn0: (tinitial: TInitial) => A, fn1: (a: A) => B): B;
-  function through<A, B, C>(fn0: (tinitial: TInitial) => A, fn1: (a: A) => B, fn2: (b: B) => C): C;
+  function through<A, B, C>(
+    fn0: (tinitial: TInitial) => A,
+    fn1: (a: A) => B,
+    fn2: (b: B) => C,
+  ): C;
   function through<A, B, C, D>(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
@@ -240,7 +244,29 @@ export function pipe<TInitial>(initial: TInitial) {
     fn18: (r: R) => S,
     fn19: (s: S) => T,
   ): T;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,
@@ -263,7 +289,30 @@ export function pipe<TInitial>(initial: TInitial) {
     fn19: (s: S) => T,
     fn20: (t: T) => U,
   ): U;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,
@@ -287,7 +336,31 @@ export function pipe<TInitial>(initial: TInitial) {
     fn20: (t: T) => U,
     fn21: (u: U) => V,
   ): V;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,
@@ -312,7 +385,32 @@ export function pipe<TInitial>(initial: TInitial) {
     fn21: (u: U) => V,
     fn22: (v: V) => W,
   ): W;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,
@@ -338,7 +436,33 @@ export function pipe<TInitial>(initial: TInitial) {
     fn22: (v: V) => W,
     fn23: (w: W) => X,
   ): X;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X,
+    Y
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,
@@ -365,7 +489,34 @@ export function pipe<TInitial>(initial: TInitial) {
     fn23: (w: W) => X,
     fn24: (x: X) => Y,
   ): Y;
-  function through<A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z>(
+  function through<
+    A,
+    B,
+    C,
+    D,
+    E,
+    F,
+    G,
+    H,
+    I,
+    J,
+    K,
+    L,
+    M,
+    N,
+    O,
+    P,
+    Q,
+    R,
+    S,
+    T,
+    U,
+    V,
+    W,
+    X,
+    Y,
+    Z
+  >(
     fn0: (tinitial: TInitial) => A,
     fn1: (a: A) => B,
     fn2: (b: B) => C,

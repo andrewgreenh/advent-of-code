@@ -1,1 +1,1 @@
-module.exports = require('./au') | require('./av')
+module.exports = require('./au') | require('./av');

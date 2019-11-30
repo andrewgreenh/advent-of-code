@@ -1,1 +1,1 @@
-module.exports = require('./cj') & require('./cp')
+module.exports = require('./cj') & require('./cp');

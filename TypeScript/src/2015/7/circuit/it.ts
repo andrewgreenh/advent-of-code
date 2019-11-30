@@ -1,1 +1,1 @@
-module.exports = require('./ip') << 15
+module.exports = require('./ip') << 15;

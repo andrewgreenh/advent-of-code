@@ -1,1 +1,1 @@
-module.exports = require('./eg') & require('./ei')
+module.exports = require('./eg') & require('./ei');

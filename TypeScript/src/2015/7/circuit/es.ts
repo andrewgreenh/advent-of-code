@@ -1,1 +1,1 @@
-module.exports = require('./eo') << 15
+module.exports = require('./eo') << 15;

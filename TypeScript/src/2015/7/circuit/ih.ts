@@ -1,1 +1,1 @@
-module.exports = require('./ia') | require('./ig')
+module.exports = require('./ia') | require('./ig');

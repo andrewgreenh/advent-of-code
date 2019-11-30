@@ -1,1 +1,1 @@
-module.exports = require('./cy') << 15
+module.exports = require('./cy') << 15;

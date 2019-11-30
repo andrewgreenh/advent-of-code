@@ -1,1 +1,1 @@
-module.exports = require('./gf') | require('./ge')
+module.exports = require('./gf') | require('./ge');

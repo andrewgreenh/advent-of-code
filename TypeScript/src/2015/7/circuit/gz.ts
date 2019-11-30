@@ -1,1 +1,1 @@
-module.exports = 1 & require('./gy')
+module.exports = 1 & require('./gy');

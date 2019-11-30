@@ -1,1 +1,1 @@
-module.exports = require('./ex') & require('./ez')
+module.exports = require('./ex') & require('./ez');

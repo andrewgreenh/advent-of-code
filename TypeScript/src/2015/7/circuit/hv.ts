@@ -1,1 +1,1 @@
-module.exports = require('./hb') << 1
+module.exports = require('./hb') << 1;

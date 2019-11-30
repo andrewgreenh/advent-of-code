@@ -1,1 +1,1 @@
-module.exports = ~require('./iz')
+module.exports = ~require('./iz');

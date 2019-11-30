@@ -1,1 +1,1 @@
-module.exports = require('./bn') >> 3
+module.exports = require('./bn') >> 3;

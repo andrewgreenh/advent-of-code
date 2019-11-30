@@ -1,1 +1,1 @@
-module.exports = require('./lc') << 1
+module.exports = require('./lc') << 1;

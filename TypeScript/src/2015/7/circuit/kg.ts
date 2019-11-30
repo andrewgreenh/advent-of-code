@@ -1,1 +1,1 @@
-module.exports = require('./jm') << 1
+module.exports = require('./jm') << 1;

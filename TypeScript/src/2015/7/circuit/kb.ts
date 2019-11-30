@@ -1,1 +1,1 @@
-module.exports = require('./jp') | require('./ka')
+module.exports = require('./jp') | require('./ka');

@@ -1,1 +1,1 @@
-module.exports = require('./ih') & require('./ij')
+module.exports = require('./ih') & require('./ij');

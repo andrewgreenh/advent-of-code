@@ -1,1 +1,1 @@
-module.exports = ~require('./cn')
+module.exports = ~require('./cn');

@@ -1,1 +1,1 @@
-module.exports = require('./fb') & require('./fd')
+module.exports = require('./fb') & require('./fd');

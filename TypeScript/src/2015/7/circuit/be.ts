@@ -1,1 +1,1 @@
-module.exports = require('./as') | require('./bd')
+module.exports = require('./as') | require('./bd');

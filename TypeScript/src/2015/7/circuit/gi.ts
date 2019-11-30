@@ -1,1 +1,1 @@
-module.exports = require('./ge') << 15
+module.exports = require('./ge') << 15;

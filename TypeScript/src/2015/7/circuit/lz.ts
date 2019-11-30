@@ -1,1 +1,1 @@
-module.exports = require('./lv') << 15
+module.exports = require('./lv') << 15;

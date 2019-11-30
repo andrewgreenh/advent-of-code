@@ -1,1 +1,1 @@
-module.exports = ~require('./gw')
+module.exports = ~require('./gw');

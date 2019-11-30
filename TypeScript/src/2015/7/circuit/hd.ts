@@ -1,1 +1,1 @@
-module.exports = require('./gz') << 15
+module.exports = require('./gz') << 15;

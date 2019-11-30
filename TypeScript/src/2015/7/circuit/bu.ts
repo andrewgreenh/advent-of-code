@@ -1,1 +1,1 @@
-module.exports = require('./br') & require('./bt')
+module.exports = require('./br') & require('./bt');

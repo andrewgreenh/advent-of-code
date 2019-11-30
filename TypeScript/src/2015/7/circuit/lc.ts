@@ -1,1 +1,1 @@
-module.exports = require('./lb') | require('./la')
+module.exports = require('./lb') | require('./la');

@@ -1,1 +1,1 @@
-module.exports = require('./iu') >> 3
+module.exports = require('./iu') >> 3;

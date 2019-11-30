@@ -1,1 +1,1 @@
-module.exports = require('./er') | require('./es')
+module.exports = require('./er') | require('./es');

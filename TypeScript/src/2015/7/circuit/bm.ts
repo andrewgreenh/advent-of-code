@@ -1,1 +1,1 @@
-module.exports = require('./bi') << 15
+module.exports = require('./bi') << 15;

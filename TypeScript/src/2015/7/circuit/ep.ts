@@ -1,1 +1,1 @@
-module.exports = require('./dv') << 1
+module.exports = require('./dv') << 1;

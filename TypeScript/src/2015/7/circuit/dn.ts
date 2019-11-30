@@ -1,1 +1,1 @@
-module.exports = ~require('./dm')
+module.exports = ~require('./dm');

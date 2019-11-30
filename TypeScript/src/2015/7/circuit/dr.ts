@@ -1,1 +1,1 @@
-module.exports = ~require('./dq')
+module.exports = ~require('./dq');

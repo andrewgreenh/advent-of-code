@@ -1,1 +1,1 @@
-module.exports = require('./hw') << 1
+module.exports = require('./hw') << 1;

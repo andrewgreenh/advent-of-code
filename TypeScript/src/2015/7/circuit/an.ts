@@ -1,1 +1,1 @@
-module.exports = 1 & require('./am')
+module.exports = 1 & require('./am');

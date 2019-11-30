@@ -1,1 +1,1 @@
-module.exports = require('./ce') | require('./cd')
+module.exports = require('./ce') | require('./cd');

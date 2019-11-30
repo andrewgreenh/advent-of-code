@@ -114,7 +114,7 @@ class Unit {
       }),
       filter(r => r !== null),
       minBy(x => x!.cost),
-      result => first(result!.getPath()).data,
+      result => first(result!.getPath())!.data,
     );
     const [nx, ny] = next;
     const [x, y] = this.pos;

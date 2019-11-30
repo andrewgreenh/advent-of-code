@@ -29,12 +29,7 @@ function collapse(s) {
 console.log(collapse(input));
 
 const result = pipe(range(0, 26))(
-  map(s =>
-    input.replace(
-      new RegExp(String.fromCharCode(97 + s), 'gi'),
-      '',
-    ),
-  ),
+  map(s => input.replace(new RegExp(String.fromCharCode(97 + s), 'gi'), '')),
   map(without => collapse(without)),
   min,
 );

@@ -1,1 +1,1 @@
-module.exports = require('./v') | require('./w')
+module.exports = require('./v') | require('./w');

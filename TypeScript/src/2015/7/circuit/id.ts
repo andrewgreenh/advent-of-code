@@ -1,1 +1,1 @@
-module.exports = require('./ib') | require('./ic')
+module.exports = require('./ib') | require('./ic');

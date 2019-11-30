@@ -1,1 +1,1 @@
-module.exports = ~require('./fg')
+module.exports = ~require('./fg');

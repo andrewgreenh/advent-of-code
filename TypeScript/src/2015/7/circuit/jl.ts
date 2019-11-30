@@ -1,1 +1,1 @@
-module.exports = require('./ir') << 1
+module.exports = require('./ir') << 1;

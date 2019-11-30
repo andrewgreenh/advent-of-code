@@ -1,1 +1,1 @@
-module.exports = require('./ki') | require('./kj')
+module.exports = require('./ki') | require('./kj');

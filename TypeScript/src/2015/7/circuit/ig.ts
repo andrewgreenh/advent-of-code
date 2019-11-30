@@ -1,1 +1,1 @@
-module.exports = require('./id') & require('./if')
+module.exports = require('./id') & require('./if');

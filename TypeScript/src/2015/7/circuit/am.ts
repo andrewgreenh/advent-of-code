@@ -1,1 +1,1 @@
-module.exports = require('./aj') & require('./al')
+module.exports = require('./aj') & require('./al');

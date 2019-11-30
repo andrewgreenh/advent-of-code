@@ -1,1 +1,1 @@
-module.exports = 1 & require('./ds')
+module.exports = 1 & require('./ds');

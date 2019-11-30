@@ -1,1 +1,1 @@
-module.exports = require('./ci') & require('./ct')
+module.exports = require('./ci') & require('./ct');

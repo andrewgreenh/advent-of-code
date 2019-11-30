@@ -1,1 +1,1 @@
-module.exports = require('./db') | require('./dc')
+module.exports = require('./db') | require('./dc');

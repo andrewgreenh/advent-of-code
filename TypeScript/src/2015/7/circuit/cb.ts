@@ -1,1 +1,1 @@
-module.exports = ~require('./ca')
+module.exports = ~require('./ca');

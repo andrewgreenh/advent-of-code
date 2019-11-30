@@ -1,1 +1,1 @@
-module.exports = require('./jx') & require('./jz')
+module.exports = require('./jx') & require('./jz');

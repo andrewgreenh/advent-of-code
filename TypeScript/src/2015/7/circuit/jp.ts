@@ -1,1 +1,1 @@
-module.exports = require('./jn') | require('./jo')
+module.exports = require('./jn') | require('./jo');

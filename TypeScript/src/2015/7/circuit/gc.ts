@@ -1,1 +1,1 @@
-module.exports = ~require('./gb')
+module.exports = ~require('./gb');

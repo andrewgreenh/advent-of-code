@@ -1,1 +1,1 @@
-module.exports = require('./gj') >> 1
+module.exports = require('./gj') >> 1;

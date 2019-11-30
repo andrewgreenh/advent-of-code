@@ -1,1 +1,1 @@
-module.exports = require('./bj') | require('./bi')
+module.exports = require('./bj') | require('./bi');

@@ -1,1 +1,1 @@
-module.exports = require('./gr') & require('./gt')
+module.exports = require('./gr') & require('./gt');

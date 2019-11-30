@@ -1,1 +1,1 @@
-module.exports = require('./gg') << 1
+module.exports = require('./gg') << 1;

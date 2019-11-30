@@ -1,1 +1,1 @@
-module.exports = require('./x') | require('./ai')
+module.exports = require('./x') | require('./ai');

@@ -1,1 +1,1 @@
-module.exports = ~require('./ak')
+module.exports = ~require('./ak');

@@ -1,1 +1,1 @@
-module.exports = require('./jr') & require('./js')
+module.exports = require('./jr') & require('./js');

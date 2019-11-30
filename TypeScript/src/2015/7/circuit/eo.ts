@@ -1,1 +1,1 @@
-module.exports = 1 & require('./en')
+module.exports = 1 & require('./en');

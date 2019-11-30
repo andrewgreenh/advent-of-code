@@ -1,1 +1,1 @@
-module.exports = 1 & require('./cc')
+module.exports = 1 & require('./cc');

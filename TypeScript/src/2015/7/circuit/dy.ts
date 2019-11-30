@@ -1,1 +1,1 @@
-module.exports = require('./dw') | require('./dx')
+module.exports = require('./dw') | require('./dx');

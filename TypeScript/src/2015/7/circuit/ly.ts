@@ -1,1 +1,1 @@
-module.exports = require('./lf') >> 1
+module.exports = require('./lf') >> 1;

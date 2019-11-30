@@ -1,1 +1,1 @@
-module.exports = require('./cf') << 1
+module.exports = require('./cf') << 1;

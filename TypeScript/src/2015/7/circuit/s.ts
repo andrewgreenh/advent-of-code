@@ -1,1 +1,1 @@
-module.exports = 1 & require('./r')
+module.exports = 1 & require('./r');

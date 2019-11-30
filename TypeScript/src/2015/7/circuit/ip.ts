@@ -1,1 +1,1 @@
-module.exports = 1 & require('./io')
+module.exports = 1 & require('./io');

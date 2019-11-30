@@ -1,1 +1,1 @@
-module.exports = require('./hq') & require('./hs')
+module.exports = require('./hq') & require('./hs');

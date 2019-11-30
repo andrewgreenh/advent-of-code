@@ -1,1 +1,1 @@
-module.exports = require('./gl') | require('./gm')
+module.exports = require('./gl') | require('./gm');

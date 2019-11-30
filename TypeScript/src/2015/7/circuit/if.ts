@@ -1,1 +1,1 @@
-module.exports = ~require('./ie')
+module.exports = ~require('./ie');

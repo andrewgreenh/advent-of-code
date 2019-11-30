@@ -1,1 +1,1 @@
-module.exports = require('./du') | require('./dt')
+module.exports = require('./du') | require('./dt');

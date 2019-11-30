@@ -1,1 +1,1 @@
-module.exports = ~require('./ag')
+module.exports = ~require('./ag');

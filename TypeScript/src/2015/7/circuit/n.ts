@@ -1,1 +1,1 @@
-module.exports = require('./k') & require('./m')
+module.exports = require('./k') & require('./m');

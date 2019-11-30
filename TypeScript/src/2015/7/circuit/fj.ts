@@ -1,1 +1,1 @@
-module.exports = 1 & require('./fi')
+module.exports = 1 & require('./fi');

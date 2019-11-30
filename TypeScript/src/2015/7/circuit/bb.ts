@@ -1,1 +1,1 @@
-module.exports = require('./at') & require('./az')
+module.exports = require('./at') & require('./az');

@@ -1,1 +1,1 @@
-module.exports = ~require('./ls')
+module.exports = ~require('./ls');

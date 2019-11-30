@@ -1,1 +1,1 @@
-module.exports = require('./fo') >> 5
+module.exports = require('./fo') >> 5;

@@ -1,1 +1,1 @@
-module.exports = require('./iq') | require('./ip')
+module.exports = require('./iq') | require('./ip');

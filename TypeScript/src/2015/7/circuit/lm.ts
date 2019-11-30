@@ -1,1 +1,1 @@
-module.exports = require('./lj') & require('./ll')
+module.exports = require('./lj') & require('./ll');

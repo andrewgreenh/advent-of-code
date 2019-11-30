@@ -1,1 +1,1 @@
-module.exports = require('./cd') << 15
+module.exports = require('./cd') << 15;

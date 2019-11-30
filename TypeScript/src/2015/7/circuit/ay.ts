@@ -1,1 +1,1 @@
-module.exports = ~require('./ax')
+module.exports = ~require('./ax');

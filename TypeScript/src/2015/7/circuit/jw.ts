@@ -1,1 +1,1 @@
-module.exports = require('./jt') & require('./jv')
+module.exports = require('./jt') & require('./jv');

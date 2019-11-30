@@ -1,1 +1,1 @@
-module.exports = require('./hg') | require('./hh')
+module.exports = require('./hg') | require('./hh');

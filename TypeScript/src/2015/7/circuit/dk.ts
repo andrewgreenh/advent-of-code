@@ -1,1 +1,1 @@
-module.exports = require('./dh') & require('./dj')
+module.exports = require('./dh') & require('./dj');

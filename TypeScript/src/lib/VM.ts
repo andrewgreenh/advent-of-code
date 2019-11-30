@@ -1,76 +1,86 @@
-import * as _ from 'lodash'
-import { lines } from './ts-it/lines'
+import * as _ from 'lodash';
+import { lines } from './ts-it/lines';
 
 const defaultInstructionSet = {
   set: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(a, vmState.registers.get(b))
-    vmState.index++
+    vmState.registers.set(a, vmState.registers.get(b));
+    vmState.index++;
   },
   add: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(a, vmState.registers.get(a) + vmState.registers.get(b))
-    vmState.index++
+    vmState.registers.set(
+      a,
+      vmState.registers.get(a) + vmState.registers.get(b),
+    );
+    vmState.index++;
   },
   mul: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(a, vmState.registers.get(a) * vmState.registers.get(b))
-    vmState.index++
+    vmState.registers.set(
+      a,
+      vmState.registers.get(a) * vmState.registers.get(b),
+    );
+    vmState.index++;
   },
   mod: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(a, vmState.registers.get(a) % vmState.registers.get(b))
-    vmState.index++
+    vmState.registers.set(
+      a,
+      vmState.registers.get(a) % vmState.registers.get(b),
+    );
+    vmState.index++;
   },
   jgz: ([a, b]) => (vmState: VMState) => {
-    if (vmState.registers.get(a) > 0) vmState.index += vmState.registers.get(b)
-    else vmState.index++
+    if (vmState.registers.get(a) > 0) vmState.index += vmState.registers.get(b);
+    else vmState.index++;
   },
   jnz: ([a, b]) => (vmState: VMState) => {
-    if (vmState.registers.get(a) !== 0) vmState.index += vmState.registers.get(b)
-    else vmState.index++
+    if (vmState.registers.get(a) !== 0)
+      vmState.index += vmState.registers.get(b);
+    else vmState.index++;
   },
-}
+};
 
 export class Registers {
-  private state: object = {}
+  private state: object = {};
   constructor(initializer: object, private defaultValue: any = 0) {
-    this.state = initializer
+    this.state = initializer;
   }
 
   public get(numberOrRegName: string) {
     return !_.isNaN(+numberOrRegName)
       ? +numberOrRegName
-      : this.state[numberOrRegName] || this.defaultValue
+      : this.state[numberOrRegName] || this.defaultValue;
   }
 
   public set(name: string, value: any) {
-    this.state[name] = value
+    this.state[name] = value;
   }
 
   public plain() {
-    return this.state
+    return this.state;
   }
 }
 
 export interface VMState {
-  registers: Registers
-  index: number
-  customState: {}
+  registers: Registers;
+  index: number;
+  customState: {};
 }
 
 export interface InstructionSet {
-  [key: string]: (args: any[]) => (state: VMState) => void
+  [key: string]: (args: any[]) => (state: VMState) => void;
 }
 
 export interface Handlers {
-  onDone: (vmState: VMState) => void
-  canStep: (vmState: VMState) => boolean | undefined
-  onStep: (vmState: VMState) => void
-  onAfterStep: (vmState: VMState) => void
+  onDone: (vmState: VMState) => void;
+  canStep: (vmState: VMState) => boolean | undefined;
+  onStep: (vmState: VMState) => void;
+  onAfterStep: (vmState: VMState) => void;
 }
 
 export class VM {
-  private vmState: VMState
-  private instructions: string[]
-  private instructionSet: InstructionSet
-  private handlers: Handlers
+  private vmState: VMState;
+  private instructions: string[];
+  private instructionSet: InstructionSet;
+  private handlers: Handlers;
 
   constructor(
     instructionSet: InstructionSet,
@@ -81,33 +91,33 @@ export class VM {
     initialCustomState: object = {},
     handlers?: Handlers,
   ) {
-    this.instructionSet = _.defaults(instructionSet, defaultInstructionSet)
+    this.instructionSet = _.defaults(instructionSet, defaultInstructionSet);
     this.vmState = {
       registers: new Registers(registerInitializer, defaultRegisterValue),
       index: initialIndex,
       customState: initialIndex,
-    }
-    this.instructions = [...lines(input)]
+    };
+    this.instructions = [...lines(input)];
     this.handlers = _.defaults(handlers, {
       onDone: _.noop,
       canStep: _.constant(true),
       onStep: _.noop,
       onAfterStep: _.noop,
-    })
+    });
   }
 
   public step() {
-    this.handlers.onStep(this.vmState)
-    if (!this.handlers.canStep(this.vmState)) return
-    let instruction = this.instructions[this.vmState.index]
-    if (!instruction) return this.handlers.onDone(this.vmState)
-    let [name, ...args] = instruction.split(' ')
-    this.instructionSet[name](args)(this.vmState)
-    this.handlers.onAfterStep(this.vmState)
+    this.handlers.onStep(this.vmState);
+    if (!this.handlers.canStep(this.vmState)) return;
+    let instruction = this.instructions[this.vmState.index];
+    if (!instruction) return this.handlers.onDone(this.vmState);
+    let [name, ...args] = instruction.split(' ');
+    this.instructionSet[name](args)(this.vmState);
+    this.handlers.onAfterStep(this.vmState);
   }
 
   public getState() {
-    return this.vmState
+    return this.vmState;
   }
 }
 

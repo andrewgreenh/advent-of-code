@@ -1,1 +1,1 @@
-module.exports = require('./dd') & require('./do')
+module.exports = require('./dd') & require('./do');

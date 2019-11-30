@@ -1,1 +1,1 @@
-module.exports = require('./is') | require('./it')
+module.exports = require('./is') | require('./it');

@@ -1,1 +1,1 @@
-module.exports = ~require('./gs')
+module.exports = ~require('./gs');

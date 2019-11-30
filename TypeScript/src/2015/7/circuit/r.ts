@@ -1,1 +1,1 @@
-module.exports = require('./o') & require('./q')
+module.exports = require('./o') & require('./q');

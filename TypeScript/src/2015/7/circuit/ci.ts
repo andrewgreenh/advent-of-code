@@ -1,1 +1,1 @@
-module.exports = require('./cg') | require('./ch')
+module.exports = require('./cg') | require('./ch');

@@ -1,1 +1,1 @@
-module.exports = require('./an') << 15
+module.exports = require('./an') << 15;

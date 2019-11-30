@@ -1,1 +1,1 @@
-module.exports = require('./kg') | require('./kf')
+module.exports = require('./kg') | require('./kf');

@@ -1,1 +1,1 @@
-module.exports = ~require('./lk')
+module.exports = ~require('./lk');

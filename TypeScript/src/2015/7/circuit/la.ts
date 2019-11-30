@@ -1,1 +1,1 @@
-module.exports = 1 & require('./kz')
+module.exports = 1 & require('./kz');

@@ -1,1 +1,1 @@
-module.exports = ~require('./jy')
+module.exports = ~require('./jy');

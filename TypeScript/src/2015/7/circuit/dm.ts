@@ -1,1 +1,1 @@
-module.exports = require('./de') & require('./dk')
+module.exports = require('./de') & require('./dk');

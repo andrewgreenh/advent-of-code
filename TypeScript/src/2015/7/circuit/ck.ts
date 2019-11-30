@@ -1,1 +1,1 @@
-module.exports = require('./ci') >> 3
+module.exports = require('./ci') >> 3;

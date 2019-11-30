@@ -1,1 +1,1 @@
-module.exports = ~require('./fc')
+module.exports = ~require('./fc');
