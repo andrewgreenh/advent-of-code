@@ -8,7 +8,7 @@ import { join } from '../lib/ts-it/join';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 import { pipe } from '../lib/ts-it/pipe';
 import { zip } from '../lib/ts-it/zip';
-import { typesafeValues } from '../lib/utils';
+import { values } from '../lib/utils';
 
 const input = getInput(2, 2018);
 const lines = iterable(() => stringToLines(input));
@@ -16,7 +16,7 @@ const lines = iterable(() => stringToLines(input));
 let sumDoubles = 0;
 let sumTriples = 0;
 for (const line of lines) {
-  const counts = pipe(line)(countBy(), typesafeValues);
+  const counts = pipe(line)(countBy(), values);
   if (counts.includes(2)) sumDoubles++;
   if (counts.includes(3)) sumTriples++;
 }

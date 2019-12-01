@@ -6,13 +6,13 @@ export function whenPresent<T, R>(
   return then(value);
 }
 
-export function typesafeKeys<ObjectType extends {}>(
+export function keys<ObjectType extends {}>(
   o: ObjectType,
 ): (keyof ObjectType)[] {
   return Object.keys(o) as (keyof ObjectType)[];
 }
 
-export function typesafeValues<ObjectType extends {}>(
+export function values<ObjectType extends {}>(
   o: ObjectType,
 ): ObjectType[keyof ObjectType][] {
   return Object.values(o) as ObjectType[keyof ObjectType][];

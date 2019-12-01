@@ -6,7 +6,7 @@ import { len } from '../ts-it/len';
 import { map } from '../ts-it/map';
 import { min } from '../ts-it/min';
 import { pipe } from '../ts-it/pipe';
-import { typesafeValues } from '../utils';
+import { values } from '../utils';
 import { aStar, AStarConfig } from './aStar';
 
 export interface LazyGraphConfig<DataType> {
@@ -77,7 +77,7 @@ export class LazyGraph<DataType> {
       const next = tieBraker(candidates);
       yield next;
       pipe(predecessorsHashesByHash)(
-        typesafeValues,
+        values,
         forEach(s => s.delete(hashData(next))),
       );
 

@@ -550,3 +550,5 @@ export function pipe<TInitial>(initial: TInitial) {
   }
   return through;
 }
+
+export const p = pipe;

@@ -7,13 +7,14 @@ import { lines as stringToLines } from '../lib/ts-it/lines';
 import { maxBy } from '../lib/ts-it/maxBy';
 import { numbers } from '../lib/ts-it/numbers';
 import { toPairs } from '../lib/ts-it/pairs';
-import { pipe } from '../lib/ts-it/pipe';
+import { p } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 import { sort } from '../lib/ts-it/sort';
 import { sum } from '../lib/ts-it/sum';
+import { keys } from '../lib/utils';
 
 const input = getInput(4, 2018);
-const lines = iterable(() => pipe(input)(stringToLines, sort()));
+const lines = iterable(() => p(input)(stringToLines, sort()));
 
 let sleepMinutesByGuard = DefaultDict(() => new Array<number>(60).fill(0));
 let currentGuard: number | null = null;
@@ -30,32 +31,20 @@ for (const line of lines) {
   }
 }
 
-const guard = +pipe(sleepMinutesByGuard)(
+const guard = +p(sleepMinutesByGuard)(
   toPairs,
   maxBy(g => sum(g[1])),
 )![0];
 
-const maxMinute = pipe(sleepMinutesByGuard[guard])(
+const maxMinute = p(sleepMinutesByGuard[guard])(
   enumerate,
   maxBy(x => x[1]),
 )![0];
 console.log(maxMinute * guard);
 
-let guardId = '';
-let minute = -1;
-let asleepFor = 0;
+const combinations = cross(keys(sleepMinutesByGuard), range(0, 60));
+const [guardId, minute] = p(combinations)(
+  maxBy(([guardId, minute]) => sleepMinutesByGuard[guardId][minute]),
+)!;
 
-for (let i of range(0, 60)) {
-  const worstGuard = pipe(sleepMinutesByGuard)(
-    toPairs,
-    maxBy(g => g[1][i]),
-  )!;
-  if (worstGuard[1][i] >= asleepFor) {
-    guardId = worstGuard[0];
-    minute = i;
-    asleepFor = worstGuard[1][i];
-  }
-}
 console.log(+guardId * minute);
-
-for (let i of cross(range(0, 10), range(0, 10))) console.log(i);

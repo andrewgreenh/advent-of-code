@@ -1,9 +1,9 @@
-import { typesafeKeys } from '../utils';
+import { keys } from '../utils';
 
 export function toPairs<Object>(
   o: Object,
 ): ReadonlyArray<Readonly<[keyof Object, Object[keyof Object]]>> {
-  return typesafeKeys(o).map(key => [key, o[key]] as const);
+  return keys(o).map(key => [key, o[key]] as const);
 }
 
 export function fromPairs<Tuple extends [any, any]>(
