@@ -1,4 +1,4 @@
-import { alwaysFirst } from '../ts-it/first';
+import { firstOrFail } from '../ts-it/first';
 import { sort } from '../ts-it/sort';
 import { toArray } from '../ts-it/toArray';
 import { whenPresent } from '../utils';
@@ -47,7 +47,7 @@ describe('lazy-graph', () => {
 
       const actualOrder = toArray(
         lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], chars =>
-          alwaysFirst(sort<string>()(chars)),
+          firstOrFail(sort<string>()(chars)),
         ),
       );
 
@@ -71,7 +71,7 @@ describe('lazy-graph', () => {
 
       const actualOrder = toArray(
         lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], chars =>
-          alwaysFirst(sort<string>()(chars)),
+          firstOrFail(sort<string>()(chars)),
         ),
       );
 

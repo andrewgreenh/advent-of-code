@@ -7,7 +7,7 @@ export function last<T>(iter: Iterable<T>): T | undefined {
   return result;
 }
 
-export function alwaysLast<T>(iterableWithAtLeastOneElement: Iterable<T>): T {
+export function lastOrFail<T>(iterableWithAtLeastOneElement: Iterable<T>): T {
   if (Array.isArray(iterableWithAtLeastOneElement))
     return iterableWithAtLeastOneElement[
       iterableWithAtLeastOneElement.length - 1

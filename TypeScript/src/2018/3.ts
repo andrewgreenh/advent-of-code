@@ -1,33 +1,48 @@
 import getInput from '../lib/getInput';
-import { filter } from '../lib/ts-it/filter';
+import { InfiniteGrid } from '../lib/InfiniteGrid';
+import { countIf } from '../lib/ts-it/countIf';
+import { every } from '../lib/ts-it/every';
+import { findOrFail } from '../lib/ts-it/find';
 import { first } from '../lib/ts-it/first';
 import { flatten } from '../lib/ts-it/flatten';
-import { len } from '../lib/ts-it/len';
+import { iterable } from '../lib/ts-it/iterable';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
-import { range } from '../lib/ts-it/range';
-import { toGrid } from '../lib/ts-it/toGrid';
+import { rectangle } from '../lib/ts-it/rectCoords';
 
 const input = getInput(3, 2018);
-const claims = pipe(input)(stringToLines, map(numbers));
+const lines = iterable(() => stringToLines(input));
 
-const n = 1000;
-const grid = toGrid(n)(Array(n * n));
-const overlapped = new Set();
+let grid = new InfiniteGrid<number, number>(() => 0);
 
-for (const [id, left, top, width, height] of claims) {
-  for (const x of range(left, left + width)) {
-    for (const y of range(top, top + height)) {
-      if (grid[y][x]) {
-        overlapped.add(grid[y][x]);
-        overlapped.add(id);
-        grid[y][x] = Infinity;
-      } else grid[y][x] = id;
+for (const line of lines) {
+  const [, x, y, w, h] = numbers(line);
+  for (let i = x; i < x + w; i++) {
+    for (let j = y; j < y + h; j++) {
+      const current = grid.get([i, j]);
+      grid.set([i, j], current + 1);
     }
   }
 }
-console.log(pipe(grid)(flatten, filter(x => x === Infinity), len));
 
-console.log(pipe(grid)(flatten, filter(x => x && !overlapped.has(x)), first));
+console.log(
+  pipe(grid)(
+    g => g.toGrid(),
+    _ => flatten<number>(_),
+    countIf(n => !!n && n > 1),
+  ),
+);
+
+console.log(
+  pipe(lines)(
+    map(numbers),
+    findOrFail(([, x, y, w, h]) =>
+      pipe(rectangle(x, x + w, y, y + h))(
+        every(([x, y]) => grid.get([x, y]) === 1),
+      ),
+    ),
+    first,
+  ),
+);

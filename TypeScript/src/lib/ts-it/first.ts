@@ -7,7 +7,7 @@ export function first<T>(iterable: Iterable<T>) {
   return next.value;
 }
 
-export function alwaysFirst<T>(iterableWithAtLeastOneElement: Iterable<T>) {
+export function firstOrFail<T>(iterableWithAtLeastOneElement: Iterable<T>) {
   let iterator = iter(iterableWithAtLeastOneElement);
   const next = iterator.next();
   if (next.done) throw new Error('No elements in iterable');

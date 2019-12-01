@@ -1,6 +1,6 @@
 import { DefaultDict } from '../DefaultDict';
 import { filter } from '../ts-it/filter';
-import { alwaysFirst } from '../ts-it/first';
+import { firstOrFail } from '../ts-it/first';
 import { forEach } from '../ts-it/forEach';
 import { len } from '../ts-it/len';
 import { map } from '../ts-it/map';
@@ -46,7 +46,7 @@ export class LazyGraph<DataType> {
 
   *topologicalSort(
     nodes: Iterable<DataType>,
-    tieBraker: (iter: Iterable<DataType>) => DataType = alwaysFirst,
+    tieBraker: (iter: Iterable<DataType>) => DataType = firstOrFail,
   ): Generator<DataType> {
     const { hashData, getNeighbours } = this.config;
 

@@ -4,7 +4,7 @@
     "moduleResolution": "node",
     "sourceMap": true,
     "strict": true,
-    "target": "es2018",
+    "target": "esnext",
     "noImplicitAny": false
   }
 }

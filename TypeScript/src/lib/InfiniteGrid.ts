@@ -9,7 +9,7 @@ interface Vector {
   [Symbol.iterator](): IterableIterator<number>;
 }
 
-export class InfiniteGrid<CellType> {
+export class InfiniteGrid<CellType, DefaultType = undefined> {
   private grid: {
     [key: string]: CellType | undefined;
   } = {};
@@ -17,6 +17,10 @@ export class InfiniteGrid<CellType> {
   public minX = Infinity;
   public maxY = -Infinity;
   public minY = Infinity;
+
+  public constructor(
+    private defaultFactory: (p: Vector) => DefaultType = () => undefined as any,
+  ) {}
 
   private getId([x, y]: Vector) {
     return `${x}-${y}`;
@@ -33,12 +37,16 @@ export class InfiniteGrid<CellType> {
   }
 
   public get(p: Vector) {
-    return this.grid[this.getId(p)];
+    const id = this.getId(p);
+    if (!(id in this.grid)) {
+      this.set(p, this.defaultFactory(p) as any);
+    }
+    return this.grid[id] as CellType | DefaultType;
   }
 
   public *neighbours(p: Vector) {
     const neighbourVectors = [...this.neighbourVectors(p)];
-    yield* map<Vector, CellType | undefined>(p => this.get(p))(
+    yield* map<Vector, CellType | DefaultType>(p => this.get(p))(
       neighbourVectors,
     );
   }
@@ -64,8 +72,8 @@ export class InfiniteGrid<CellType> {
     }
   }
 
-  public toGrid(): (CellType | undefined)[][] {
-    let grid: (CellType | undefined)[][] = [];
+  public toGrid(): (CellType | DefaultType)[][] {
+    let grid: (CellType | DefaultType)[][] = [];
     for (const [yi, y] of enumerate(range(this.minY, this.maxY + 1))) {
       for (const [xi, x] of enumerate(range(this.minX, this.maxX + 1))) {
         if (!grid[yi]) grid[yi] = [];
