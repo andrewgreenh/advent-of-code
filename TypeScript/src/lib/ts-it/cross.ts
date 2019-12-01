@@ -7,6 +7,7 @@ export function* cross<Iterables extends Iterable<any>[]>(
       : never;
   }
 > {
+  console.log(iterables);
   const [first, ...rest] = iterables;
   if (iterables.length === 1) {
     for (const i of first) yield [i] as any;

@@ -1,5 +1,6 @@
 import { DefaultDict } from '../lib/DefaultDict';
 import getInput from '../lib/getInput';
+import { cross } from '../lib/ts-it/cross';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { iterable } from '../lib/ts-it/iterable';
 import { lines as stringToLines } from '../lib/ts-it/lines';
@@ -56,3 +57,5 @@ for (let i of range(0, 60)) {
   }
 }
 console.log(+guardId * minute);
+
+for (let i of cross(range(0, 10), range(0, 10))) console.log(i);
