@@ -1,7 +1,9 @@
-export function iterable<T>(generator: () => IterableIterator<T>): Iterable<T> {
+import { iter } from './iter';
+
+export function iterable<T>(generator: () => Iterable<T>): Iterable<T> {
   return {
     [Symbol.iterator]() {
-      return generator();
+      return iter(generator());
     },
   };
 }

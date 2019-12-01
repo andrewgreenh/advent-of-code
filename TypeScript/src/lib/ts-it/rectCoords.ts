@@ -1,9 +1,15 @@
+import { cross } from './cross';
 import { range } from './range';
 
-export function* rectangle(fromX, toX, fromY, toY) {
-  for (const x of range(fromX, toX)) {
-    for (const y of range(fromY, toY)) {
-      yield [x, y];
-    }
-  }
+export function rectangle(
+  fromX: number,
+  toX: number,
+  fromY: number,
+  toY: number,
+) {
+  return {
+    *[Symbol.iterator]() {
+      yield* cross(range(fromX, toX), range(fromY, toY));
+    },
+  };
 }
