@@ -1,27 +1,31 @@
 import getInput from '../lib/getInput';
 import { combinations } from '../lib/ts-it/combinations';
 import { countBy } from '../lib/ts-it/countBy';
-import { find } from '../lib/ts-it/find';
+import { countIf } from '../lib/ts-it/countIf';
+import { findOrFail } from '../lib/ts-it/find';
 import { iterable } from '../lib/ts-it/iterable';
+import { join } from '../lib/ts-it/join';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 import { pipe } from '../lib/ts-it/pipe';
-import { sumBy } from '../lib/ts-it/sumBy';
 import { zip } from '../lib/ts-it/zip';
+import { typesafeValues } from '../lib/utils';
 
 const input = getInput(2, 2018);
-const ids = iterable(() => stringToLines(input));
+const lines = iterable(() => stringToLines(input));
 
-let twoLetters = 0;
-let threeLetters = 0;
-for (const id of ids) {
-  const counts = pipe(id)(countBy(), Object.values);
-  if (counts.includes(2)) twoLetters++;
-  if (counts.includes(3)) threeLetters++;
+let sumDoubles = 0;
+let sumTriples = 0;
+for (const line of lines) {
+  const counts = pipe(line)(countBy(), typesafeValues);
+  if (counts.includes(2)) sumDoubles++;
+  if (counts.includes(3)) sumTriples++;
 }
-console.log(twoLetters * threeLetters);
+console.log(sumDoubles * sumTriples);
 
-const idPairs = pipe(ids)(combinations(2));
-const similar = pipe(idPairs)(
-  find(([a, b]) => pipe(zip(a, b))(sumBy(([a, b]) => (a === b ? 0 : 1))) === 1),
+console.log(
+  pipe(lines)(
+    combinations(2, false),
+    findOrFail(([a, b]) => pipe(zip(a, b))(countIf(([a, b]) => a !== b)) === 1),
+    join('\n'),
+  ),
 );
-console.log(similar);
