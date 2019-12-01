@@ -43,6 +43,7 @@ console.log(maxMinute * guard);
 let guardId = '';
 let minute = -1;
 let asleepFor = 0;
+
 for (let i of range(0, 60)) {
   const worstGuard = pipe(sleepMinutesByGuard)(
     toPairs,
