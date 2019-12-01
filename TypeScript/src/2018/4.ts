@@ -1,81 +1,57 @@
-import { format, getMinutes } from 'date-fns';
-
+import { DefaultDict } from '../lib/DefaultDict';
 import getInput from '../lib/getInput';
-import { flatten } from '../lib/ts-it/flatten';
+import { enumerate } from '../lib/ts-it/enumerate';
 import { iterable } from '../lib/ts-it/iterable';
 import { lines as stringToLines } from '../lib/ts-it/lines';
-import { map } from '../lib/ts-it/map';
 import { maxBy } from '../lib/ts-it/maxBy';
 import { numbers } from '../lib/ts-it/numbers';
+import { toPairs } from '../lib/ts-it/pairs';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 import { sort } from '../lib/ts-it/sort';
 import { sum } from '../lib/ts-it/sum';
-import { sumBy } from '../lib/ts-it/sumBy';
 
 const input = getInput(4, 2018);
-const lines = iterable(() =>
-  pipe(input)(
-    stringToLines,
-    sort((a, b) => (a < b ? -1 : 1)),
-    map(line => {
-      const [, date, command] = line.match(
-        /(\d{4}-\d{2}-\d{2} \d{2}:\d{2})] (.*)/,
-      )!;
-      const d = new Date(date);
-      return {
-        command,
-        day: format(d, 'MM-DD'),
-        minutes: getMinutes(d),
-      };
-    }),
-  ),
-);
+const lines = iterable(() => pipe(input)(stringToLines, sort()));
 
-let minutesPerGuardPerDay: Record<string, Record<string, number[]>> = {};
-let activeGuard = -1;
+let sleepMinutesByGuard = DefaultDict(() => new Array<number>(60).fill(0));
+let currentGuard: number | null = null;
+let fellAsleepAt = 0;
 for (const line of lines) {
-  if (line.command.includes('begins shift')) {
-    activeGuard = numbers(line.command)[0];
-    continue;
-  }
-  if (!minutesPerGuardPerDay[activeGuard])
-    minutesPerGuardPerDay[activeGuard] = {};
-
-  if (!minutesPerGuardPerDay[activeGuard][line.day])
-    minutesPerGuardPerDay[activeGuard][line.day] = [];
-  const sleepValue = line.command.includes('wakes up') ? 0 : 1;
-  for (const time of range(line.minutes, 60)) {
-    minutesPerGuardPerDay[activeGuard][line.day][time] = sleepValue;
+  const [year, month, day, hour, minute, guardId] = numbers(line);
+  if (guardId) currentGuard = guardId;
+  if (line.includes('falls')) fellAsleepAt = minute;
+  if (line.includes('wakes')) {
+    for (let i of range(fellAsleepAt, minute)) {
+      sleepMinutesByGuard[currentGuard!][i] += 1;
+    }
+    fellAsleepAt = 0;
   }
 }
 
-const guards = iterable(() =>
-  pipe(minutesPerGuardPerDay)(
-    Object.entries,
-    map(([id, sleepTimesPerDay]: [string, Record<string, number[]>]) => ({
-      id,
-      totalSleepTime: sum(flatten(Object.values(sleepTimesPerDay))),
-      maxMinutes: getMinuteMax(sleepTimesPerDay),
-    })),
-  ),
-);
+const guard = +pipe(sleepMinutesByGuard)(
+  toPairs,
+  maxBy(g => sum(g[1])),
+)![0];
 
-const strategy1 = pipe(guards)(maxBy(guard => guard.totalSleepTime))!;
-console.log(+strategy1.id * strategy1.maxMinutes.minute);
+const maxMinute = pipe(sleepMinutesByGuard[guard])(
+  enumerate,
+  maxBy(x => x[1]),
+)![0];
+console.log(maxMinute * guard);
 
-const strategy2 = pipe(guards)(maxBy(guard => guard.maxMinutes.sleepCounts))!;
-console.log(+strategy2.id * strategy2.maxMinutes.minute);
-
-function getMinuteMax(sleepTimesPerDay) {
-  return pipe(range(0, 60))(
-    map(minute => ({
-      minute,
-      sleepCounts: pipe(sleepTimesPerDay)(
-        Object.values,
-        sumBy(times => times[minute]),
-      ),
-    })),
-    maxBy(m => m.sleepCounts),
+let guardId = '';
+let minute = -1;
+let asleepFor = 0;
+for (let i of range(0, 60)) {
+  const worstGuard = pipe(sleepMinutesByGuard)(
+    toPairs,
+    maxBy(g => g[1][i]),
   )!;
+  if (worstGuard[1][i] >= asleepFor) {
+    guardId = worstGuard[0];
+    minute = i;
+    asleepFor = worstGuard[1][i];
+  }
 }
+console.log(+guardId * minute);

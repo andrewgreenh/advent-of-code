@@ -9,7 +9,7 @@ import { iterable } from '../lib/ts-it/iterable';
 import { lines as stringToLines } from '../lib/ts-it/lines';
 
 const input = getInput(${+day}, ${year});
-const lines = iterable(() => stringToLines(input));
+const lines = iterable(() => pipe(input)(stringToLines));
 
 let result
 for (const line of lines) {
