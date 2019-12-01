@@ -1,5 +1,5 @@
-import { any } from './ts-it/any';
-import { range } from './ts-it/range';
+import { any } from '../ts-it/any';
+import { range } from '../ts-it/range';
 
 export function isPrime(number: number) {
   number = Math.abs(number);

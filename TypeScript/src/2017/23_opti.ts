@@ -1,4 +1,4 @@
-import { isPrime } from '../lib/isPrime';
+import { isPrime } from '../lib/math/isPrime';
 import { len } from '../lib/ts-it/len';
 import { range } from '../lib/ts-it/range';
 import { reject } from '../lib/ts-it/reject';
