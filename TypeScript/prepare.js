@@ -7,9 +7,10 @@ const year = process.argv[3];
 const content = `import getInput from '../lib/getInput'
 import { iterable } from '../lib/ts-it/iterable';
 import { lines as stringToLines } from '../lib/ts-it/lines';
+import { p } from '../lib/ts-it/pipe';
 
 const input = getInput(${+day}, ${year});
-const lines = iterable(() => pipe(input)(stringToLines));
+const lines = iterable(() => p(input)(stringToLines));
 
 let result
 for (const line of lines) {

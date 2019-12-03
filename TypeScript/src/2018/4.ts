@@ -16,7 +16,7 @@ import { keys } from '../lib/utils';
 const input = getInput(4, 2018);
 const lines = iterable(() => p(input)(stringToLines, sort()));
 
-let sleepMinutesByGuard = DefaultDict(() => new Array<number>(60).fill(0));
+let minsByGuard = DefaultDict(() => new Array<number>(60).fill(0));
 let currentGuard: number | null = null;
 let fellAsleepAt = 0;
 for (const line of lines) {
@@ -25,26 +25,26 @@ for (const line of lines) {
   if (line.includes('falls')) fellAsleepAt = minute;
   if (line.includes('wakes')) {
     for (let i of range(fellAsleepAt, minute)) {
-      sleepMinutesByGuard[currentGuard!][i] += 1;
+      minsByGuard[currentGuard!][i] += 1;
     }
     fellAsleepAt = 0;
   }
 }
 
-const guard = +p(sleepMinutesByGuard)(
+const guard = +p(minsByGuard)(
   toPairs,
   maxBy(g => sum(g[1])),
 )![0];
 
-const maxMinute = p(sleepMinutesByGuard[guard])(
+const maxMinute = p(minsByGuard[guard])(
   enumerate,
   maxBy(x => x[1]),
 )![0];
 console.log(maxMinute * guard);
 
-const combinations = cross(keys(sleepMinutesByGuard), range(0, 60));
+const combinations = cross(keys(minsByGuard), range(0, 60));
 const [guardId, minute] = p(combinations)(
-  maxBy(([guardId, minute]) => sleepMinutesByGuard[guardId][minute]),
+  maxBy(([guardId, minute]) => minsByGuard[guardId][minute]),
 )!;
 
 console.log(+guardId * minute);
