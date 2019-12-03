@@ -1,3 +1,5 @@
+import 'lodash';
+
 type ResultType = unknown;
 type ParsingResult = [ResultType[], string] | Failure;
 type Failure = 'FAILURE';
@@ -65,10 +67,18 @@ const transform = (p: Parser) => <TTo extends any[]>(
 };
 
 const zeroOrMore = (parser: Parser): Parser =>
-  optional(sequenceOf(parser, lazy(() => zeroOrMore(parser))));
+  optional(
+    sequenceOf(
+      parser,
+      lazy(() => zeroOrMore(parser)),
+    ),
+  );
 
 const onceOrMore = (parser: Parser): Parser =>
-  sequenceOf(parser, lazy(() => zeroOrMore(parser)));
+  sequenceOf(
+    parser,
+    lazy(() => zeroOrMore(parser)),
+  );
 
 const or = (...parsers: Parser[]): Parser => input => {
   for (const parser of parsers) {

@@ -3,7 +3,7 @@ import { enumerate } from './ts-it/enumerate';
 import { map } from './ts-it/map';
 import { range } from './ts-it/range';
 
-interface Vector {
+export interface Vector extends ReadonlyArray<number> {
   [0]: number;
   [1]: number;
   [Symbol.iterator](): IterableIterator<number>;
