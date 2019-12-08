@@ -1,7 +1,10 @@
 import getInput from '../lib/getInput';
+import { chunk } from '../lib/ts-it/chunk';
 import { countBy } from '../lib/ts-it/countBy';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { flatten } from '../lib/ts-it/flatten';
+import { iterable } from '../lib/ts-it/iterable';
+import { map } from '../lib/ts-it/map';
 import { minBy } from '../lib/ts-it/minBy';
 import { p } from '../lib/ts-it/pipe';
 import { printGrid } from '../lib/ts-it/printGrid';
@@ -10,33 +13,14 @@ const data = getInput(8, 2019)
   .split('')
   .map(Number);
 
-const rowCount = 6;
-const columnCount = 25;
-const img = [] as number[][][];
-
-for (let [i, n] of enumerate(data)) {
-  let l = Math.floor(i / (rowCount * columnCount));
-  let r = Math.floor(i / columnCount) % rowCount;
-  let c = Math.floor(i % columnCount);
-
-  if (!img[l]) img[l] = [];
-  if (!img[l][r]) img[l][r] = [];
-  img[l][r][c] = n;
-}
+const rows = 6;
+const cols = 25;
+let img = iterable(() => p(data)(chunk(rows * cols), map(chunk(cols))));
 
 let a = p(img)(
-  minBy(l =>
-    p(l)(
-      x => flatten<number>(x),
-      countBy(),
-      x => x[0],
-    ),
-  ),
-  l => {
-    const nums = flatten<number>(l!);
-    const counts = countBy()(nums);
-    return counts[1] * counts[2];
-  },
+  map(x => countBy()(flatten<number>(x))),
+  minBy(l => l[0]),
+  l => l![1] * l![2],
 );
 console.log(a);
 

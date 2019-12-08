@@ -2,7 +2,6 @@ import { zip } from './zip';
 
 export function minBy<T>(iteratee: (value: T) => number | number[]) {
   return function min(iter: Iterable<T>) {
-    debugger;
     let min: number | number[] | null = null;
     let minValue: T | undefined = undefined;
     for (let value of iter) {
