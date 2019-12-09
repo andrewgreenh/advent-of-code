@@ -1,6 +1,7 @@
 export class IntCodeComputer {
   private inputs: number[] = [];
   private pos = 0;
+  private relativeBase = 0;
   public outputs: number[] = [];
 
   constructor(
@@ -13,10 +14,75 @@ export class IntCodeComputer {
     return this;
   }
 
-  private readFromInstructions(n: number, mode: number = 0) {
-    if (mode === 1) return n;
-    return this.instructions[n];
-  }
+  private getParam = (paramIndex: number, readIndex = false) => {
+    let code = this.instructions[this.pos];
+    let modes = [...code.toString().slice(0, -2)].reverse().map(Number);
+    const mode = +modes[paramIndex] || 0;
+    const param = this.instructions[this.pos + paramIndex + 1];
+    const resultingIndex = mode === 2 ? this.relativeBase + param : param;
+    if (!readIndex || mode === 1) return resultingIndex;
+    return this.instructions[resultingIndex];
+  };
+
+  private actionsByOpCode = {
+    [Op.Add]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      let c = this.getParam(2);
+      this.instructions[c] = a + b;
+      this.pos += 4;
+    },
+    [Op.Multiply]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      let c = this.getParam(2);
+      this.instructions[c] = a * b;
+      this.pos += 4;
+    },
+    [Op.Input]: () => {
+      let a = this.getParam(0);
+      this.instructions[a] = this.inputs.shift()!;
+      this.pos += 2;
+    },
+    [Op.Output]: () => {
+      const n = this.getParam(0, true);
+      this.pos += 2;
+      this.outputs.push(n);
+      this.onOutput(n);
+    },
+    [Op.JumpIfTrue]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      if (a !== 0) this.pos = b;
+      else this.pos += 3;
+    },
+    [Op.JumpIfFalse]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      if (a === 0) this.pos = b;
+      else this.pos += 3;
+    },
+    [Op.LessThan]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      let c = this.getParam(2);
+      this.instructions[c] = a < b ? 1 : 0;
+      this.pos += 4;
+    },
+    [Op.Equals]: () => {
+      let a = this.getParam(0, true);
+      let b = this.getParam(1, true);
+      let c = this.getParam(2);
+      this.instructions[c] = a === b ? 1 : 0;
+      this.pos += 4;
+    },
+    [Op.AdjustRelativeBase]: () => {
+      let a = this.getParam(0, true);
+      this.relativeBase += a;
+      this.pos += 2;
+    },
+    [Op.Halt]: () => true,
+  };
 
   public run() {
     let ins = this.instructions;
@@ -24,51 +90,25 @@ export class IntCodeComputer {
     while (true) {
       let code = ins[this.pos];
       let opCode = +code.toString().slice(-2);
-      let modes = [...code.toString().slice(0, -2)].reverse();
-      let read = (n: number) =>
-        Array(n)
-          .fill(0)
-          .map((_, i) =>
-            this.readFromInstructions(ins[this.pos + i + 1], +modes[i]),
-          );
-      if (opCode === 1) {
-        let [a, b] = read(2);
-        ins[ins[this.pos + 3]] = a + b;
-        this.pos += 4;
-      } else if (opCode === 2) {
-        let [a, b] = read(2);
-        ins[ins[this.pos + 3]] = a * b;
-        this.pos += 4;
-      } else if (opCode === 3) {
-        ins[ins[this.pos + 1]] = this.inputs.shift()!;
-        this.pos += 2;
-      } else if (opCode === 4) {
-        const n = read(1)[0];
-        this.pos += 2;
-        this.outputs.push(n);
-        this.onOutput(n);
-      } else if (opCode === 5) {
-        let [a, b] = read(2);
-        if (a !== 0) this.pos = b;
-        else this.pos += 3;
-      } else if (opCode === 6) {
-        let [a, b] = read(2);
-        if (a === 0) this.pos = b;
-        else this.pos += 3;
-      } else if (opCode === 7) {
-        let [a, b] = read(2);
-        ins[ins[this.pos + 3]] = a < b ? 1 : 0;
-        this.pos += 4;
-      } else if (opCode === 8) {
-        let [a, b] = read(2);
-        ins[ins[this.pos + 3]] = a === b ? 1 : 0;
-        this.pos += 4;
-      } else if (opCode === 99) {
-        break;
-      } else {
-        throw new Error('Unknown opcode: ' + opCode);
-      }
+      const action = this.actionsByOpCode[opCode];
+      if (!action) throw new Error('Unknown opcode: ' + opCode);
+
+      let shouldHalt = action();
+      if (shouldHalt) break;
     }
     return this;
   }
+}
+
+enum Op {
+  Add = 1,
+  Multiply = 2,
+  Input = 3,
+  Output = 4,
+  JumpIfTrue = 5,
+  JumpIfFalse = 6,
+  LessThan = 7,
+  Equals = 8,
+  AdjustRelativeBase = 9,
+  Halt = 99,
 }
