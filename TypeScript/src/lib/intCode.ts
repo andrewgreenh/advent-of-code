@@ -41,6 +41,9 @@ export class IntCodeComputer {
     },
     [Op.Input]: () => {
       let a = this.getParam(0);
+      if (this.inputs.length === 0) {
+        throw new Error('No input provided!');
+      }
       this.instructions[a] = this.inputs.shift()!;
       this.pos += 2;
     },
