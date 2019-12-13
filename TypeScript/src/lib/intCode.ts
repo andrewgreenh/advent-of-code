@@ -1,3 +1,6 @@
+import { InfiniteGrid } from './InfiniteGrid';
+import { printGrid } from './ts-it/printGrid';
+
 export class IntCodeComputer {
   private inputs: number[] = [];
   private pos = 0;
@@ -114,4 +117,14 @@ enum Op {
   Equals = 8,
   AdjustRelativeBase = 9,
   Halt = 99,
+}
+
+export class IntCodeScreen {
+  public readonly grid = new InfiniteGrid<string, string>(() => ' ');
+  public paint(resetBeforePaint = false) {
+    if (resetBeforePaint) process.stdout.write('\x1b[2J');
+    let grid = this.grid.toGrid();
+    let rowCount = grid.length;
+    printGrid(this.grid.toGrid(), ' ', '');
+  }
 }
