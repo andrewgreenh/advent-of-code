@@ -6,6 +6,6 @@ const input = getInput(9, 2019);
 const data = numbers(input);
 
 const a = new IntCodeComputer([...data]).addInput(1).run();
-console.log(a.outputs);
+console.log(a.state.outputs);
 const b = new IntCodeComputer([...data]).addInput(2).run();
-console.log(b.outputs);
+console.log(b.state.outputs);

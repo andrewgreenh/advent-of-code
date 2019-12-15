@@ -23,7 +23,7 @@ for (const perm of perms) {
     };
   });
   computers[0].run();
-  const result = last(computers)!.outputs[0];
+  const result = last(computers)!.state.outputs[0];
   if (result > maxOut) maxOut = result;
 }
 console.log(maxOut);
@@ -42,7 +42,7 @@ for (const perm of perms2) {
     };
   });
   computers[0].run();
-  const result = max(last(computers)!.outputs);
+  const result = max(last(computers)!.state.outputs);
   if (result > maxOut) maxOut = result;
 }
 console.log(maxOut);
