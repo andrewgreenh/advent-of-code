@@ -7,17 +7,21 @@ export class IntCodeComputer {
     pos: number;
     relativeBase: number;
     outputs: number[];
+    instructions: number[];
   } = {
     inputs: [],
     pos: 0,
     relativeBase: 0,
     outputs: [],
+    instructions: [],
   };
 
   constructor(
-    public instructions: number[],
+    instructions: number[],
     public onOutput: (n: number) => void = () => {},
-  ) {}
+  ) {
+    this.state.instructions = instructions;
+  }
 
   public addInput(n: number) {
     this.state.inputs.push(n);
@@ -25,13 +29,13 @@ export class IntCodeComputer {
   }
 
   private getParam = (paramIndex: number, readIndex = false) => {
-    let code = this.instructions[this.state.pos];
+    let code = this.state.instructions[this.state.pos];
     let modes = [...code.toString().slice(0, -2)].reverse().map(Number);
     const mode = +modes[paramIndex] || 0;
-    const param = this.instructions[this.state.pos + paramIndex + 1];
+    const param = this.state.instructions[this.state.pos + paramIndex + 1];
     const resultingIndex = mode === 2 ? this.state.relativeBase + param : param;
     if (!readIndex || mode === 1) return resultingIndex;
-    return this.instructions[resultingIndex];
+    return this.state.instructions[resultingIndex];
   };
 
   private actionsByOpCode = {
@@ -39,14 +43,14 @@ export class IntCodeComputer {
       let a = this.getParam(0, true);
       let b = this.getParam(1, true);
       let c = this.getParam(2);
-      this.instructions[c] = a + b;
+      this.state.instructions[c] = a + b;
       this.state.pos += 4;
     },
     [Op.Multiply]: () => {
       let a = this.getParam(0, true);
       let b = this.getParam(1, true);
       let c = this.getParam(2);
-      this.instructions[c] = a * b;
+      this.state.instructions[c] = a * b;
       this.state.pos += 4;
     },
     [Op.Input]: () => {
@@ -54,7 +58,7 @@ export class IntCodeComputer {
       if (this.state.inputs.length === 0) {
         throw new Error('No input provided!');
       }
-      this.instructions[a] = this.state.inputs.shift()!;
+      this.state.instructions[a] = this.state.inputs.shift()!;
       this.state.pos += 2;
     },
     [Op.Output]: () => {
@@ -79,14 +83,14 @@ export class IntCodeComputer {
       let a = this.getParam(0, true);
       let b = this.getParam(1, true);
       let c = this.getParam(2);
-      this.instructions[c] = a < b ? 1 : 0;
+      this.state.instructions[c] = a < b ? 1 : 0;
       this.state.pos += 4;
     },
     [Op.Equals]: () => {
       let a = this.getParam(0, true);
       let b = this.getParam(1, true);
       let c = this.getParam(2);
-      this.instructions[c] = a === b ? 1 : 0;
+      this.state.instructions[c] = a === b ? 1 : 0;
       this.state.pos += 4;
     },
     [Op.AdjustRelativeBase]: () => {
@@ -98,7 +102,7 @@ export class IntCodeComputer {
   };
 
   public run() {
-    let ins = this.instructions;
+    let ins = this.state.instructions;
 
     while (true) {
       let code = ins[this.state.pos];
