@@ -22,6 +22,14 @@ export class InfiniteGrid<CellType, DefaultType = undefined> {
     private defaultFactory: (p: Vector) => DefaultType = () => undefined as any,
   ) {}
 
+  public clear() {
+    this.grid = {};
+    this.maxX = -Infinity;
+    this.minX = Infinity;
+    this.maxY = -Infinity;
+    this.minY = Infinity;
+  }
+
   private getId([x, y]: Vector) {
     return `${x}-${y}`;
   }

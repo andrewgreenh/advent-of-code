@@ -6,7 +6,7 @@ export function printGrid<T>(
   iter: Iterable<Iterable<T | undefined>>,
   defaultValue = '',
   joinColumns = '\t',
-  replace = (x: T) => x,
+  replace: (x: T) => any = (x: T) => x,
 ) {
   console.log(
     pipe(iter)(
