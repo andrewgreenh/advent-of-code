@@ -1,6 +1,6 @@
+import 'core-js/stable';
 import * as fs from 'fs';
 import * as path from 'path';
-
 import { getInputOfDay } from '../../load';
 
 function getInput(day: number, year: number, noTrim = false): string {

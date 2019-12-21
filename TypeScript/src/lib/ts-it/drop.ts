@@ -2,7 +2,7 @@ import { iter } from './iter';
 import { range } from './range';
 
 export function drop<T>(count: number) {
-  return function* remainingValues(iterable: Iterable<T>) {
+  return function* remainingValues(iterable: Iterable<T>): Generator<T> {
     if (Array.isArray(iterable)) {
       for (let i = count; i < iterable.length; i++) {
         yield iterable[i];
