@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { knotHash } from '../lib/knotHash';
 import { flatMap } from '../lib/ts-it/flatMap';
@@ -13,7 +12,7 @@ let count = 0;
 for (let i of range(0, 128)) {
   let hex = knotHash(`${input}-${i}`, 64);
   let bin = [
-    ...flatMap<string, string>(x =>
+    ...flatMap<string, string>((x) =>
       _.padStart(parseInt(x, 16).toString(2), 4, '0'),
     )(hex),
   ];
@@ -22,7 +21,9 @@ for (let i of range(0, 128)) {
 }
 console.log(count);
 
-let strGrid: string[][] = grid.map(x => x.map(y => (y === '1' ? '#' : '.')));
+let strGrid: string[][] = grid.map((x) =>
+  x.map((y) => (y === '1' ? '#' : '.')),
+);
 let num = 1;
 strGrid.forEach((r, rIdx) =>
   r.forEach((c, cIdx) => (c === '#' ? mark([rIdx, cIdx], num++) : null)),

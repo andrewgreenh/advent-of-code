@@ -12,7 +12,7 @@ type Data = {
 };
 let relations: { inputs: Data[]; result: Data }[] = [];
 for (const line of lines) {
-  const matches = line.match(/(\d+ \w+)/g)!.map(m => {
+  const matches = line.match(/(\d+ \w+)/g)!.map((m) => {
     const [, count, material] = m.match(/(\d+) (\w+)/)!;
     return { count: +count, material };
   });
@@ -30,7 +30,7 @@ function getOreRequirements(
   waste: ObjectOf<number> = {},
 ): { ORE: number; waste: ObjectOf<number> } {
   if (material === 'ORE') return { ORE: count, waste };
-  const rel = relations.find(r => r.result.material === material)!;
+  const rel = relations.find((r) => r.result.material === material)!;
   let { [material]: previousMaterialWaste = 0, ...restWaste } = waste;
   const requriedCount = count - previousMaterialWaste;
   const multiplier = Math.ceil(requriedCount / rel.result.count);

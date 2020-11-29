@@ -94,27 +94,27 @@ class Unit {
       ...pipe(this.enemies)(
         flatMap(({ pos }) => this.world.getNeighbours(pos)),
         sortPositions,
-        map(pos => this.world.distanceBetweenPositions(this.pos, pos)),
-        filter(r => r !== null),
+        map((pos) => this.world.distanceBetweenPositions(this.pos, pos)),
+        filter((r) => r !== null),
       ),
     ] as AStarSuccessResult<Vector>[];
     if (bestPathsToEnemy.length === 0) return;
-    const bestPathToEnemy = minBy<AStarSuccessResult<Vector>>(r => r.cost)(
+    const bestPathToEnemy = minBy<AStarSuccessResult<Vector>>((r) => r.cost)(
       bestPathsToEnemy,
     )!;
     const next = pipe(this.pos)(
       this.world.getNeighbours,
       sortPositions,
-      map(nextPlace => {
+      map((nextPlace) => {
         const lastOfBestPath = last(bestPathToEnemy.getPath())!;
         return this.world.distanceBetweenPositions(
           nextPlace,
           lastOfBestPath.data,
         );
       }),
-      filter(r => r !== null),
-      minBy(x => x!.cost),
-      result => first(result!.getPath())!.data,
+      filter((r) => r !== null),
+      minBy((x) => x!.cost),
+      (result) => first(result!.getPath())!.data,
     );
     const [nx, ny] = next;
     const [x, y] = this.pos;
@@ -148,7 +148,7 @@ function simulate(elvenPowerLevel = 3, print = false) {
   let allUnits: Unit[] = [];
   let elves: Unit[] = [];
   let goblins: Unit[] = [];
-  const world = new World([...stringToLines(input)].map(line => [...line]));
+  const world = new World([...stringToLines(input)].map((line) => [...line]));
   world.map.forEach((line, y) =>
     [...line].forEach((char, x) => {
       if ('EG'.includes(char)) {
@@ -169,7 +169,7 @@ function simulate(elvenPowerLevel = 3, print = false) {
   const initialLength = elves.length;
   let i = 0;
   while (elves.length > 0 && goblins.length > 0) {
-    sortUnitsByPosition(allUnits).forEach(u => u.turn());
+    sortUnitsByPosition(allUnits).forEach((u) => u.turn());
     if (print) world.print();
     i++;
   }
@@ -177,14 +177,14 @@ function simulate(elvenPowerLevel = 3, print = false) {
 }
 
 const part1 = simulate(3);
-const sum = pipe(part1.allUnits)(sumBy(u => u.hp));
+const sum = pipe(part1.allUnits)(sumBy((u) => u.hp));
 console.log((part1.i - 1) * sum);
 
 let p = 4;
 while (true) {
   const { initialLength, elves, allUnits, i } = simulate(p);
   if (initialLength === elves.length) {
-    const sum = pipe(allUnits)(sumBy(u => u.hp));
+    const sum = pipe(allUnits)(sumBy((u) => u.hp));
     console.log((i - 1) * sum);
     break;
   }

@@ -15,6 +15,6 @@ function answer(mutate, index = 0, step = 0) {
   return step;
 }
 
-[x => x + 1, x => (x >= 3 ? x - 1 : x + 1)]
-  .map(x => answer(x))
-  .forEach(x => console.log(x));
+[(x) => x + 1, (x) => (x >= 3 ? x - 1 : x + 1)]
+  .map((x) => answer(x))
+  .forEach((x) => console.log(x));

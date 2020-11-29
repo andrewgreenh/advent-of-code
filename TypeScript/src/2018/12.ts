@@ -10,7 +10,7 @@ import { zip } from '../lib/ts-it/zip';
 const lines = [...stringToLines(getInput(12, 2018))];
 let state = [...lines[0].match(/: (.*$)/)![1]];
 type matcher = (i: number, state: string[]) => boolean;
-const rules = lines.slice(1).map(line => {
+const rules = lines.slice(1).map((line) => {
   const [p, plant] = line.split(' => ');
   const match = (i, state) =>
     !pipe(zip(range(-2, 3), p))(any(([idx, x]) => state[idx + i] !== x));

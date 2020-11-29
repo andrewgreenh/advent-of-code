@@ -17,7 +17,10 @@ import { range } from '../lib/ts-it/range';
 const input = getInput(17, 2019);
 
 let s = '';
-let c = new IntCodeComputer(numbers(input), o => (s += String.fromCharCode(o)));
+let c = new IntCodeComputer(
+  numbers(input),
+  (o) => (s += String.fromCharCode(o)),
+);
 c.run();
 let grid = s.split('\n');
 
@@ -68,7 +71,7 @@ let newInputs = numbers(input);
 newInputs[0] = 2;
 
 let x = 0;
-let newComputer = new IntCodeComputer(newInputs, o => (x = o));
+let newComputer = new IntCodeComputer(newInputs, (o) => (x = o));
 
 for (let c of mainRoutine) newComputer.addInput(c.charCodeAt(0));
 for (let c of commandA) newComputer.addInput(c.charCodeAt(0));

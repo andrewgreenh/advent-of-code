@@ -1,6 +1,6 @@
-import * as webpack from 'webpack';
-import * as path from 'path';
-import * as fs from 'fs';
+import fs from 'fs';
+import path from 'path';
+import webpack from 'webpack';
 import getInput from '../../lib/getInput';
 import { lines } from '../../lib/ts-it/lines';
 let input = getInput(7, 2015);

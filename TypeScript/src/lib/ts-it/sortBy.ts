@@ -1,6 +1,6 @@
 import { zip } from './zip';
 
-export function sortBy<TItem>(iteratee: (a: TItem) => any | any[] = a => a) {
+export function sortBy<TItem>(iteratee: (a: TItem) => any | any[] = (a) => a) {
   return function* sorted(iter: Iterable<TItem>) {
     yield* [...iter].sort((a, b) => {
       const [valA, valB] = [iteratee(a), iteratee(b)];

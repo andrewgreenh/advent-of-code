@@ -9,13 +9,13 @@ import { range } from '../lib/ts-it/range';
 const input = getInput(5, 2018);
 
 const regex = pipe(range(0, 26))(
-  map(i => String.fromCharCode(i + 97)),
-  flatMap(c => [
+  map((i) => String.fromCharCode(i + 97)),
+  flatMap((c) => [
     c.toLowerCase() + c.toUpperCase(),
     c.toUpperCase() + c.toLowerCase(),
   ]),
   join('|'),
-  s => new RegExp(`(${s})`, 'g'),
+  (s) => new RegExp(`(${s})`, 'g'),
 );
 
 function collapse(s) {
@@ -29,8 +29,8 @@ function collapse(s) {
 console.log(collapse(input));
 
 const result = pipe(range(0, 26))(
-  map(s => input.replace(new RegExp(String.fromCharCode(97 + s), 'gi'), '')),
-  map(without => collapse(without)),
+  map((s) => input.replace(new RegExp(String.fromCharCode(97 + s), 'gi'), '')),
+  map((without) => collapse(without)),
   min,
 );
 

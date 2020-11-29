@@ -14,9 +14,9 @@ for (let x of range(start, end)) {
   let s = [...str(x)];
   if (s.join('') !== s.sort().join('')) continue;
   let c = pipe(s)(countBy(), values);
-  if (!pipe(c)(any(x => x >= 2))) continue;
+  if (!pipe(c)(any((x) => x >= 2))) continue;
   a++;
-  if (!pipe(c)(any(x => x === 2))) continue;
+  if (!pipe(c)(any((x) => x === 2))) continue;
   b++;
 }
 console.log(a, b);

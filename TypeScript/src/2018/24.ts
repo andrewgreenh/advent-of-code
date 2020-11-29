@@ -28,25 +28,25 @@ for (const line of lines(getInput(24, 2018))) {
 }
 
 console.log(
-  pipe(play(imGroups, inGroups).remaining)(sumBy<Group>(g => g.count)),
+  pipe(play(imGroups, inGroups).remaining)(sumBy<Group>((g) => g.count)),
 );
 
 const lowestBoost = pipe(range(0))(
-  find(b => pipe(play(imGroups, inGroups, b))(x => x.won)),
+  find((b) => pipe(play(imGroups, inGroups, b))((x) => x.won)),
 );
 console.log(
-  pipe(play(imGroups, inGroups, lowestBoost).remaining)(sumBy(g => g.count)),
+  pipe(play(imGroups, inGroups, lowestBoost).remaining)(sumBy((g) => g.count)),
 );
 
 function play(imGroups: Group[], inGroups: Group[], boost = 0) {
-  imGroups = imGroups.map(g => ({ ...g, dmg: g.dmg + boost }));
-  inGroups = inGroups.map(g => ({ ...g }));
+  imGroups = imGroups.map((g) => ({ ...g, dmg: g.dmg + boost }));
+  inGroups = inGroups.map((g) => ({ ...g }));
   while (imGroups.length > 0 && inGroups.length > 0) {
     let killedSomeone = false;
     selectTarget(inGroups, imGroups);
     selectTarget(imGroups, inGroups);
     for (const attacker of pipe([...imGroups, ...inGroups])(
-      sortBy(g => -g.init),
+      sortBy((g) => -g.init),
     )) {
       if (attacker.count === 0) continue;
       if (attacker.target) {
@@ -57,8 +57,8 @@ function play(imGroups: Group[], inGroups: Group[], boost = 0) {
         if (attacker.target.count < 0) attacker.target.count = 0;
       }
     }
-    imGroups = imGroups.filter(g => g.count !== 0);
-    inGroups = inGroups.filter(g => g.count !== 0);
+    imGroups = imGroups.filter((g) => g.count !== 0);
+    inGroups = inGroups.filter((g) => g.count !== 0);
     if (!killedSomeone) return { won: false, remaining: [] };
   }
   return { won: imGroups.length > 0, remaining: [...imGroups, ...inGroups] };
@@ -77,11 +77,11 @@ function lineToGroup(line: string): Group {
 }
 
 function selectTarget(groups: Iterable<Group>, otherGroups: Iterable<Group>) {
-  const sorted = pipe([...groups])(sortBy(g => [-g.count * g.dmg, -g.init]));
+  const sorted = pipe([...groups])(sortBy((g) => [-g.count * g.dmg, -g.init]));
   const defenders = [...otherGroups];
   for (const attacker of sorted) {
     const target = pipe(defenders)(
-      minBy(d => [-dmg(attacker, d), -d.count * d.dmg, -d.init]),
+      minBy((d) => [-dmg(attacker, d), -d.count * d.dmg, -d.init]),
     );
     if (target && dmg(attacker, target) > 0) {
       attacker.target = target;

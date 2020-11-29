@@ -1,5 +1,5 @@
 export function countBy<T>(
-  iteratee: (item: T) => string | number = item => String(item),
+  iteratee: (item: T) => string | number = (item) => String(item),
 ) {
   return function applyOn(iterable: Iterable<T>) {
     const aggregator: Record<string, number> = {};

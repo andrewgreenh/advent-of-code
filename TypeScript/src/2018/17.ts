@@ -32,12 +32,12 @@ fillFrom(grid, [500, 0], fillFrom);
 // printGrid(grid, '', '');
 
 const flowing = pipe(grid.slice(minY, maxY + 1))(
-  x => flatten<string>(x),
-  sumBy(s => (s === '|' ? 1 : 0)),
+  (x) => flatten<string>(x),
+  sumBy((s) => (s === '|' ? 1 : 0)),
 );
 const resting = pipe(grid.slice(minY, maxY + 1))(
-  x => flatten<string>(x),
-  sumBy(s => (s === '~' ? 1 : 0)),
+  (x) => flatten<string>(x),
+  sumBy((s) => (s === '~' ? 1 : 0)),
 );
 console.log(flowing + resting);
 console.log(resting);

@@ -8,7 +8,7 @@ import { reduce } from '../lib/ts-it/reduce';
 import { reject } from '../lib/ts-it/reject';
 
 let input = [
-  ...map<string, number[]>(x => x.split(': ').map(Number))(
+  ...map<string, number[]>((x) => x.split(': ').map(Number))(
     lines(getInput(13, 2017)),
   ),
 ];
@@ -18,7 +18,7 @@ let getSev = reduce<number[], number>(
 );
 console.log(getSev(input));
 
-let willGetCaught = offset =>
+let willGetCaught = (offset) =>
   any<number[]>(([d, r]) => (d + offset) % ((r - 1) * 2) === 0)(input);
 let uncaught = reject(willGetCaught)(range(0));
 console.log(first(uncaught));

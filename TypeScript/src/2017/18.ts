@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { lines } from '../lib/ts-it/lines';
 
@@ -7,7 +6,7 @@ let cs = [...lines(getInput(18, 2017))];
 let index = 0;
 let regs = {};
 let lastSound = 0;
-let get = x => (!_.isNaN(+x) ? +x : regs[x] || 0);
+let get = (x) => (!_.isNaN(+x) ? +x : regs[x] || 0);
 while (true) {
   let c = cs[index].trim().split(' ');
   if (!c) break;

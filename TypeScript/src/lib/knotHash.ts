@@ -1,9 +1,9 @@
-import { range } from './ts-it/range';
-import { enumerate } from './ts-it/enumerate';
+import _ from 'lodash';
 import { chunk } from './ts-it/chunk';
-import { reduce } from './ts-it/reduce';
+import { enumerate } from './ts-it/enumerate';
 import { map } from './ts-it/map';
-import * as _ from 'lodash';
+import { range } from './ts-it/range';
+import { reduce } from './ts-it/reduce';
 
 function hash(input, rounds = 1, sequenceLength = 256) {
   let sequence = [...range(0, sequenceLength)];
@@ -30,7 +30,7 @@ function reverse(array, from, length) {
 
 export function knotHash(string, rounds) {
   const byteInput = [
-    ...string.split('').map(str => str.charCodeAt(0)),
+    ...string.split('').map((str) => str.charCodeAt(0)),
     17,
     31,
     73,
@@ -42,7 +42,7 @@ export function knotHash(string, rounds) {
   const chunkToNum = reduce<number, number>((a, b) => a ^ b, 0);
   const finalDecimalHash = map<Iterable<number>, number>(chunkToNum)(chunks);
   const hexResult = [
-    ...map<number, string>(num => _.padStart(num.toString(16), 2, '0'))(
+    ...map<number, string>((num) => _.padStart(num.toString(16), 2, '0'))(
       finalDecimalHash,
     ),
   ].join('');

@@ -23,7 +23,7 @@ let positions: Vector[] = [start];
 maze.set(start, 'X');
 
 const combine = (a: Vector[], b: Vector[]) =>
-  uniqBy(a.concat(b), i => i.join('-'));
+  uniqBy(a.concat(b), (i) => i.join('-'));
 
 for (const c of regex) {
   if (c === 'N') {
@@ -80,15 +80,18 @@ const aStartResult = aStar<Vector>({
     if ('-|'.includes(maze.get([x, y - 1]) || '#')) n.push([x, y - 2]);
     return n;
   },
-  hashData: pos => pos.join('-'),
+  hashData: (pos) => pos.join('-'),
   isEnd: () => false,
   startNode: start,
 });
 
-const result = pipe(aStartResult.getExpandedNodes())(map(n => n.g), max);
+const result = pipe(aStartResult.getExpandedNodes())(
+  map((n) => n.g),
+  max,
+);
 console.log(result);
 const result2 = pipe(aStartResult.getExpandedNodes())(
-  filter(n => n.g >= 1000),
+  filter((n) => n.g >= 1000),
   len,
 );
 console.log(result2);

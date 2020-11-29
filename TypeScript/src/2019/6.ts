@@ -40,12 +40,12 @@ let end = nodes['SAN'].parent!;
 
 let graph = new LazyGraph<Node>({
   getNeighbourCost: () => 1,
-  hashData: n => n.name,
-  getNeighbours: n => [n.parent, ...n.children].filter(isTruthy),
+  hashData: (n) => n.name,
+  getNeighbours: (n) => [n.parent, ...n.children].filter(isTruthy),
 });
 
 let path = graph.findPath({
-  isEnd: n => n === end,
+  isEnd: (n) => n === end,
   startNode: start,
 });
 if (path.isSuccess()) {
@@ -54,7 +54,7 @@ if (path.isSuccess()) {
 
 function addPath(node: Node, previousPath: any[] = []) {
   node.path = previousPath;
-  node.children.forEach(child => {
+  node.children.forEach((child) => {
     addPath(child, [...previousPath, node]);
   });
 }

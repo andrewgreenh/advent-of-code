@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { flatten } from '../lib/ts-it/flatten';

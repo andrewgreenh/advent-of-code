@@ -20,15 +20,15 @@ for (const line of stringToLines(getInput(23, 2018))) {
   if (!maxZ || z > maxZ) maxZ = z;
   bots.push({ pos: [x, y, z], range });
 }
-let xs = bots.map(b => b.pos[0]);
-let ys = bots.map(b => b.pos[1]);
-let zs = bots.map(b => b.pos[2]);
+let xs = bots.map((b) => b.pos[0]);
+let ys = bots.map((b) => b.pos[1]);
+let zs = bots.map((b) => b.pos[2]);
 
 const d = (a: number[], b: number[]) =>
   Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]) + Math.abs(a[2] - b[2]);
 
-const bestB = pipe(bots)(maxBy(b => b.range))!;
-console.log(pipe(bots)(countIf(b => d(b.pos, bestB.pos) <= bestB.range)));
+const bestB = pipe(bots)(maxBy((b) => b.range))!;
+console.log(pipe(bots)(countIf((b) => d(b.pos, bestB.pos) <= bestB.range)));
 
 let dist = 1;
 while (dist < maxX - minX) dist *= 2;
@@ -41,7 +41,7 @@ while (true) {
     for (const y of range(min(ys), max(ys) + 1, dist)) {
       for (const z of range(min(zs), max(zs) + 1, dist)) {
         let count = pipe(bots)(
-          countIf(b => int((d(b.pos, [x, y, z]) - b.range) / dist) <= 0),
+          countIf((b) => int((d(b.pos, [x, y, z]) - b.range) / dist) <= 0),
         );
         if (count > bestCount) {
           bestCount = count;

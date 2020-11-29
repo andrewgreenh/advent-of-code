@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { assert } from '../lib/assert';
 import getInput from '../lib/getInput';
 import { IntCodeComputer } from '../lib/intCode';
@@ -8,14 +9,13 @@ import { max } from '../lib/ts-it/max';
 import { numbers } from '../lib/ts-it/numbers';
 import { p } from '../lib/ts-it/pipe';
 import { keys } from '../lib/utils';
-import _ = require('lodash');
 
 const input = getInput(15, 2019);
 let ins = numbers(input);
 
 let dirs = { north: 1, south: 2, west: 3, east: 4 };
 let offsets = { north: [0, -1], south: [0, 1], west: [-1, 0], east: [1, 0] };
-let c = new IntCodeComputer([...ins], n => {});
+let c = new IntCodeComputer([...ins], (n) => {});
 
 let graph = new LazyGraph<{
   x: number;
@@ -23,8 +23,8 @@ let graph = new LazyGraph<{
   done: boolean;
   computerState: IntCodeComputer['state'];
 }>({
-  hashData: data => [data.x, data.y].join('%'),
-  getNeighbours: data => {
+  hashData: (data) => [data.x, data.y].join('%'),
+  getNeighbours: (data) => {
     let next: {
       x: number;
       y: number;
@@ -62,7 +62,7 @@ let graph = new LazyGraph<{
 });
 
 const result = graph.findPath({
-  isEnd: data => data.done,
+  isEnd: (data) => data.done,
   startNode: { computerState: c.state, done: false, x: 0, y: 0 },
 });
 
@@ -76,7 +76,7 @@ const result2 = graph.findPath({
 
 console.log(
   p(result2.getExpandedNodes())(
-    map(n => n.g),
+    map((n) => n.g),
     max,
   ),
 );

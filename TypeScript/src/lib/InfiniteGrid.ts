@@ -54,7 +54,7 @@ export class InfiniteGrid<CellType, DefaultType = undefined> {
 
   public *neighbours(p: Vector) {
     const neighbourVectors = [...this.neighbourVectors(p)];
-    yield* map<Vector, CellType | DefaultType>(p => this.get(p))(
+    yield* map<Vector, CellType | DefaultType>((p) => this.get(p))(
       neighbourVectors,
     );
   }

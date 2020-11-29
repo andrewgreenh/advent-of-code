@@ -12,7 +12,7 @@ const input = getInput(19, 2019);
 
 function gettingPulled(v: Vector) {
   let result = -1;
-  let c = new IntCodeComputer(numbers(input), o => (result = o));
+  let c = new IntCodeComputer(numbers(input), (o) => (result = o));
   c.addInput(v[0]);
   c.addInput(v[1]);
   c.run();
@@ -29,7 +29,7 @@ for (let [x, y] of cross(range(0, 50), range(0, 50))) {
 
 printGrid(grid.toGrid(), '.', '');
 p(grid.toGrid().flat())(
-  countIf(c => c === '#'),
+  countIf((c) => c === '#'),
   console.log,
 );
 

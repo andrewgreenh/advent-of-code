@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { range } from '../lib/ts-it/range';
 import { toGrid } from '../lib/ts-it/toGrid';
@@ -8,18 +7,18 @@ import { transpose } from '../lib/ts-it/transpose';
 let input = getInput(21, 2017).trim();
 let dict = _(input)
   .split('\n')
-  .map(x => x.trim().split(' => '))
+  .map((x) => x.trim().split(' => '))
   .fromPairs()
   .value();
 
-let flip = (grid: any[][]) => grid.map(row => [...row].reverse());
+let flip = (grid: any[][]) => grid.map((row) => [...row].reverse());
 let rotate = (grid: any[][]) => flip(transpose(grid));
-let hash = (grid: any[][]) => grid.map(row => row.join('')).join('/');
+let hash = (grid: any[][]) => grid.map((row) => row.join('')).join('/');
 let subGrids = (grid: any[][]) => {
   let size = grid.length;
   let subSize = size % 2 === 0 ? 2 : 3;
   let count = size / subSize;
-  return _.times(count * count, i => {
+  return _.times(count * count, (i) => {
     let columnOffset = i % count;
     let rowOffset = Math.floor(i / count);
     let subGrid: any[][] = new Array(subSize);
@@ -38,20 +37,20 @@ let start = `.#.
 ..#
 ###`
   .split('\n')
-  .map(x => x.split(''));
+  .map((x) => x.split(''));
 
 let allHashes = (grid: any[][]) =>
   _.flatMap(
     [grid, rotate(grid), rotate(rotate(grid)), rotate(rotate(rotate(grid)))],
-    grid => [grid, flip(grid)],
+    (grid) => [grid, flip(grid)],
   ).map(hash);
 
 let replace = (grid: any[][]) =>
   allHashes(grid)
-    .map(hash => dict[hash])
-    .filter(x => !!x)[0]
+    .map((hash) => dict[hash])
+    .filter((x) => !!x)[0]
     .split('/')
-    .map(x => x.split(''));
+    .map((x) => x.split(''));
 
 let join = (grids: any[][][]) => {
   let newGrid: any[][] = [];
@@ -80,7 +79,7 @@ let step = (grid: any[][]) => {
 let count = (grid: any[][]) =>
   _(grid)
     .flattenDeep()
-    .map(x => (x === '#' ? 1 : 0))
+    .map((x) => (x === '#' ? 1 : 0))
     .sum();
 
 let current = start;

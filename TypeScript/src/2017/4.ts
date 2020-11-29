@@ -8,8 +8,8 @@ import { words } from '../lib/ts-it/words';
 
 const input = getInput(4, 2017).trim();
 
-const hasNoDuplicates = row => new Set(row).size === row.length;
-const sortWord = word => [...word].sort().join('');
+const hasNoDuplicates = (row) => new Set(row).size === row.length;
+const sortWord = (word) => [...word].sort().join('');
 
 function result(rowMapper) {
   return pipe(input)(
@@ -21,4 +21,4 @@ function result(rowMapper) {
   ).length;
 }
 
-console.log([row => [...row], row => [...row].map(sortWord)].map(result));
+console.log([(row) => [...row], (row) => [...row].map(sortWord)].map(result));

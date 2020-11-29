@@ -36,4 +36,4 @@ let historyB = walk(b);
 const both = intersection(keys(historyA), keys(historyB));
 
 console.log(min(both.map(parse).map(([a, b]: any) => abs(a) + abs(b))));
-console.log(min(both.map(i => historyA[i] + historyB[i])));
+console.log(min(both.map((i) => historyA[i] + historyB[i])));

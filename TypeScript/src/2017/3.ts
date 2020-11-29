@@ -1,7 +1,5 @@
-import { InfiniteGrid } from '../lib/InfiniteGrid';
-import combinations from '../lib/combinations';
-import * as _ from 'lodash';
 import getInput from '../lib/getInput';
+import { InfiniteGrid } from '../lib/InfiniteGrid';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { sum } from '../lib/ts-it/sum';
 

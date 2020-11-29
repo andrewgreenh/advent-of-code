@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import { lines } from './ts-it/lines';
 
 const defaultInstructionSet = {

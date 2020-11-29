@@ -18,7 +18,7 @@ for (const line of lines) {
 }
 
 const sortedStarts = Object.keys(dependants)
-  .filter(k => !deps[k].length)
+  .filter((k) => !deps[k].length)
   .sort();
 
 let taken = '';
@@ -28,7 +28,7 @@ while (todo.length) {
   taken += next;
   todo.push(
     ...dependants[next]
-      .filter(d => deps[d].every(c => taken.includes(c)))
+      .filter((d) => deps[d].every((c) => taken.includes(c)))
       .sort(),
   );
 }
@@ -41,7 +41,7 @@ let t = -1;
 taken = '';
 while (todo.length || idleWorkers.length < 5) {
   t++;
-  tasks[t].forEach(w => w());
+  tasks[t].forEach((w) => w());
   if (idleWorkers.length === 0) continue;
   while (idleWorkers.length > 0 && todo.length > 0) {
     const next = todo.shift()!;
@@ -52,7 +52,9 @@ while (todo.length || idleWorkers.length < 5) {
       idleWorkers.push(w);
       taken += next;
       todo.push(
-        ...dependants[next].filter(d => deps[d].every(c => taken.includes(c))),
+        ...dependants[next].filter((d) =>
+          deps[d].every((c) => taken.includes(c)),
+        ),
       );
     });
   }

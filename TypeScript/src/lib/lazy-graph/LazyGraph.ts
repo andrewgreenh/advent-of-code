@@ -32,7 +32,7 @@ export class LazyGraph<DataType> {
   private config: NonOptional<LazyGraphConfig<DataType>>;
   constructor(config: LazyGraphConfig<DataType>) {
     this.config = {
-      hashData: data => JSON.stringify(data),
+      hashData: (data) => JSON.stringify(data),
       getNeighbourCost: () => 1,
       ...config,
     };
@@ -62,14 +62,14 @@ export class LazyGraph<DataType> {
 
     let minPredecessorCount = pipe(remainingNodes)(
       map(hashData),
-      map(hash => predecessorsHashesByHash[hash]),
+      map((hash) => predecessorsHashesByHash[hash]),
       map(len),
       min,
     );
     while (minPredecessorCount < Infinity) {
       let candidates = pipe(remainingNodes)(
         filter(
-          n =>
+          (n) =>
             predecessorsHashesByHash[hashData(n)].size === minPredecessorCount,
         ),
       );
@@ -78,16 +78,16 @@ export class LazyGraph<DataType> {
       yield next;
       pipe(predecessorsHashesByHash)(
         values,
-        forEach(s => s.delete(hashData(next))),
+        forEach((s) => s.delete(hashData(next))),
       );
 
       remainingNodes = remainingNodes.filter(
-        n => hashData(n) !== hashData(next),
+        (n) => hashData(n) !== hashData(next),
       );
 
       minPredecessorCount = pipe(remainingNodes)(
         map(hashData),
-        map(hash => predecessorsHashesByHash[hash]),
+        map((hash) => predecessorsHashesByHash[hash]),
         map(len),
         min,
       );
@@ -101,7 +101,7 @@ export class LazyGraph<DataType> {
 
     while (addedToGroup.size !== sortedNodes.length) {
       const start = sortedNodes.find(
-        n => !addedToGroup.has(this.config.hashData(n)),
+        (n) => !addedToGroup.has(this.config.hashData(n)),
       )!;
       const queue = [start];
       const group = [start];

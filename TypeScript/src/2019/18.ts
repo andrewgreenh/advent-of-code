@@ -27,9 +27,9 @@ type Node = {
 
 let i = 0;
 let graph = new LazyGraph<Node>({
-  hashData: d => [d.x, d.y, d.keys].join('-'),
+  hashData: (d) => [d.x, d.y, d.keys].join('-'),
   getNeighbourCost: () => 1,
-  getNeighbours: d => {
+  getNeighbours: (d) => {
     i++;
     if (i % 100000 === 0) {
       console.log(d);
@@ -73,7 +73,7 @@ const upperLeftKeys = p(cross(range(0, grid[0].length), range(0, grid.length)))(
   filter(([x, y]) => x < 40 && y < 40),
   map(([x, y]) => (grid[y][x].match(/[a-z]/) ? grid[y][x] : null)),
   toArray,
-  x => x.filter(isTruthy),
+  (x) => x.filter(isTruthy),
 );
 const upperRightKeys = p(
   cross(range(0, grid[0].length), range(0, grid.length)),
@@ -81,13 +81,13 @@ const upperRightKeys = p(
   filter(([x, y]) => x > 40 && y < 40),
   map(([x, y]) => (grid[y][x].match(/[a-z]/) ? grid[y][x] : null)),
   toArray,
-  x => x.filter(isTruthy),
+  (x) => x.filter(isTruthy),
 );
 const lowerLeftKeys = p(cross(range(0, grid[0].length), range(0, grid.length)))(
   filter(([x, y]) => x < 40 && y > 40),
   map(([x, y]) => (grid[y][x].match(/[a-z]/) ? grid[y][x] : null)),
   toArray,
-  x => x.filter(isTruthy),
+  (x) => x.filter(isTruthy),
 );
 const lowerRightKeys = p(
   cross(range(0, grid[0].length), range(0, grid.length)),
@@ -95,7 +95,7 @@ const lowerRightKeys = p(
   filter(([x, y]) => x > 40 && y > 40),
   map(([x, y]) => (grid[y][x].match(/[a-z]/) ? grid[y][x] : null)),
   toArray,
-  x => x.filter(isTruthy),
+  (x) => x.filter(isTruthy),
 );
 
 let upperLeft = graph.findPath({
@@ -104,7 +104,7 @@ let upperLeft = graph.findPath({
     x: 39,
     y: 39,
   },
-  isEnd: d => d.keys.length === keyCount,
+  isEnd: (d) => d.keys.length === keyCount,
 });
 
 let upperRight = graph.findPath({
@@ -113,7 +113,7 @@ let upperRight = graph.findPath({
     x: 41,
     y: 39,
   },
-  isEnd: d => d.keys.length === keyCount,
+  isEnd: (d) => d.keys.length === keyCount,
 });
 let lowerLeft = graph.findPath({
   startNode: {
@@ -121,7 +121,7 @@ let lowerLeft = graph.findPath({
     x: 39,
     y: 41,
   },
-  isEnd: d => d.keys.length === keyCount,
+  isEnd: (d) => d.keys.length === keyCount,
 });
 let lowerRight = graph.findPath({
   startNode: {
@@ -129,7 +129,7 @@ let lowerRight = graph.findPath({
     x: 41,
     y: 41,
   },
-  isEnd: d => d.keys.length === keyCount,
+  isEnd: (d) => d.keys.length === keyCount,
 });
 
 p([upperLeft, upperRight, lowerLeft, lowerRight])(

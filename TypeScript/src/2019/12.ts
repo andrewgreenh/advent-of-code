@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import combinations from '../lib/combinations';
 import { DefaultDict } from '../lib/DefaultDict';
 import getInput from '../lib/getInput';
@@ -11,12 +12,11 @@ import { range } from '../lib/ts-it/range';
 import { sum } from '../lib/ts-it/sum';
 import { toArray } from '../lib/ts-it/toArray';
 import { values } from '../lib/utils';
-import _ = require('lodash');
 
 const input = getInput(12, 2019);
 const moons = p(input)(
   stringToLines,
-  map(x => numbers(x) as [number, number, number]),
+  map((x) => numbers(x) as [number, number, number]),
   map(([x, y, z]) => ({ x, y, z, vx: 0, vy: 0, vz: 0 })),
   toArray,
 );
@@ -41,7 +41,8 @@ for (let i of range(0, 1000)) update();
 
 const a = p(moons)(
   map(
-    m => (abs(m.x) + abs(m.y) + abs(m.z)) * (abs(m.vx) + abs(m.vy) + abs(m.vz)),
+    (m) =>
+      (abs(m.x) + abs(m.y) + abs(m.z)) * (abs(m.vx) + abs(m.vy) + abs(m.vz)),
   ),
   sum,
 );
@@ -53,11 +54,11 @@ const dataByDim = DefaultDict(() => ({
 }));
 dataByDim.x, dataByDim.y, dataByDim.z;
 
-while (!values(dataByDim).every(x => x.done)) {
+while (!values(dataByDim).every((x) => x.done)) {
   for (let dim of 'xyz') {
     const data = dataByDim[dim];
     if (data.done) continue;
-    const key = _.flatMap(moons, m => [m[dim], m['v' + dim]]).join('%');
+    const key = _.flatMap(moons, (m) => [m[dim], m['v' + dim]]).join('%');
     if (data.history.has(key)) data.done = true;
     else data.history.add(key);
   }
@@ -65,6 +66,6 @@ while (!values(dataByDim).every(x => x.done)) {
 }
 console.log(
   values(dataByDim)
-    .map(d => d.history.size)
+    .map((d) => d.history.size)
     .reduce(lcm),
 );

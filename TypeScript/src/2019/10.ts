@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { Vector } from '../lib/InfiniteGrid';
 import { str } from '../lib/str';
@@ -8,7 +9,6 @@ import { p } from '../lib/ts-it/pipe';
 import { sortBy } from '../lib/ts-it/sortBy';
 import { toArray } from '../lib/ts-it/toArray';
 import { values } from '../lib/utils';
-import _ = require('lodash');
 
 const input = getInput(10, 2019);
 const lines = iterable(() => p(input)(stringToLines));
@@ -27,13 +27,13 @@ let maxVisibleBase: Vector = [0, 0];
 let maxVisibleTargets: Vector[] = [];
 for (let pot of asteroids) {
   let angles = _.groupBy(
-    asteroids.filter(x => str(x) !== str(pot)),
-    a => angle(pot, a),
+    asteroids.filter((x) => str(x) !== str(pot)),
+    (a) => angle(pot, a),
   );
   let visible = values(
     _.mapValues(
       angles,
-      a => _.sortBy(a, a => Math.hypot(a[0] - pot[0], a[1] - pot[1]))[0],
+      (a) => _.sortBy(a, (a) => Math.hypot(a[0] - pot[0], a[1] - pot[1]))[0],
     ),
   );
   if (visible.length > maxVisibleTargets.length) {
@@ -44,7 +44,7 @@ for (let pot of asteroids) {
 console.log(maxVisibleTargets.length);
 
 let sorted = p(maxVisibleTargets)(
-  sortBy(t => angle(maxVisibleBase, t)),
+  sortBy((t) => angle(maxVisibleBase, t)),
   toArray,
 )[199];
 console.log(sorted[0] * 100 + sorted[1]);

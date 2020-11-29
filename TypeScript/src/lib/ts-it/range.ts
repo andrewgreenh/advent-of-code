@@ -10,7 +10,7 @@ export function range(start: number, end?: Nillable<number>, step: number = 1) {
     step,
     *[Symbol.iterator]() {
       let _from = from;
-      const isPassed = x => (step < 0 ? x <= to : x >= to);
+      const isPassed = (x) => (step < 0 ? x <= to : x >= to);
       while (!isPassed(_from)) {
         yield _from;
         _from += step;

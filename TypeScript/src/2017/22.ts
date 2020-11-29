@@ -15,7 +15,12 @@ for (let [rowIndex, line] of enumerate(lines(input))) {
   }
 }
 
-let dirs = [[0, -1], [1, 0], [0, 1], [-1, 0]];
+let dirs = [
+  [0, -1],
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+];
 let dir = dirs[0];
 let pos: [number, number] = [0, 0];
 let count = 0;

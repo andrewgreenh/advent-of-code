@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 function slide<T>(array: T[], windowSize: number): T[][] {
   const result: T[][] = [];

@@ -28,7 +28,7 @@ describe('Heap', () => {
     const items = [10, 2, 3, 1, 12, 25, 17];
     const sorted = [1, 2, 3, 10, 12, 17, 25];
 
-    items.forEach(item => heap.add(item));
+    items.forEach((item) => heap.add(item));
     expect(heap.size).toBe(sorted.length);
 
     expect(heap.popAll()).toEqual(sorted);

@@ -15,10 +15,10 @@ describe('lazy-graph', () => {
       ];
       const expectedOrder = ['a', 'b', 'c', 'd', 'e'];
       const lazyGraph = new LazyGraph<string>({
-        getNeighbours: char =>
+        getNeighbours: (char) =>
           whenPresent(
-            definition.find(d => d[0] === char),
-            d => [d[1]],
+            definition.find((d) => d[0] === char),
+            (d) => [d[1]],
           ) ?? [],
       });
 
@@ -38,15 +38,15 @@ describe('lazy-graph', () => {
       ];
       const expectedOrder = ['a', 'b', 'c', 'd', 'e'];
       const lazyGraph = new LazyGraph<string>({
-        getNeighbours: char =>
+        getNeighbours: (char) =>
           whenPresent(
-            definition.find(d => d[0] === char),
-            d => [d[1]],
+            definition.find((d) => d[0] === char),
+            (d) => [d[1]],
           ) ?? [],
       });
 
       const actualOrder = toArray(
-        lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], chars =>
+        lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], (chars) =>
           firstOrFail(sort<string>()(chars)),
         ),
       );
@@ -62,15 +62,15 @@ describe('lazy-graph', () => {
       ];
       const expectedOrder = ['a', 'c', 'b', 'e', 'd'];
       const lazyGraph = new LazyGraph<string>({
-        getNeighbours: char =>
+        getNeighbours: (char) =>
           whenPresent(
-            definition.find(d => d[0] === char),
-            d => [d[1]],
+            definition.find((d) => d[0] === char),
+            (d) => [d[1]],
           ) ?? [],
       });
 
       const actualOrder = toArray(
-        lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], chars =>
+        lazyGraph.topologicalSort(['a', 'b', 'c', 'd', 'e'], (chars) =>
           firstOrFail(sort<string>()(chars)),
         ),
       );
@@ -91,10 +91,10 @@ describe('lazy-graph', () => {
         ['c', 'b'],
       ];
       const lazyGraph = new LazyGraph<string>({
-        getNeighbours: char =>
+        getNeighbours: (char) =>
           whenPresent(
-            definition.find(d => d[0] === char),
-            d => [d[1]],
+            definition.find((d) => d[0] === char),
+            (d) => [d[1]],
           ) ?? [],
       });
       const actualComponents = toArray(

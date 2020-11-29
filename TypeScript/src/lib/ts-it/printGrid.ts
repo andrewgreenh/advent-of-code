@@ -10,10 +10,10 @@ export function printGrid<T>(
 ) {
   console.log(
     pipe(iter)(
-      map(line =>
+      map((line) =>
         pipe(line)(
-          map(x => (x === undefined ? defaultValue : x)),
-          map(x => replace(x as any)),
+          map((x) => (x === undefined ? defaultValue : x)),
+          map((x) => replace(x as any)),
           join(joinColumns),
         ),
       ),

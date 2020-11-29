@@ -8,10 +8,10 @@ const definition = [
   ['c', 'b'],
 ];
 const lazyGraph = new LazyGraph<string>({
-  getNeighbours: char =>
+  getNeighbours: (char) =>
     whenPresent(
-      definition.find(d => d[0] === char),
-      d => [d[1]],
+      definition.find((d) => d[0] === char),
+      (d) => [d[1]],
     ) ?? [],
 });
 const actualComponents = toArray(

@@ -10,12 +10,12 @@ let dist = [
 let result = aStar<number>({
   estimateCost: () => 0,
   getNeighbourCost: (a, b) => dist[a][b],
-  hashData: x => x.toString(),
-  getNeighbours: i =>
+  hashData: (x) => x.toString(),
+  getNeighbours: (i) =>
     dist[i]
       .map((d, index) => (d === Infinity ? -1 : index))
-      .filter(x => x > -1),
-  isEnd: i => i === 1,
+      .filter((x) => x > -1),
+  isEnd: (i) => i === 1,
   startNode: 0,
 });
 

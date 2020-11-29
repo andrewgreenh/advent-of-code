@@ -33,12 +33,12 @@ for (const line of lines) {
 
 const guard = +p(minsByGuard)(
   toPairs,
-  maxBy(g => sum(g[1])),
+  maxBy((g) => sum(g[1])),
 )![0];
 
 const maxMinute = p(minsByGuard[guard])(
   enumerate,
-  maxBy(x => x[1]),
+  maxBy((x) => x[1]),
 )![0];
 console.log(maxMinute * guard);
 

@@ -22,18 +22,18 @@ const debugParse = (p: Parser) => (input: string) => {
 
 const headTail = (s: string) => [s[0], s.slice(1)];
 
-const char = (c: string): Parser => input => {
+const char = (c: string): Parser => (input) => {
   const [head, tail] = headTail(input);
   if (c !== head) return failure;
   return [[c], tail];
 };
 
-const string = (s: string): Parser => input => {
+const string = (s: string): Parser => (input) => {
   if (input.startsWith(s)) return [[s], input.slice(s.length)];
   return failure;
 };
 
-const sequenceOf = (...parsers: Parser[]): Parser => input => {
+const sequenceOf = (...parsers: Parser[]): Parser => (input) => {
   let lastResult = [[], input] as ParsingResult;
   for (const parser of parsers) {
     if (lastResult === failure) break;
@@ -47,20 +47,20 @@ const sequenceOf = (...parsers: Parser[]): Parser => input => {
   return lastResult;
 };
 
-const optional = (parser: Parser): Parser => input => {
+const optional = (parser: Parser): Parser => (input) => {
   const result = parser(input);
   if (result === failure) return [[], input];
   return result;
 };
 
-const lazy = (parserFactory: () => Parser): Parser => input => {
+const lazy = (parserFactory: () => Parser): Parser => (input) => {
   const parser = parserFactory();
   return parser(input);
 };
 
 const transform = (p: Parser) => <TTo extends any[]>(
   t: (value: unknown[]) => TTo,
-): Parser => input => {
+): Parser => (input) => {
   const result = p(input);
   if (result === failure) return result;
   return [t(result[0]), result[1]];
@@ -80,7 +80,7 @@ const onceOrMore = (parser: Parser): Parser =>
     lazy(() => zeroOrMore(parser)),
   );
 
-const or = (...parsers: Parser[]): Parser => input => {
+const or = (...parsers: Parser[]): Parser => (input) => {
   for (const parser of parsers) {
     const result = parser(input);
     if (result !== failure) return result;
@@ -94,14 +94,14 @@ const allLetters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const letter = oneOfString(allLetters);
 const digit = oneOfString('0123456789');
 const join = (p: Parser) =>
-  transform(p)(t => {
+  transform(p)((t) => {
     if (Array.isArray(t)) return [t.join('')];
     return t;
   });
 const word = join(onceOrMore(letter));
 const number = join(onceOrMore(digit));
 
-const skip = (p: Parser): Parser => input => {
+const skip = (p: Parser): Parser => (input) => {
   const result = p(input);
   if (result === failure) return failure;
   return [[], result[1]];
@@ -115,7 +115,7 @@ const separatedBy = (separationParser: Parser) => (
     zeroOrMore(sequenceOf(skip(separationParser), tokenParser)),
   );
 
-const everythingExcept = (p: Parser): Parser => input => {
+const everythingExcept = (p: Parser): Parser => (input) => {
   if (input.length === 0) return failure;
   const result = p(input);
   if (result === failure) {
@@ -133,13 +133,13 @@ const optionallyBetween = (startParser: Parser, endParser?: Parser) => (
   middleParser: Parser,
 ): Parser => or(between(startParser, endParser)(middleParser), middleParser);
 
-const everything: Parser = input => {
+const everything: Parser = (input) => {
   if (input.length === 0) return failure;
   const [head, tail] = headTail(input);
   return [[head], tail];
 };
 
-const empty: Parser = input => [[], input];
+const empty: Parser = (input) => [[], input];
 
 const whitespace = onceOrMore(oneOfString(' \n\r\t'));
 const optionalWhitespace = optional(whitespace);

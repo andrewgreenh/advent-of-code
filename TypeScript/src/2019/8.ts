@@ -9,18 +9,16 @@ import { minBy } from '../lib/ts-it/minBy';
 import { p } from '../lib/ts-it/pipe';
 import { printGrid } from '../lib/ts-it/printGrid';
 
-const data = getInput(8, 2019)
-  .split('')
-  .map(Number);
+const data = getInput(8, 2019).split('').map(Number);
 
 const rows = 6;
 const cols = 25;
 let img = iterable(() => p(data)(chunk(rows * cols), map(chunk(cols))));
 
 let a = p(img)(
-  map(x => countBy()(flatten<number>(x))),
-  minBy(l => l[0]),
-  l => l![1] * l![2],
+  map((x) => countBy()(flatten<number>(x))),
+  minBy((l) => l[0]),
+  (l) => l![1] * l![2],
 );
 console.log(a);
 

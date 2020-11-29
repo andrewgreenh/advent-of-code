@@ -1,14 +1,10 @@
-import { chunk } from '../lib/ts-it/chunk';
+import _ from 'lodash';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
-import { words } from '../lib/ts-it/words';
+import { chunk } from '../lib/ts-it/chunk';
+import { enumerate } from '../lib/ts-it/enumerate';
 import { map } from '../lib/ts-it/map';
 import { range } from '../lib/ts-it/range';
-import { cycle } from '../lib/ts-it/cycle';
-import { take } from '../lib/ts-it/take';
-import { enumerate } from '../lib/ts-it/enumerate';
 import { reduce } from '../lib/ts-it/reduce';
-import * as _ from 'lodash';
 
 let input = getInput(10, 2017).trim();
 // input = 'AoC 2017'
@@ -38,7 +34,7 @@ function reverse(array, from, length) {
 
 function knotHash(string, rounds) {
   const byteInput = [
-    ...string.split('').map(str => str.charCodeAt(0)),
+    ...string.split('').map((str) => str.charCodeAt(0)),
     17,
     31,
     73,
@@ -50,7 +46,7 @@ function knotHash(string, rounds) {
   const chunkToNum = reduce<number, number>((a, b) => a ^ b, 0);
   const finalDecimalHash = map<Iterable<number>, number>(chunkToNum)(chunks);
   const hexResult = [
-    ...map<number, string>(num => _.padStart(num.toString(16), 2, '0'))(
+    ...map<number, string>((num) => _.padStart(num.toString(16), 2, '0'))(
       finalDecimalHash,
     ),
   ].join('');

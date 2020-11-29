@@ -1,8 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getInputOfDay = void 0;
 const fs_1 = require("fs");
 const path_1 = require("path");
-const sync_request_1 = require("sync-request");
+const sync_request_1 = __importDefault(require("sync-request"));
 const cookiePath = path_1.join(__dirname, '../sessionCookie.txt');
 const cookieString = fs_1.readFileSync(cookiePath, 'utf8');
 if (require.main === module) {

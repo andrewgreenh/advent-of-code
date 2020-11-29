@@ -1,6 +1,6 @@
+import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { lines } from '../lib/ts-it/lines';
-import * as _ from 'lodash';
 
 let registers = {};
 let max = -Infinity;

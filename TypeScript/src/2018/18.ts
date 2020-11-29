@@ -7,7 +7,7 @@ import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 import { squareAround } from '../lib/ts-it/squareCoords';
 
-let acre: string[][] = [...lines(getInput(18, 2018))].map(i => i.split(''));
+let acre: string[][] = [...lines(getInput(18, 2018))].map((i) => i.split(''));
 const [wCount, lCount] = [countItem('|'), countItem('#')];
 
 for (const i of range(0, 10)) {
@@ -24,8 +24,8 @@ for (const i of range(0, 10)) {
     }),
   );
 }
-let w = pipe(acre)(x => flatten<string>(x), countItem('|'));
-let l = pipe(acre)(x => flatten<string>(x), countItem('#'));
+let w = pipe(acre)((x) => flatten<string>(x), countItem('|'));
+let l = pipe(acre)((x) => flatten<string>(x), countItem('#'));
 
 console.log(w * l);
 

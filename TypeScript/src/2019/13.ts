@@ -6,7 +6,7 @@ const input = getInput(13, 2019);
 const ins = numbers(input);
 
 let p1 = 0;
-let c1 = new IntCodeComputer([...ins], x => (p1 += x === 2 ? 1 : 0));
+let c1 = new IntCodeComputer([...ins], (x) => (p1 += x === 2 ? 1 : 0));
 c1.run();
 
 const ins2 = [...ins];
@@ -46,7 +46,7 @@ async function play() {
     console.log(score);
   } catch (e) {
     s.paint(true);
-    await new Promise(r => setTimeout(r, 16));
+    await new Promise((r) => setTimeout(r, 16));
     if (ballX > paddleX) c2.addInput(1);
     if (ballX < paddleX) c2.addInput(-1);
     if (ballX === paddleX) c2.addInput(0);

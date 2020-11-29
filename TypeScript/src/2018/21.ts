@@ -6,25 +6,25 @@ const [first, ...instr] = [...stringToLines(getInput(21, 2018))];
 const commands: {
   [key: string]: (args: number[]) => (regs: number[]) => void;
 } = {
-  addr: ([a, b, c]) => regs => (regs[c] = regs[a] + regs[b]),
-  addi: ([a, b, c]) => regs => (regs[c] = regs[a] + b),
-  mulr: ([a, b, c]) => regs => (regs[c] = regs[a] * regs[b]),
-  muli: ([a, b, c]) => regs => (regs[c] = regs[a] * b),
-  banr: ([a, b, c]) => regs => (regs[c] = regs[a] & regs[b]),
-  bani: ([a, b, c]) => regs => (regs[c] = regs[a] & b),
-  borr: ([a, b, c]) => regs => (regs[c] = regs[a] | regs[b]),
-  bori: ([a, b, c]) => regs => (regs[c] = regs[a] | b),
-  setr: ([a, b, c]) => regs => (regs[c] = regs[a]),
-  seti: ([a, b, c]) => regs => (regs[c] = a),
-  gtir: ([a, b, c]) => regs => (regs[c] = a > regs[b] ? 1 : 0),
-  gtri: ([a, b, c]) => regs => (regs[c] = regs[a] > b ? 1 : 0),
-  gtrr: ([a, b, c]) => regs => (regs[c] = regs[a] > regs[b] ? 1 : 0),
-  eqir: ([a, b, c]) => regs => (regs[c] = a === regs[b] ? 1 : 0),
-  eqri: ([a, b, c]) => regs => (regs[c] = regs[a] === b ? 1 : 0),
-  eqrr: ([a, b, c]) => regs => (regs[c] = regs[a] === regs[b] ? 1 : 0),
+  addr: ([a, b, c]) => (regs) => (regs[c] = regs[a] + regs[b]),
+  addi: ([a, b, c]) => (regs) => (regs[c] = regs[a] + b),
+  mulr: ([a, b, c]) => (regs) => (regs[c] = regs[a] * regs[b]),
+  muli: ([a, b, c]) => (regs) => (regs[c] = regs[a] * b),
+  banr: ([a, b, c]) => (regs) => (regs[c] = regs[a] & regs[b]),
+  bani: ([a, b, c]) => (regs) => (regs[c] = regs[a] & b),
+  borr: ([a, b, c]) => (regs) => (regs[c] = regs[a] | regs[b]),
+  bori: ([a, b, c]) => (regs) => (regs[c] = regs[a] | b),
+  setr: ([a, b, c]) => (regs) => (regs[c] = regs[a]),
+  seti: ([a, b, c]) => (regs) => (regs[c] = a),
+  gtir: ([a, b, c]) => (regs) => (regs[c] = a > regs[b] ? 1 : 0),
+  gtri: ([a, b, c]) => (regs) => (regs[c] = regs[a] > b ? 1 : 0),
+  gtrr: ([a, b, c]) => (regs) => (regs[c] = regs[a] > regs[b] ? 1 : 0),
+  eqir: ([a, b, c]) => (regs) => (regs[c] = a === regs[b] ? 1 : 0),
+  eqri: ([a, b, c]) => (regs) => (regs[c] = regs[a] === b ? 1 : 0),
+  eqrr: ([a, b, c]) => (regs) => (regs[c] = regs[a] === regs[b] ? 1 : 0),
 };
 
-const compiled = instr.map(line => {
+const compiled = instr.map((line) => {
   const [instruction, ...args] = line.split(' ');
   const numberArgs = args.map(Number);
   const command = commands[instruction];

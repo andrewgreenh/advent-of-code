@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 function permutations<T>(array: T[]): T[][] {
   if (array.length === 1) return [array];

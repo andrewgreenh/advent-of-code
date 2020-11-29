@@ -39,7 +39,7 @@ for (const [y, line] of enumerate(grid))
     if ('^v<>'.includes(c)) carts.push(new Cart([x, y], dirs.items.indexOf(c)));
 
 let firstCrash = false;
-while (carts.filter(c => !c.dead).length > 1) {
+while (carts.filter((c) => !c.dead).length > 1) {
   let byKey = carts.reduce((a, c) => (c.dead ? a : ((a[c.key()] = c), a)), {});
   for (const cart of carts) {
     if (cart.dead) continue;
@@ -51,4 +51,4 @@ while (carts.filter(c => !c.dead).length > 1) {
   }
 }
 
-console.log(carts.find(c => !c.dead)!.key());
+console.log(carts.find((c) => !c.dead)!.key());

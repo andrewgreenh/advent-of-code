@@ -1,5 +1,4 @@
-import * as _ from 'lodash';
-
+import _ from 'lodash';
 import { toArray } from './ts-it/toArray';
 
 function combinations<T, L extends number>(
@@ -8,10 +7,10 @@ function combinations<T, L extends number>(
   withReplacement = false,
 ): T[][] {
   const array = toArray(iterable);
-  if (n === 1) return array.map(i => [i]);
+  if (n === 1) return array.map((i) => [i]);
   return _.flatMap(array, (item, index) => {
     const remaining = withReplacement ? array : array.slice(index + 1);
-    return combinations(remaining, n - 1).map(items => [item, ...items]);
+    return combinations(remaining, n - 1).map((items) => [item, ...items]);
   });
 }
 

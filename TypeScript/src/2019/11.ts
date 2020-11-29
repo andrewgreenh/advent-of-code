@@ -14,7 +14,7 @@ let pos: Vector = [0, 0];
 let dirs = new Deque([0, -1], [1, 0], [0, 1], [-1, 0]);
 let expectPaint = true;
 let history = new Set<string>();
-let c = new IntCodeComputer([...ins], n => {
+let c = new IntCodeComputer([...ins], (n) => {
   if (expectPaint) {
     grid.set(pos, n);
     history.add(str(pos));
@@ -35,7 +35,7 @@ pos = [0, 0];
 dirs = new Deque([0, -1], [1, 0], [0, 1], [-1, 0]);
 expectPaint = true;
 grid.set(pos, 1);
-c = new IntCodeComputer([...ins], n => {
+c = new IntCodeComputer([...ins], (n) => {
   if (expectPaint) {
     grid.set(pos, n);
   } else {
@@ -48,4 +48,4 @@ c = new IntCodeComputer([...ins], n => {
 });
 c.addInput(grid.get(pos));
 c.run();
-printGrid(grid.toGrid(), ' ', '', x => (x === 1 ? '#' : ' '));
+printGrid(grid.toGrid(), ' ', '', (x) => (x === 1 ? '#' : ' '));

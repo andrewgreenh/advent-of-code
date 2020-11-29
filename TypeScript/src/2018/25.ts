@@ -11,8 +11,14 @@ import { zip } from '../lib/ts-it/zip';
 const points = pipe(getInput(25, 2018))(lines, map(numbers), toArray);
 const abs = Math.abs;
 const graph = new LazyGraph<number[]>({
-  getNeighbours: a =>
-    points.filter(b => pipe(zip(a, b))(map(([a, b]) => abs(a - b)), sum) <= 3),
+  getNeighbours: (a) =>
+    points.filter(
+      (b) =>
+        pipe(zip(a, b))(
+          map(([a, b]) => abs(a - b)),
+          sum,
+        ) <= 3,
+    ),
 });
 const components = graph.components(points);
 

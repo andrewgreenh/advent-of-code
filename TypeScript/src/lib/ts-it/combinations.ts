@@ -8,7 +8,7 @@ export function combinations<T>(n: number, withReplacement = false) {
     inputIterable: Iterable<T>,
   ): Iterable<Iterable<T>> {
     if (n === 1) {
-      yield* map<T, Iterable<T>>(item => [item])(inputIterable);
+      yield* map<T, Iterable<T>>((item) => [item])(inputIterable);
       return;
     }
     for (const [index, item] of enumerate(inputIterable)) {

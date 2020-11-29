@@ -7,7 +7,7 @@ export function reduce<T, A>(
 ): (iter: Iterable<T>) => A;
 
 export function reduce(reducer, initialValue?) {
-  return function(iter: Iterable<any>) {
+  return function (iter: Iterable<any>) {
     let last = initialValue;
     for (const value of iter) {
       if (last === undefined) {

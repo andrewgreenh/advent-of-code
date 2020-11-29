@@ -29,9 +29,9 @@ for (const line of lines) {
 
 console.log(
   pipe(grid)(
-    g => g.toGrid(),
-    _ => flatten<number>(_),
-    countIf(n => !!n && n > 1),
+    (g) => g.toGrid(),
+    (_) => flatten<number>(_),
+    countIf((n) => !!n && n > 1),
   ),
 );
 

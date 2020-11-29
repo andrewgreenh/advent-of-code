@@ -17,6 +17,6 @@ let history = new Set();
 let result2 = pipe(lines)(
   cycle,
   accumulate,
-  find(x => history.has(x) || !history.add(x)),
+  find((x) => history.has(x) || !history.add(x)),
 );
 console.log(result2);

@@ -12,7 +12,10 @@ describe('permutations', () => {
 
   it('should return all permutations', () => {
     const array = [1, 2];
-    const expected = [[1, 2], [2, 1]];
+    const expected = [
+      [1, 2],
+      [2, 1],
+    ];
 
     const actual = permutations(array);
 

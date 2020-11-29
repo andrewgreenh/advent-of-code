@@ -30,4 +30,4 @@ function check2(nums: number[]) {
   return result;
 }
 
-[check1, check2].map(x => solve(x)).forEach(x => console.log(x));
+[check1, check2].map((x) => solve(x)).forEach((x) => console.log(x));

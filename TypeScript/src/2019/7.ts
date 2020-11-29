@@ -12,13 +12,13 @@ const ins = numbers(input);
 const perms = permutations([...range(0, 5)]);
 let maxOut = 0;
 for (const perm of perms) {
-  const computers = perm.map(phase =>
+  const computers = perm.map((phase) =>
     new IntCodeComputer([...ins]).addInput(phase),
   );
   computers[0].addInput(0);
   computers.forEach((c, i) => {
     const next = computers[i + 1];
-    c.onOutput = n => {
+    c.onOutput = (n) => {
       if (next) next.addInput(n).run();
     };
   });
@@ -31,13 +31,13 @@ console.log(maxOut);
 const perms2 = permutations([...range(5, 10)]);
 maxOut = 0;
 for (const perm of perms2) {
-  const computers = perm.map(phase =>
+  const computers = perm.map((phase) =>
     new IntCodeComputer([...ins]).addInput(phase),
   );
   computers[0].addInput(0);
   computers.forEach((c, i) => {
     const next = computers[(i + 1) % computers.length];
-    c.onOutput = n => {
+    c.onOutput = (n) => {
       if (next) next.addInput(n).run();
     };
   });
