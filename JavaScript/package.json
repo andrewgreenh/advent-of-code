@@ -18,7 +18,7 @@
     "js-md5": "^0.3.0",
     "keypress": "^0.2.1",
     "lazy.js": "^0.4.2",
-    "lodash": "^4.17.2",
+    "lodash": "^4.17.19",
     "request": "^2.67.0"
   },
   "devDependencies": {
