@@ -2,7 +2,7 @@ import getInput from '../lib/getInput';
 import { log } from '../lib/log';
 import { floor } from '../lib/math/floor';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 
 const input = getInput(1, 2019);
 const lines = iterable(() => stringToLines(input));

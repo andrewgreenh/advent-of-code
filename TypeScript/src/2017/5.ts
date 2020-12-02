@@ -1,8 +1,8 @@
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 
-const input = [...map(Number)(lines(getInput(5, 2017)))];
+const input = [...map(Number)(stringToLines(getInput(5, 2017)))];
 
 function answer(mutate, index = 0, step = 0) {
   const instructions = [...input];

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { lines } from './ts-it/lines';
+import { stringToLines } from './ts-it/lines';
 
 const defaultInstructionSet = {
   set: ([a, b]) => (vmState: VMState) => {
@@ -97,7 +97,7 @@ export class VM {
       index: initialIndex,
       customState: initialIndex,
     };
-    this.instructions = [...lines(input)];
+    this.instructions = [...stringToLines(input)];
     this.handlers = _.defaults(handlers, {
       onDone: _.noop,
       canStep: _.constant(true),

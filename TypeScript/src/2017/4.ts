@@ -1,6 +1,6 @@
 import getInput from '../lib/getInput';
 import { filter } from '../lib/ts-it/filter';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { pipe } from '../lib/ts-it/pipe';
 import { toArray } from '../lib/ts-it/toArray';
@@ -13,7 +13,7 @@ const sortWord = (word) => [...word].sort().join('');
 
 function result(rowMapper) {
   return pipe(input)(
-    lines,
+    stringToLines,
     map(words),
     map(rowMapper),
     filter(hasNoDuplicates),

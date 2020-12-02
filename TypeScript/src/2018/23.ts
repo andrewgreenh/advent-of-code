@@ -1,6 +1,6 @@
 import getInput from '../lib/getInput';
 import { countIf } from '../lib/ts-it/countIf';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { max } from '../lib/ts-it/max';
 import { maxBy } from '../lib/ts-it/maxBy';
 import { min } from '../lib/ts-it/min';

@@ -1,7 +1,7 @@
 import getInput from '../lib/getInput';
 import { combinations } from '../lib/ts-it/combinations';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { p } from '../lib/ts-it/pipe';
 

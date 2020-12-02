@@ -1,13 +1,15 @@
 import getInput from '../lib/getInput';
 import { countItem } from '../lib/ts-it/countItem';
 import { flatten } from '../lib/ts-it/flatten';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 import { squareAround } from '../lib/ts-it/squareCoords';
 
-let acre: string[][] = [...lines(getInput(18, 2018))].map((i) => i.split(''));
+let acre: string[][] = [...stringToLines(getInput(18, 2018))].map((i) =>
+  i.split(''),
+);
 const [wCount, lCount] = [countItem('|'), countItem('#')];
 
 for (const i of range(0, 10)) {

@@ -2,7 +2,7 @@ import { DefaultArray } from '../lib/DefaultArray';
 import getInput from '../lib/getInput';
 import { flatten } from '../lib/ts-it/flatten';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';

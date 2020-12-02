@@ -1,17 +1,17 @@
-import { words } from '../lib/ts-it/words';
-import { max } from '../lib/ts-it/max';
-import { min } from '../lib/ts-it/min';
 import combinations from '../lib/combinations';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
-import { sort } from '../lib/ts-it/sort';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
+import { max } from '../lib/ts-it/max';
+import { min } from '../lib/ts-it/min';
+import { sort } from '../lib/ts-it/sort';
+import { words } from '../lib/ts-it/words';
 
 const input = getInput(2, 2017).trim();
 
 function solve(checksum) {
   let result = 0;
-  for (let line of lines(input)) {
+  for (let line of stringToLines(input)) {
     let nums = [...sort<number>()(map(Number)(words(line)))];
     result += checksum(nums);
   }

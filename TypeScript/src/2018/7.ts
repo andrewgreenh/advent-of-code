@@ -2,7 +2,7 @@ import { DefaultDict } from '../lib/DefaultDict';
 import { Deque } from '../lib/Deque';
 import getInput from '../lib/getInput';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { pipe } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';
 

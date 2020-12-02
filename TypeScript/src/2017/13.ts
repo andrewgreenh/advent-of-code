@@ -1,7 +1,7 @@
 import getInput from '../lib/getInput';
 import { any } from '../lib/ts-it/any';
 import { first } from '../lib/ts-it/first';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { range } from '../lib/ts-it/range';
 import { reduce } from '../lib/ts-it/reduce';
@@ -9,7 +9,7 @@ import { reject } from '../lib/ts-it/reject';
 
 let input = [
   ...map<string, number[]>((x) => x.split(': ').map(Number))(
-    lines(getInput(13, 2017)),
+    stringToLines(getInput(13, 2017)),
   ),
 ];
 let getSev = reduce<number[], number>(

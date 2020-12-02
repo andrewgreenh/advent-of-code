@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 
 let tree = buildTree();
 console.log(tree.name);
@@ -11,7 +11,7 @@ function buildTree() {
   let result = 0;
   let programms = {};
   let childNames: string[] = [];
-  for (let line of lines(getInput(7, 2017))) {
+  for (let line of stringToLines(getInput(7, 2017))) {
     let [programm, children = ''] = line.split(' -> ');
     let [match, name, weightString] = <string[]>(
       programm.match(/(\w+).*\((\d+)/)

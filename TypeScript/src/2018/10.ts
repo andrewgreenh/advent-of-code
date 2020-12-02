@@ -1,14 +1,14 @@
 import getInput from '../lib/getInput';
 import { InfiniteGrid } from '../lib/InfiniteGrid';
 import { log } from '../lib/log';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
 import { printGrid } from '../lib/ts-it/printGrid';
 import { range } from '../lib/ts-it/range';
 
-let p = [...pipe(getInput(10, 2018))(lines, map(numbers))];
+let p = [...pipe(getInput(10, 2018))(stringToLines, map(numbers))];
 
 for (const i of range(1, 11000)) {
   const g = new InfiniteGrid<string>();

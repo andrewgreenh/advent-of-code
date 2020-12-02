@@ -2,14 +2,14 @@ import _ from 'lodash';
 import getInput from '../lib/getInput';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { flatten } from '../lib/ts-it/flatten';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { sum } from '../lib/ts-it/sum';
 
 type port = [number, number];
 type bridge = port[];
 
 let connections: { [key: string]: number[] } = {};
-for (let line of lines(getInput(24, 2017))) {
+for (let line of stringToLines(getInput(24, 2017))) {
   let [a, b] = line.split('/').map(Number);
   if (!connections[a]) connections[a] = [];
   if (!connections[b]) connections[b] = [];

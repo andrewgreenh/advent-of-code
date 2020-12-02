@@ -4,7 +4,7 @@ import { cycle } from '../lib/ts-it/cycle';
 import { find } from '../lib/ts-it/find';
 import { iterable } from '../lib/ts-it/iterable';
 import { last } from '../lib/ts-it/last';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { pipe } from '../lib/ts-it/pipe';
 
 const input = getInput(1, 2018);

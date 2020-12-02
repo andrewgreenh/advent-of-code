@@ -1,10 +1,9 @@
 import { alg, Graph } from 'graphlib';
-
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 
 let graph = new Graph({ directed: false });
-for (let line of lines(getInput(12, 2017))) {
+for (let line of stringToLines(getInput(12, 2017))) {
   let [group, others] = line.split('<->').map((x) => x.trim());
   for (let other of others.split(', ')) graph.setEdge(group, other);
 }

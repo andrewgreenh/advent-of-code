@@ -2,7 +2,7 @@ import getInput from '../lib/getInput';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { flatten } from '../lib/ts-it/flatten';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { max } from '../lib/ts-it/max';
 import { numbers } from '../lib/ts-it/numbers';

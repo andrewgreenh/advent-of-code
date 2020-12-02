@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { range } from '../lib/ts-it/range';
 
 type Vector = [number, number, number];
@@ -10,7 +10,7 @@ let add: (a: Vector, b: Vector) => Vector = (a, b) =>
   a.map((e, index) => e + b[index]) as Vector;
 
 let particles: Particle[] = [];
-for (let line of lines(getInput(20, 2017)) as IterableIterator<any>) {
+for (let line of stringToLines(getInput(20, 2017)) as any[]) {
   let [p, v, a] = line
     .split(', ')
     .map((split) => split.match(/-?\d+/g).map(Number));

@@ -4,7 +4,7 @@ import { Vector } from '../lib/InfiniteGrid';
 import { str } from '../lib/str';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { p } from '../lib/ts-it/pipe';
 import { sortBy } from '../lib/ts-it/sortBy';
 import { toArray } from '../lib/ts-it/toArray';

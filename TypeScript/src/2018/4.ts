@@ -3,7 +3,7 @@ import getInput from '../lib/getInput';
 import { cross } from '../lib/ts-it/cross';
 import { enumerate } from '../lib/ts-it/enumerate';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { maxBy } from '../lib/ts-it/maxBy';
 import { numbers } from '../lib/ts-it/numbers';
 import { toPairs } from '../lib/ts-it/pairs';

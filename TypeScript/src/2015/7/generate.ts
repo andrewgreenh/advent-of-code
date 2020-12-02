@@ -2,10 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
 import getInput from '../../lib/getInput';
-import { lines } from '../../lib/ts-it/lines';
+import { stringToLines } from '../../lib/ts-it/lines';
 let input = getInput(7, 2015);
 
-for (let line of lines(input)) {
+for (let line of stringToLines(input)) {
   let [command, fileName] = line.split(' -> ');
   let [a, b, c] = command.split(' ');
   const fileContent = getContent(command, a, b, c);

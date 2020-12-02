@@ -4,7 +4,7 @@ import { LazyGraph } from '../lib/lazy-graph/LazyGraph';
 import { countIf } from '../lib/ts-it/countIf';
 import { cross } from '../lib/ts-it/cross';
 import { filter } from '../lib/ts-it/filter';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { p } from '../lib/ts-it/pipe';
 import { range } from '../lib/ts-it/range';

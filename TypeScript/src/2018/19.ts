@@ -1,5 +1,5 @@
 import getInput from '../lib/getInput';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { max } from '../lib/ts-it/max';
 import { numbers } from '../lib/ts-it/numbers';
 import { range } from '../lib/ts-it/range';

@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 
-let cs = [...lines(getInput(18, 2017))];
+let cs = [...stringToLines(getInput(18, 2017))];
 let index = 0;
 let regs = {};
 let lastSound = 0;

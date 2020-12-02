@@ -6,7 +6,7 @@ import { findOrFail } from '../lib/ts-it/find';
 import { first } from '../lib/ts-it/first';
 import { flatten } from '../lib/ts-it/flatten';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';

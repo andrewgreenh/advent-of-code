@@ -1,6 +1,6 @@
 import getInput from '../lib/getInput';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { p } from '../lib/ts-it/pipe';
 
 const input = getInput(14, 2019);

@@ -5,7 +5,7 @@ import { countIf } from '../lib/ts-it/countIf';
 import { findOrFail } from '../lib/ts-it/find';
 import { iterable } from '../lib/ts-it/iterable';
 import { join } from '../lib/ts-it/join';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { pipe } from '../lib/ts-it/pipe';
 import { zip } from '../lib/ts-it/zip';
 import { values } from '../lib/utils';

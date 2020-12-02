@@ -1,7 +1,7 @@
 import getInput from '../lib/getInput';
 import { LazyGraph } from '../lib/lazy-graph/LazyGraph';
 import { iterable } from '../lib/ts-it/iterable';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { p } from '../lib/ts-it/pipe';
 import { isTruthy, values } from '../lib/utils';
 

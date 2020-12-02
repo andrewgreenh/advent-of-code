@@ -4,7 +4,7 @@ import { DefaultDict } from '../lib/DefaultDict';
 import getInput from '../lib/getInput';
 import { abs } from '../lib/math/abs';
 import { lcm } from '../lib/math/lcm';
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
 import { numbers } from '../lib/ts-it/numbers';
 import { p } from '../lib/ts-it/pipe';

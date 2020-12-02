@@ -1,11 +1,10 @@
-import { reshape } from '../lib/ts-it/reshape';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
-import { words } from '../lib/ts-it/words';
+import { stringToLines } from '../lib/ts-it/lines';
 import { map } from '../lib/ts-it/map';
+import { reshape } from '../lib/ts-it/reshape';
 import { sort } from '../lib/ts-it/sort';
 import { transpose } from '../lib/ts-it/transpose';
-import { printGrid } from '../lib/ts-it/printGrid';
+import { words } from '../lib/ts-it/words';
 
 function countTri(grid) {
   let result = 0;
@@ -17,7 +16,7 @@ function countTri(grid) {
 }
 
 let grid = [
-  ...map((line: string) => [...words(line)])(lines(getInput(3, 2016))),
+  ...map((line: string) => [...words(line)])(stringToLines(getInput(3, 2016))),
 ];
 
 console.log(countTri(grid));

@@ -1,6 +1,6 @@
 import getInput from '../lib/getInput';
 import { find } from '../lib/ts-it/find';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { minBy } from '../lib/ts-it/minBy';
 import { numbers } from '../lib/ts-it/numbers';
 import { pipe } from '../lib/ts-it/pipe';
@@ -21,7 +21,7 @@ type Group = {
 let imGroups: Group[] = [];
 let inGroups: Group[] = [];
 let current = imGroups;
-for (const line of lines(getInput(24, 2018))) {
+for (const line of stringToLines(getInput(24, 2018))) {
   if (line.includes('Inf')) current = inGroups;
   if (line.includes('Inf') || line.includes('Sys')) continue;
   current.push(lineToGroup(line));

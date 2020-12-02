@@ -1,13 +1,13 @@
 import getInput from '../lib/getInput';
 import { InfiniteGrid } from '../lib/InfiniteGrid';
 import { enumerate } from '../lib/ts-it/enumerate';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { range } from '../lib/ts-it/range';
 
 let grid = new InfiniteGrid();
 let input = getInput(22, 2017);
 let baseSize = input.trim().split('\n').length;
-for (let [rowIndex, line] of enumerate(lines(input))) {
+for (let [rowIndex, line] of enumerate(stringToLines(input))) {
   for (let [charIndex, char] of enumerate(line)) {
     let x = charIndex - Math.floor(baseSize / 2);
     let y = rowIndex - Math.floor(baseSize / 2);

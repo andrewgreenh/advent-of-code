@@ -1,10 +1,10 @@
 import getInput from '../lib/getInput';
 import { LazyGraph } from '../lib/lazy-graph/LazyGraph';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { numbers } from '../lib/ts-it/numbers';
 import { range } from '../lib/ts-it/range';
 
-const strings = [...lines(getInput(22, 2018))];
+const strings = [...stringToLines(getInput(22, 2018))];
 const depth = numbers(strings[0])[0];
 const end = [...numbers(strings[1]), 1];
 const start = [0, 0, 1];

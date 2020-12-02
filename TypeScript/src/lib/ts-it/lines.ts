@@ -1,9 +1,6 @@
-export function lines(input: string) {
-  return {
-    *[Symbol.iterator]() {
-      for (const line of input.trim().split(/\n+/)) {
-        yield line.trim();
-      }
-    },
-  };
+export function stringToLines(input: string) {
+  return input
+    .trim()
+    .split(/\n+/)
+    .map((line) => line.trim());
 }

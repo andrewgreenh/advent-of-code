@@ -1,8 +1,7 @@
-import { LoopedList } from '../lib/LoopedList';
-import { words } from '../lib/ts-it/words';
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { LoopedList } from '../lib/LoopedList';
 import { range } from '../lib/ts-it/range';
+import { words } from '../lib/ts-it/words';
 
 let ms = new LoopedList<(pos: [any, any]) => [any, any]>([
   ([x, y]) => [x, y - 1],

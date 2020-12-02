@@ -1,5 +1,5 @@
 import getInput from '../lib/getInput';
-import { lines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 import { range } from '../lib/ts-it/range';
 import { toGrid } from '../lib/ts-it/toGrid';
 
@@ -13,7 +13,7 @@ let k2 = `  1
 let moves = { U: [0, -1], D: [0, 1], R: [1, 0], L: [-1, 0] };
 
 function solve(keypad, x, y, result = '') {
-  for (let line of lines(getInput(2, 2016))) {
+  for (let line of stringToLines(getInput(2, 2016))) {
     for (let char of line.split('')) {
       let nx = x + moves[char][0];
       let ny = y + moves[char][1];
