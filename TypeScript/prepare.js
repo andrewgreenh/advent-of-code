@@ -5,7 +5,7 @@ const day = process.argv[2];
 const year = process.argv[3];
 
 const content = `import getInput from '../lib/getInput'
-import { lines as stringToLines } from '../lib/ts-it/lines';
+import { stringToLines } from '../lib/ts-it/lines';
 
 const input = getInput(${+day}, ${year});
 const lines = stringToLines(input);
