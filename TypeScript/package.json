@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/async": "^3.2.5",
     "@types/graphlib": "^2.1.4",
     "@types/jest": "^23.3.10",
     "@types/lodash": "^4.14.86",
@@ -24,6 +25,7 @@
   },
   "dependencies": {
     "@types/node": "^12.12.14",
+    "async": "^3.2.0",
     "core-js": "^3.6.0",
     "date-fns": "^1.29.0",
     "graphlib": "^2.1.1",
