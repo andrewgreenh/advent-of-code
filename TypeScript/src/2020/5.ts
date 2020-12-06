@@ -51,7 +51,7 @@ async function animate() {
 
   const limit = 8;
 
-  const lineIterator = iter(lines);
+  const lineIterator = iter(stringToLines(input));
 
   function* getWorker() {
     while (true) {
