@@ -5,15 +5,15 @@ import { stringToLines } from '../lib/ts-it/lines';
 const input = getInput(10, 2020);
 const lines = stringToLines(input).map(Number);
 
-const sorted = sortBy(lines);
-const m = max(sorted)! + 3;
+const nums = sortBy(lines);
+const m = max(nums)! + 3;
 let last = 0;
-sorted.push(m);
-sorted.unshift(0);
+nums.push(m);
+nums.unshift(0);
 let ones = 0;
 let threes = 0;
 
-for (const i of sorted) {
+for (const i of nums) {
   let diff = i - last;
   if (diff === 1) ones++;
   if (diff === 3) threes++;
@@ -22,16 +22,10 @@ for (const i of sorted) {
 
 console.log(ones * threes);
 
-const countWays = memoize(function (targetIndex: number): number {
-  if (targetIndex === 0) return 1;
-
-  let ways = 0;
-  for (const start of range(targetIndex - 3, targetIndex)) {
-    const diff = sorted[targetIndex] - sorted[start];
-    if (diff > 3 || !diff) continue;
-    ways += countWays(start);
-  }
-  return ways;
+const count = memoize((t: number, x = 0): number => {
+  if (t === 0) return 1;
+  for (let s of range(t - 3, t)) if (nums[t] - nums[s] <= 3) x += count(s);
+  return x;
 });
 
-console.log(countWays(sorted.length - 1));
+console.log(count(nums.length - 1));
