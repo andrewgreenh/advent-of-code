@@ -9,7 +9,6 @@ const lines = stringToLines(input).map(Number);
 
 let nums = sortBy(lines);
 nums = [0, ...nums, max(nums)! + 3];
-
 let ones = 0;
 let threes = 0;
 for (const [a, b] of p(nums)(slide(2)))
