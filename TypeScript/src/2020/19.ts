@@ -11,7 +11,7 @@ function ruleToParser(rule: string) {
     ...rule.split(' | ').map((seq) =>
       parsel.seqOf(
         ...seq.split(' ').map((c) => {
-          if (c[0] === '"') return parsel.startsWith(c[1]);
+          if (c[0] === '"') return parsel.string(c[1]);
           return parsel.lazy(() => rulesByNum[c]);
         }),
       ),
