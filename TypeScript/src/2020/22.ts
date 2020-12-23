@@ -1,4 +1,5 @@
 import getInput from '../lib/getInput';
+import { run } from '../lib/run';
 
 const [p1, p2] = getInput(22, 2020)
   .split('\n\n')
@@ -26,5 +27,5 @@ function score(p1: number[], p2: number[]) {
   return w.reverse().reduce((a, b, i) => (a += b * (i + 1)), 0);
 }
 
-console.log(score(...play([...p1], [...p2])));
-console.log(score(...play([...p1], [...p2], true)));
+run('part 1', () => score(...play([...p1], [...p2])));
+run('part 2', () => score(...play([...p1], [...p2], true)));
