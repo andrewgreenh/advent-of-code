@@ -9,7 +9,7 @@ function getInput(day: number, year: number, noTrim = false): string {
     const inputString = fs.readFileSync(inputPath, 'utf8');
     const transformed = noTrim ? inputString : inputString.trim();
     return transformed;
-  } catch (e) {
+  } catch (e: any) {
     // File not found
     if (e.errno === -4058) {
       const content = getInputOfDay(day, year);
