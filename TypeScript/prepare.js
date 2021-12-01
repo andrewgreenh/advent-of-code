@@ -6,8 +6,10 @@ const year = process.argv[3];
 
 const content = `import getInput from '../lib/getInput'
 import { stringToLines } from '../lib/ts-it/lines';
+import { numbers } from '../lib/ts-it/numbers';
 
 const input = getInput(${+day}, ${year});
+const nums = numbers(input);
 const lines = stringToLines(input);
 
 let result
