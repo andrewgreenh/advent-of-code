@@ -1,14 +1,29 @@
 import getInput from '../lib/getInput';
 import { stringToLines } from '../lib/ts-it/lines';
-import { numbers } from '../lib/ts-it/numbers';
 
 const input = getInput(2, 2021);
-const nums = numbers(input);
 const lines = stringToLines(input);
 
-let result;
+let x = 0;
+let y = 0;
 for (const line of lines) {
-  console.log(line);
+  const [command, amount] = line.split(' ');
+  if (command === 'forward') x += +amount;
+  if (command === 'down') y += +amount;
+  if (command === 'up') y -= +amount;
 }
+console.log(x * y);
 
-console.log(result);
+let aim = 0;
+x = 0;
+y = 0;
+for (const line of lines) {
+  const [command, amount] = line.split(' ');
+  if (command === 'forward') {
+    x += +amount;
+    y += aim * +amount;
+  }
+  if (command === 'down') aim += +amount;
+  if (command === 'up') aim -= +amount;
+}
+console.log(x * y);
