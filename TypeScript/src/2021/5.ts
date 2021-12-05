@@ -1,15 +1,26 @@
-import getInput from '../lib/getInput'
+import getInput from '../lib/getInput';
+import { LinePainter } from '../lib/LinePainter';
 import { stringToLines } from '../lib/ts-it/lines';
-import { numbers } from '../lib/ts-it/numbers';
 
 const input = getInput(5, 2021);
-const nums = numbers(input);
 const lines = stringToLines(input);
 
-let result
+let p1 = new LinePainter();
+let p2 = new LinePainter();
+
 for (const line of lines) {
-  console.log(line)
+  const [[x1, y1], [x2, y2]] = LinePainter.parse(line);
+  if (x1 === x2 || y1 === y2) p1.paint([x1, y1], [x2, y2]);
+  p2.paint([x1, y1], [x2, y2]);
 }
 
-console.log(result)
+const result1 = p1.grid
+  .toGrid()
+  .flat()
+  .filter((x) => x >= 2).length;
+const result2 = p2.grid
+  .toGrid()
+  .flat()
+  .filter((x) => x >= 2).length;
 
+console.log(result1, result2);
