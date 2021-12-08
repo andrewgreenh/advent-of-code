@@ -7,8 +7,6 @@ import { sum } from '../lib/ts-it/sum';
 const input = getInput(8, 2021);
 const lines = stringToLines(input);
 
-const originalOrder = 'a b c d e f g'.split(' ');
-
 const validNums = [
   'abcefg',
   'cf',
@@ -22,15 +20,16 @@ const validNums = [
   'abcdfg',
 ];
 
-const possiblePermutations = permutations(originalOrder);
+const possiblePermutations = permutations('abcdefg'.split(''));
 
 const outputs1 = lines.map((line) => {
   const [input, output] = line.split(' | ').map((x) => x.split(' '));
 
-  const correctPermutation = possiblePermutations.find((permutation) => {
-    const mapped = input.map((num) => mapWires(num, permutation));
-    return mapped.every((num) => validNums.includes(num));
-  });
+  const correctPermutation = possiblePermutations.find((permutation) =>
+    input
+      .map((num) => mapWires(num, permutation))
+      .every((num) => validNums.includes(num)),
+  );
 
   return output
     .map((num) => mapWires(num, correctPermutation!))
@@ -41,7 +40,7 @@ console.log(sum(outputs1.map((n) => Number(n.join('')))));
 
 function mapWires(num: string, permutation: string[]): string {
   return [...num]
-    .map((letter) => originalOrder[permutation.indexOf(letter)])
+    .map((letter) => 'abcdefg'[permutation.indexOf(letter)])
     .sort()
     .join('');
 }
