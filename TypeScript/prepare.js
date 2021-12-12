@@ -22,3 +22,4 @@ console.log(result)
 `;
 
 fs.writeFileSync(path.join(__dirname, `src/${year}/${day}.ts`), content);
+fs.writeFileSync(path.join(__dirname, `src/${year}/${day}.txt`), '');
