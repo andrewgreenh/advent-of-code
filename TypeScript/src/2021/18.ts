@@ -57,8 +57,7 @@ function add(
   num2: SnailfishNumber,
 ): PairSnailfishNumber {
   const newNumber: SnailfishNumber = { values: [num1, num2] };
-  num1.parent = newNumber;
-  num2.parent = newNumber;
+  num1.parent = num2.parent = newNumber;
   reduce(newNumber);
   return newNumber;
 }
@@ -77,7 +76,7 @@ function reduce(num: SnailfishNumber) {
 }
 
 function explode(num: SnailfishNumber, level = 0): boolean {
-  if ('value' in num) return false;
+  if (isLiteral(num)) return false;
   const left = num.values[0];
   const right = num.values[1];
 
@@ -89,20 +88,14 @@ function explode(num: SnailfishNumber, level = 0): boolean {
   }
 
   const leftNeighbour = findLiteralOnOneSide(num, 0);
-  if (leftNeighbour) {
-    leftNeighbour.value += left.value;
-  }
+  if (leftNeighbour) leftNeighbour.value += left.value;
   const rightNeihbour = findLiteralOnOneSide(num, 1);
-  if (rightNeihbour) {
-    rightNeihbour.value += right.value;
-  }
+  if (rightNeihbour) rightNeihbour.value += right.value;
 
-  if (num.parent!.values[0] === num) {
-    num.parent!.values[0] = { value: 0, parent: num.parent };
-  }
-  if (num.parent!.values[1] === num) {
-    num.parent!.values[1] = { value: 0, parent: num.parent };
-  }
+  const newNode = { value: 0, parent: num.parent };
+  if (num.parent!.values[0] === num) num.parent!.values[0] = newNode;
+  if (num.parent!.values[1] === num) num.parent!.values[1] = newNode;
+
   return true;
 }
 
@@ -121,6 +114,7 @@ function split(num: SnailfishNumber): boolean {
     parent: num.parent,
     values: [] as any,
   };
+
   num.parent!.values[leftOrRightChild] = pairToReplaceNum;
   pairToReplaceNum.values[0] = {
     parent: pairToReplaceNum,
@@ -139,23 +133,21 @@ function findLiteralOnOneSide(
   leftOrRight: 0 | 1,
 ): LiteralSnailfishNumber | null {
   if (!num.parent) return null;
-  if ('values' in num.parent && num.parent.values[leftOrRight] === num) {
+  if (num.parent.values[leftOrRight] === num) {
     return findLiteralOnOneSide(num.parent, leftOrRight);
   }
-  if ('values' in num.parent) {
-    return findLiteralIn(
-      num.parent.values[leftOrRight],
-      leftOrRight === 1 ? 0 : 1,
-    );
-  }
-  throw new Error('Should never happen');
+
+  return findLiteralIn(
+    num.parent.values[leftOrRight],
+    (1 - leftOrRight) as 0 | 1,
+  );
 }
 
 function findLiteralIn(
   num: SnailfishNumber,
   leftOrRight: 0 | 1,
 ): LiteralSnailfishNumber {
-  if ('value' in num) return num;
+  if (isLiteral(num)) return num;
   return findLiteralIn(num.values[leftOrRight], leftOrRight);
 }
 
@@ -170,15 +162,11 @@ function parseNumber(s: string[]): [parsedNode: Node, rest: string[]] {
   let [head, ...tail] = s;
   if (head.match(/\d/)) return [{ type: 'LITERAL', value: +head }, tail];
 
-  if (head === '[') {
-    const left = parseNumber(tail);
-    [, [head, ...tail]] = left;
-    const right = parseNumber(tail);
-    [, [head, ...tail]] = right;
-    return [{ type: 'PAIR', children: [left[0], right[0]] }, tail];
-  }
-
-  throw new Error('Should never happen');
+  const left = parseNumber(tail);
+  [, [head, ...tail]] = left;
+  const right = parseNumber(tail);
+  [, [head, ...tail]] = right;
+  return [{ type: 'PAIR', children: [left[0], right[0]] }, tail];
 }
 
 function parseSnailFish(s: string) {
