@@ -62,29 +62,33 @@ const facings = [
 
 const rotations = [
   [
+    [0, 1],
     [1, 1],
     [2, 1],
   ],
   [
+    [0, 1],
     [2, 1],
     [1, -1],
   ],
   [
+    [0, 1],
     [1, -1],
     [2, -1],
   ],
   [
+    [0, 1],
     [2, -1],
     [1, 1],
   ],
-] as [Point2D, Point2D][];
+] as [Point2D, Point2D, Point2D][];
 
-const orientations = [...cross(facings, rotations)].map(
-  ([facing, rotation]) => ({
-    facing,
-    rotation,
-  }),
-);
+const orientations = [...cross(facings, rotations)].map(([facing, rotation]) =>
+  rotation.map(([indexA, sign]) => [
+    facing[indexA][0],
+    sign * facing[indexA][1],
+  ]),
+) as [Point2D, Point2D, Point2D][];
 
 let [orientedScanner, ...disorientedScanners] = scanners;
 let allOriented = [orientedScanner];
@@ -160,15 +164,7 @@ function orient(
   orientation: Orientation,
   point: [number, number, number],
 ): Point3D {
-  const afterFacing = orientation.facing.map(
-    ([c, p]) => point[c] * p,
-  ) as Point3D;
-  const afterRotation = [
-    afterFacing[0],
-    afterFacing[orientation.rotation[0][0]] * orientation.rotation[0][1],
-    afterFacing[orientation.rotation[1][0]] * orientation.rotation[1][1],
-  ] as Point3D;
-  return afterRotation;
+  return orientation.map(([c, p]) => point[c] * p) as Point3D;
 }
 
 function applyOffset(point: Point3D, offset: Point3D): Point3D {
@@ -179,7 +175,4 @@ function arePointsEqual(a: Point3D, b: Point3D) {
   return a[0] === b[0] && a[1] === b[1] && a[2] === b[2];
 }
 
-type Orientation = {
-  facing: [Point2D, Point2D, Point2D];
-  rotation: [Point2D, Point2D];
-};
+type Orientation = [Point2D, Point2D, Point2D];
