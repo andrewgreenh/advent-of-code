@@ -23,7 +23,7 @@ export function squareAround(
         range(y - offset, y + offset + 1),
       )) {
         if (x === xx && y === yy && !includeCenter) continue;
-        yield [xx, yy];
+        yield [xx, yy] as [number, number];
       }
     },
   };
