@@ -194,3 +194,13 @@ function recursiveNodeToArray<T>(node: AStarNode<T>) {
   }
   return result;
 }
+
+export function assertAStarSuccess<T>(
+  result: AStarResult<T>,
+): asserts result is AStarSuccessResult<T> {
+  if (result.isFail()) {
+    throw new Error(
+      'Expected success, but received:\n' + JSON.stringify(result, null, 2),
+    );
+  }
+}

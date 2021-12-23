@@ -29,7 +29,7 @@ export interface LazyGraphConfig<DataType> {
 }
 
 export class LazyGraph<DataType> {
-  private config: NonOptional<LazyGraphConfig<DataType>>;
+  public readonly config: NonOptional<LazyGraphConfig<DataType>>;
   constructor(config: LazyGraphConfig<DataType>) {
     this.config = {
       hashData: (data) => JSON.stringify(data),
