@@ -67,6 +67,8 @@ function hasWall(grid: string[][], [x, y]: number[], xOffset = 1) {
   while (true) {
     if (grid[y][currentX] === '.') return false;
     if (grid[y][currentX] === '#') return true;
+    if (!grid[y][currentX]) return false;
+
     currentX += xOffset;
   }
 }
@@ -78,7 +80,7 @@ function fillSide(grid: string[][], [x, y]: number[], xOffset = 1) {
   let currentX = x;
   while (true) {
     if (grid[y][currentX] === '#') return;
-    grid[y][currentX] = '~';
+    grid[y][currentX] = grid[y + 1][currentX] === '|' ? '|' : '~';
     currentX += xOffset;
   }
 }
