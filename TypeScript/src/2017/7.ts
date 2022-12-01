@@ -54,8 +54,9 @@ function findImbalanced(node) {
   let imballanced = _.first(_.find(groups, (group) => _.size(group) === 1));
   let faulty = findImbalanced(imballanced);
   if (faulty === null) {
-    let correctWeights = _.first(_.find(groups, (group) => _.size(group) > 1))
-      .totalWeight;
+    let correctWeights = _.first(
+      _.find(groups, (group) => _.size(group) > 1),
+    ).totalWeight;
     let correctWeight =
       correctWeights - imballanced.totalWeight + imballanced.weight;
     return [imballanced, correctWeight];

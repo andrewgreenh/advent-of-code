@@ -8,7 +8,7 @@ const lines = stringToLines(input);
 
 type P = [number, number, number, number];
 const key = (p: P) => p.join('/');
-const parse = (s: string) => (s.split('/').map(Number) as any) as P;
+const parse = (s: string) => s.split('/').map(Number) as any as P;
 
 function solve(part2 = false) {
   let grid = new Set(

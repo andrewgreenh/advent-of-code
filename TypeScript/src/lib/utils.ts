@@ -20,7 +20,7 @@ export function values<ObjectType extends {}>(
 
 export function typesafeKeyBy<
   IterableType extends Iterable<any>,
-  Key extends keyof IterableItem<IterableType>
+  Key extends keyof IterableItem<IterableType>,
 >(
   a: IterableType,
   key: Key,

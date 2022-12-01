@@ -2,40 +2,53 @@ import _ from 'lodash';
 import { stringToLines } from './ts-it/lines';
 
 const defaultInstructionSet = {
-  set: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(a, vmState.registers.get(b));
-    vmState.index++;
-  },
-  add: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(
-      a,
-      vmState.registers.get(a) + vmState.registers.get(b),
-    );
-    vmState.index++;
-  },
-  mul: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(
-      a,
-      vmState.registers.get(a) * vmState.registers.get(b),
-    );
-    vmState.index++;
-  },
-  mod: ([a, b]) => (vmState: VMState) => {
-    vmState.registers.set(
-      a,
-      vmState.registers.get(a) % vmState.registers.get(b),
-    );
-    vmState.index++;
-  },
-  jgz: ([a, b]) => (vmState: VMState) => {
-    if (vmState.registers.get(a) > 0) vmState.index += vmState.registers.get(b);
-    else vmState.index++;
-  },
-  jnz: ([a, b]) => (vmState: VMState) => {
-    if (vmState.registers.get(a) !== 0)
-      vmState.index += vmState.registers.get(b);
-    else vmState.index++;
-  },
+  set:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      vmState.registers.set(a, vmState.registers.get(b));
+      vmState.index++;
+    },
+  add:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      vmState.registers.set(
+        a,
+        vmState.registers.get(a) + vmState.registers.get(b),
+      );
+      vmState.index++;
+    },
+  mul:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      vmState.registers.set(
+        a,
+        vmState.registers.get(a) * vmState.registers.get(b),
+      );
+      vmState.index++;
+    },
+  mod:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      vmState.registers.set(
+        a,
+        vmState.registers.get(a) % vmState.registers.get(b),
+      );
+      vmState.index++;
+    },
+  jgz:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      if (vmState.registers.get(a) > 0)
+        vmState.index += vmState.registers.get(b);
+      else vmState.index++;
+    },
+  jnz:
+    ([a, b]) =>
+    (vmState: VMState) => {
+      if (vmState.registers.get(a) !== 0)
+        vmState.index += vmState.registers.get(b);
+      else vmState.index++;
+    },
 };
 
 export class Registers {

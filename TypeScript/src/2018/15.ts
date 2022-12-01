@@ -29,12 +29,14 @@ class World {
   };
   getNeighbours = ([x, y]: Vector) => {
     const m = this.map;
-    return ([
-      [x + 1, y],
-      [x, y + 1],
-      [x - 1, y],
-      [x, y - 1],
-    ] as Vector[]).filter(([x, y]) => m[y][x] === '.');
+    return (
+      [
+        [x + 1, y],
+        [x, y + 1],
+        [x - 1, y],
+        [x, y - 1],
+      ] as Vector[]
+    ).filter(([x, y]) => m[y][x] === '.');
   };
   print = () => printGrid(this.map, '', '');
 }
