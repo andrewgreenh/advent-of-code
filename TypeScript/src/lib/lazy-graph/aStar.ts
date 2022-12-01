@@ -67,7 +67,7 @@ interface AStarNode<DataType> {
   previousNode?: AStarNode<DataType>;
 }
 
-export function aStar<DataType>(config: AStarConfig<DataType>) {
+export function aStar<DataType extends {}>(config: AStarConfig<DataType>) {
   const {
     estimateCost = () => 0,
     getNeighbourCost = () => 1,
@@ -204,3 +204,4 @@ export function assertAStarSuccess<T>(
     );
   }
 }
+

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import webpack from 'webpack';
+// import webpack from 'webpack';
 import getInput from '../../lib/getInput';
 import { stringToLines } from '../../lib/ts-it/lines';
 let input = getInput(7, 2015);
@@ -20,16 +20,16 @@ fs.writeFileSync(
   `module.exports = 46065`,
 );
 
-webpack(
-  {
-    entry: path.join(__dirname, 'run.js'),
-    output: {
-      path: __dirname,
-      filename: 'bundle.js',
-    },
-  },
-  (err, stats) => {},
-);
+// webpack(
+//   {
+//     entry: path.join(__dirname, 'run.js'),
+//     output: {
+//       path: __dirname,
+//       filename: 'bundle.js',
+//     },
+//   },
+//   (err, stats) => {},
+// );
 
 function getContent(command, a, b, c) {
   if (command.match(/^\d*$/)) return `module.exports = ${command}`;

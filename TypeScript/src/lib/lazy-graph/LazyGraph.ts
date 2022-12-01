@@ -28,7 +28,7 @@ export interface LazyGraphConfig<DataType> {
   hashData?: (data: DataType) => string;
 }
 
-export class LazyGraph<DataType> {
+export class LazyGraph<DataType extends {}> {
   public readonly config: NonOptional<LazyGraphConfig<DataType>>;
   constructor(config: LazyGraphConfig<DataType>) {
     this.config = {
@@ -120,3 +120,4 @@ export class LazyGraph<DataType> {
     return groups;
   }
 }
+
