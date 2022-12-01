@@ -16,6 +16,8 @@ export function getInputOfDay(day: number | string, year: number | string) {
   const response = syncRequest('GET', url, {
     headers: {
       Cookie: cookieString,
+      'user-agent':
+        'https://github.com/andrewgreenh/advent-of-code/blob/master/TypeScript/load.ts',
     },
   });
   if (response.statusCode === 404) throw new Error('Not ready!');

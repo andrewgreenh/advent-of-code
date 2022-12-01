@@ -19,6 +19,7 @@ function getInputOfDay(day, year) {
     const response = (0, sync_request_1.default)('GET', url, {
         headers: {
             Cookie: cookieString,
+            'user-agent': 'https://github.com/andrewgreenh/advent-of-code/blob/master/TypeScript/load.ts',
         },
     });
     if (response.statusCode === 404)
