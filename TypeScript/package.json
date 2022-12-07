@@ -29,6 +29,7 @@
     "date-fns": "^1.29.0",
     "graphlib": "^2.1.1",
     "lodash": "^4.17.21",
+    "remeda": "^1.3.0",
     "sync-request": "^6.1.0"
   },
   "jest": {
