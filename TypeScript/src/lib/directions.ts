@@ -1,11 +1,12 @@
 import { Vector } from './InfiniteGrid';
+import { Vector2D } from './math/vectors';
 
 export const fourDirectionOffsets = [
   [0, -1],
   [1, 0],
   [0, 1],
   [-1, 0],
-] as Vector[];
+] as Vector2D[];
 
 export const dirIndexByName = {
   up: 0,
