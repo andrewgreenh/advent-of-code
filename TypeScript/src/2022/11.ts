@@ -4,29 +4,18 @@ import { arrayLcm } from '../lib/math/lcm';
 import { numbers } from '../lib/ts-it/numbers';
 
 const input = getInput(11, 2022);
-const monkeys = input.split('\n\n').map((m) => {
+const monkeys = input.split('\n\n').map((m, id) => {
   const lines = m.split('\n');
-  const id = numbers(lines[0])[0];
-  const items = numbers(lines[1]);
-  const code = lines[2].match(/new = (.*)/)![1];
-  const op: (num: number) => number = new Function(
-    'old',
-    'return ' + code,
-  ) as any;
-  const div = numbers(lines[3])[0];
-  const trueTarget = numbers(lines[4])[0];
-  const falseTarget = numbers(lines[5])[0];
-
   return {
     id,
-    items,
-    op,
-    div,
-    trueTarget,
-    falseTarget,
+    items: numbers(lines[1]),
+    op: new Function('old', 'return ' + lines[2].match(/new = (.*)/)![1]),
+    div: numbers(lines[3])[0],
+    trueTarget: numbers(lines[4])[0],
+    falseTarget: numbers(lines[5])[0],
   };
 });
-const monkeysTwo = cloneDeep(monkeys);
+const monkeys2 = cloneDeep(monkeys);
 
 function round(
   ms: typeof monkeys,
@@ -37,10 +26,8 @@ function round(
     let item: number | undefined;
     while ((item = m.items.shift())) {
       cs[m.id]++;
-      const newLevel = lower(m.op(item));
-      ms[newLevel % m.div === 0 ? m.trueTarget : m.falseTarget].items.push(
-        newLevel,
-      );
+      const next = lower(m.op(item));
+      ms[next % m.div === 0 ? m.trueTarget : m.falseTarget].items.push(next);
     }
   }
 }
@@ -51,7 +38,7 @@ const sorted1 = sortBy(counts1);
 console.log(sorted1.at(-1)! * sorted1.at(-2)!);
 
 let counts2 = monkeys.map((m) => 0);
-let lcm = arrayLcm(monkeysTwo.map((m) => m.div));
-for (let i = 0; i < 10000; i++) round(monkeysTwo, (n) => n % lcm, counts2);
+let lcm = arrayLcm(monkeys2.map((m) => m.div));
+for (let i = 0; i < 10000; i++) round(monkeys2, (n) => n % lcm, counts2);
 const sorted2 = sortBy(counts2);
 console.log(sorted2.at(-1)! * sorted2.at(-2)!);
