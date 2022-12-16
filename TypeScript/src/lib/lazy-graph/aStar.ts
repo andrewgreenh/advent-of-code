@@ -142,6 +142,7 @@ export interface AStarResult<T> {
   getExpandedNodes: () => IterableIterator<AStarNode<T>>;
   isFail: (this: AStarResult<T>) => this is AStarFailResult<T>;
   isSuccess: (this: AStarResult<T>) => this is AStarSuccessResult<T>;
+  force: () => AStarSuccessResult<T>;
 }
 
 export interface AStarFailResult<T> extends AStarResult<T> {
@@ -164,6 +165,9 @@ function fail<T>(
     isFail: () => true,
     isSuccess: () => false,
     status: 'Fail :(',
+    force: () => {
+      throw new Error(`Search failed after ${counter} steps`);
+    },
   };
 }
 
@@ -182,6 +186,9 @@ function finish<T>(
     isSuccess: () => true,
     status: 'success',
     target: path[path.length - 1],
+    force() {
+      return this;
+    },
   };
 }
 
@@ -204,4 +211,3 @@ export function assertAStarSuccess<T>(
     );
   }
 }
-
