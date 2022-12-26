@@ -30,6 +30,16 @@ export class InfiniteGrid<CellType, DefaultType = undefined> {
     this.minY = Infinity;
   }
 
+  public clone() {
+    const clone = new InfiniteGrid<CellType, DefaultType>(this.defaultFactory);
+    Object.assign(clone.grid, this.grid);
+    clone.minX = this.minX;
+    clone.maxX = this.maxX;
+    clone.minY = this.minY;
+    clone.maxY = this.maxY;
+    return clone;
+  }
+
   private getId([x, y]: Vector) {
     return `${x}-${y}`;
   }
@@ -42,6 +52,11 @@ export class InfiniteGrid<CellType, DefaultType = undefined> {
     if (y > this.maxY) this.maxY = y;
     const id = this.getId(p);
     this.grid[id] = v;
+  }
+
+  public peek(p: Vector) {
+    const id = this.getId(p);
+    return this.grid[id] as CellType | undefined;
   }
 
   public get(p: Vector) {
