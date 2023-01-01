@@ -1,5 +1,8 @@
-export function assert(condition: boolean): asserts condition {
+export function assert(
+  condition: boolean,
+  message?: string,
+): asserts condition {
   if (!condition) {
-    throw new Error('');
+    throw new Error(message ?? 'Unexpected falsy condition');
   }
 }
