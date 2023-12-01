@@ -1,8 +1,8 @@
-import getInput from '../lib/getInput';
+import { asyncGetInput } from '../lib/getInputAsync';
 import { stringToLines } from '../lib/ts-it/lines';
 import { isTruthy } from '../lib/utils';
 
-const input = getInput(1, 2023);
+const input = await asyncGetInput(1, 2023);
 
 const lines = stringToLines(input);
 const digitWords = 'zero one two three four five six seven eight nine'.split(

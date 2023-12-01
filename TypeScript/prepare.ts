@@ -4,11 +4,11 @@ const path = require('path');
 const day = process.argv[2];
 const year = process.argv[3];
 
-const content = `import getInput from '../lib/getInput'
+const content = `import { asyncGetInput } from '../lib/getInputAsync';
 import { stringToLines } from '../lib/ts-it/lines';
 import { numbers } from '../lib/ts-it/numbers';
 
-const input = getInput(${+day}, ${year});
+const input = await asyncGetInput(${+day}, ${year});
 const nums = numbers(input);
 const lines = stringToLines(input);
 
