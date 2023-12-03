@@ -1,5 +1,6 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path, { join } from 'path';
+import { fileURLToPath } from 'url';
 
 const day = process.argv[2];
 const year = process.argv[3];
@@ -21,5 +22,10 @@ console.log(result)
 
 `;
 
-fs.writeFileSync(path.join(__dirname, `src/${year}/${day}.ts`), content);
-fs.writeFileSync(path.join(__dirname, `src/${year}/${day}.txt`), '');
+const dirname =
+  typeof __dirname !== 'undefined'
+    ? __dirname
+    : join(fileURLToPath(import.meta.url), '..');
+
+fs.writeFileSync(path.join(dirname, `src/${year}/${day}.ts`), content);
+fs.writeFileSync(path.join(dirname, `src/${year}/${day}.txt`), '');

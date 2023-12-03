@@ -1,7 +1,13 @@
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
 
-const cookiePath = join(__dirname, '../sessionCookie.txt');
+const dirname =
+  typeof __dirname !== 'undefined'
+    ? __dirname
+    : join(fileURLToPath(import.meta.url), '..');
+
+const cookiePath = join(dirname, '../sessionCookie.txt');
 const cookieString = readFileSync(cookiePath, 'utf8');
 
 export async function getInputOfDay(
@@ -23,7 +29,7 @@ export async function getInputOfDay(
   });
 
   const input = response;
-  writeFileSync(join(__dirname, `src/${year}/${day}.txt`), input);
+  writeFileSync(join(dirname, `src/${year}/${day}.txt`), input);
   console.log(`File written successfully: ${year}/${day}.txt`);
   return input;
 }
