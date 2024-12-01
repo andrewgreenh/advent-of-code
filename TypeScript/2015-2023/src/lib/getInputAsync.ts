@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { join } from 'path';
 import { fileURLToPath } from 'url';
-import { getInputOfDay } from '../../load-async';
+import { getInputOfDay } from '../../../load-async';
 
 const dirname =
   typeof __dirname !== 'undefined'

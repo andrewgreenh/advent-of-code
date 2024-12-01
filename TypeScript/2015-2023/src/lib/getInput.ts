@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getInputOfDay } from '../../load';
+import { getInputOfDay } from '../../../load';
 
 function getInput(day: number, year: number, noTrim = false): string {
   const inputPath = path.join(__dirname, `../${year}/${day}.txt`);
