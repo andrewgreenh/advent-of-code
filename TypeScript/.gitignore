@@ -2,3 +2,4 @@ node_modules/
 src/**/*.js
 *.js.map
 !bundle.js
+2024/**/*.txt
