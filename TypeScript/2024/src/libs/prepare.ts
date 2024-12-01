@@ -8,13 +8,15 @@ if (!day) {
   throw new Error("Specify a day via cli args");
 }
 
-const content = `import { input } from "../libs/input.ts";
+const content = `import { readFile } from "fs/promises";
 
-const inp = await input(${day});
+const inp = await readFile("${day}.txt", "utf8").then((x) => x.slice(0, -1));
 
+let result;
 for (const line of inp.split("\\n")) {
-  console.log(line);
+
 }
+console.log(result);
 `;
 
 const dirname =

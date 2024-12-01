@@ -43,7 +43,7 @@ export async function downloadDay(day: number | string, year: number | string) {
     },
   }).then((r) => {
     if (!r.ok) {
-      throw new Error(`Failed to fetch input: ${r.status} ${r.statusText}`);
+      throw new Error(`Failed to fetch input at ${url}: ${r.status} ${r.statusText}`);
     }
     return r.text();
   });

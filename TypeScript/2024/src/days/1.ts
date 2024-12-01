@@ -1,6 +1,6 @@
-import { input } from "../libs/input.ts";
+import { readFile } from "fs/promises";
 
-const inp = await input(1);
+const inp = await readFile("1.txt", "utf8").then((x) => x.slice(0, -1));
 
 const left = [] as number[];
 const right = [] as number[];
