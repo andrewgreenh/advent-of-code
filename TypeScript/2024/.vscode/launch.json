@@ -11,6 +11,7 @@
       "skipFiles": ["<node_internals>/**"],
       // Start currently open file
       "program": "${file}",
+      "cwd": "${fileDirname}",
       "runtimeArgs": ["--experimental-strip-types"]
     }
   ]
