@@ -1,0 +1,16 @@
+{
+  "name": "advent-of-code-2024",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "prepare": "NODE_NO_WARNINGS=1 node src/libs/prepare.ts",
+    "start": "NODE_NO_WARNINGS=1 node src/run.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}
